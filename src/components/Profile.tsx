@@ -1,4 +1,6 @@
 import React from "react";
+import './Profile.css';
+
 
 const Profile = () => {
     return (
@@ -7,7 +9,7 @@ const Profile = () => {
                 <img
                     src="https://p.bigstockphoto.com/GeFvQkBbSLaMdpKXF1Zv_bigstock-Aerial-View-Of-Blue-Lakes-And--227291596.jpg"/>
             </div>
-            <div>
+            <div className={'item'}>
                 ava + description
             </div>
             <div>
