@@ -5,5 +5,9 @@
 
 .item {
 text-decoration: none;
-    color: crimson;
+    color: white;
+}
+
+.item.gold {
+    color: gold;
 }

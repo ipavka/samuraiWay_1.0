@@ -1,15 +1,15 @@
 import React from "react";
-import './Profile.css';
+import profStyle from './Profile.module.css';
 
 
-const Profile = () => {
+export const Profile = () => {
     return (
-        <div className={'content'}>
+        <div className={profStyle.content}>
             <div>
                 <img
                     src="https://p.bigstockphoto.com/GeFvQkBbSLaMdpKXF1Zv_bigstock-Aerial-View-Of-Blue-Lakes-And--227291596.jpg"/>
             </div>
-            <div className={'item'}>
+            <div className={profStyle.item}>
                 ava + description
             </div>
             <div>
@@ -30,5 +30,3 @@ const Profile = () => {
     )
 }
 
-
-export default Profile;
