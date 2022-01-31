@@ -1,5 +1,6 @@
 import React from "react";
 import profStyle from './Profile.module.css';
+import {MyPosts} from "./MyPosts/MyPosts";
 
 
 export const Profile = () => {
@@ -12,20 +13,7 @@ export const Profile = () => {
             <div className={profStyle.item}>
                 ava + description
             </div>
-            <div>
-                My posts
-                <div>
-                    New post
-                </div>
-                <div>
-                    <div>
-                        post 1
-                    </div>
-                    <div>
-                        post 2
-                    </div>
-                </div>
-            </div>
+            <MyPosts/>
         </div>
     )
 }
