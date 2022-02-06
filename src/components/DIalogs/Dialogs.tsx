@@ -2,12 +2,12 @@ import React from "react";
 import dStyle from './Dialogs.module.css';
 import {NavLink} from "react-router-dom";
 
-type DialogsType = {
+export type DialogsType = {
     id: number
     name: string
 }
 
-type MessageType = {
+export type MessageType = {
     id: number
     message: string
 }
@@ -26,7 +26,6 @@ const messagesData = [
     {id: 1, message: "Hi!!!"},
     {id: 2, message: "Yep!!"},
     {id: 3, message: "Goodbye"},
-
 ]
 
 const DialogItem = (props: DialogsType) => {
@@ -47,14 +46,10 @@ export const Dialogs = () => {
     return (
         <div className={dStyle.dialogs}>
             <div className={dStyle.dialogsItems}>
-                <DialogItem name={dialogsData[0].name} id={dialogsData[0].id}/>
-                <DialogItem name={dialogsData[1].name} id={dialogsData[1].id}/>
-
+                {dialogsData.map(el => <DialogItem name={el.name} id={el.id}/>)}
             </div>
             <div className={dStyle.messages}>
-                <Message message={messagesData[0].message} id={messagesData[0].id}/>
-                <Message message={messagesData[1].message} id={messagesData[1].id}/>
-                <Message message={messagesData[2].message} id={messagesData[2].id}/>
+                {messagesData.map(el => <Message message={el.message} id={el.id}/>)}
             </div>
         </div>
     )

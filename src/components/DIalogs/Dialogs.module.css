@@ -5,10 +5,17 @@
 
 .dialogsItems {
     padding: 10px;
+
 }
 
 .dialog {
-
+    padding-bottom: 2px;
+    font-size: 18px;
+    font-weight: unset;
+}
+.dialog a {
+    text-decoration: none;
+    color: chartreuse;
 }
 
 .messages {

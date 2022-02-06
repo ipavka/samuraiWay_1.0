@@ -20,9 +20,7 @@ export const MyPosts = () => {
                 <button>Add</button>
             </div>
             <div>
-                <Post message={postsData[0].message} likesCount={postsData[0].likesCount}/>
-                <Post message={postsData[1].message} likesCount={postsData[1].likesCount}/>
-                <Post message={postsData[2].message} likesCount={postsData[2].likesCount}/>
+                {postsData.map(el => <Post message={el.message} likesCount={el.likesCount}/>)}
             </div>
         </div>
     )
