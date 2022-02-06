@@ -3,6 +3,12 @@ import myPostsStyle from './MyPosts.module.css';
 import {Post} from "./Post/Post";
 
 
+const postsData = [
+    {message: "Hello! Hello! Hello!", likesCount: 1},
+    {message: "Yep!", likesCount: 5},
+    {message: "Bay!", likesCount: 10},
+]
+
 export const MyPosts = () => {
     return (
         <div className={myPostsStyle.posts}>
@@ -14,9 +20,9 @@ export const MyPosts = () => {
                 <button>Add</button>
             </div>
             <div>
-                <Post message={'Hello! Hello! Hello!'} likesCount={5}/>
-                <Post message={'Yep!'} likesCount={10}/>
-                <Post message={'Bay!'} likesCount={0}/>
+                <Post message={postsData[0].message} likesCount={postsData[0].likesCount}/>
+                <Post message={postsData[1].message} likesCount={postsData[1].likesCount}/>
+                <Post message={postsData[2].message} likesCount={postsData[2].likesCount}/>
             </div>
         </div>
     )

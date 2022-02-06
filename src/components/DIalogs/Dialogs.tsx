@@ -3,14 +3,31 @@ import dStyle from './Dialogs.module.css';
 import {NavLink} from "react-router-dom";
 
 type DialogsType = {
-    name: string
     id: number
+    name: string
 }
 
 type MessageType = {
+    id: number
     message: string
 }
 
+
+const dialogsData = [
+    {id: 1, name: "Dimon"},
+    {id: 2, name: "Andrey"},
+    {id: 3, name: "Max"},
+    {id: 4, name: "Svetlana"},
+    {id: 5, name: "Elena"},
+    {id: 6, name: "Pavel"},
+]
+
+const messagesData = [
+    {id: 1, message: "Hi!!!"},
+    {id: 2, message: "Yep!!"},
+    {id: 3, message: "Goodbye"},
+
+]
 
 const DialogItem = (props: DialogsType) => {
     const path = '/dialogs/' + props.id
@@ -30,17 +47,14 @@ export const Dialogs = () => {
     return (
         <div className={dStyle.dialogs}>
             <div className={dStyle.dialogsItems}>
-                <DialogItem name={"Dimon"} id={1}/>
-                <DialogItem name={"Andrey"} id={2}/>
-                <DialogItem name={"Max"} id={3}/>
-                <DialogItem name={"Svetlana"} id={4}/>
-                <DialogItem name={"Elena"} id={5}/>
-                <DialogItem name={"Pavel"} id={6}/>
+                <DialogItem name={dialogsData[0].name} id={dialogsData[0].id}/>
+                <DialogItem name={dialogsData[1].name} id={dialogsData[1].id}/>
+
             </div>
             <div className={dStyle.messages}>
-                <Message message={'Hi!!!'}/>
-                <Message message={'Yep!!'}/>
-                <Message message={'Goodbye'}/>
+                <Message message={messagesData[0].message} id={messagesData[0].id}/>
+                <Message message={messagesData[1].message} id={messagesData[1].id}/>
+                <Message message={messagesData[2].message} id={messagesData[2].id}/>
             </div>
         </div>
     )

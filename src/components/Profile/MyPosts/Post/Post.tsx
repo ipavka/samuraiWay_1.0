@@ -6,6 +6,7 @@ type PostType = {
     likesCount: number
 }
 
+
 export const Post = (props: PostType) => {
     return (
         <div className={myPostsStyle.item}>
