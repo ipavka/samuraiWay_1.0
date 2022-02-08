@@ -6,7 +6,7 @@ import {DialogsPage} from "../../index";
 
 
 
-export const Dialogs = (props: DialogsPage) => {
+export const Dialogs: React.FC<DialogsPage> = (props) => {
     return (
         <div className={dStyle.dialogs}>
             <div className={dStyle.dialogsItems}>
