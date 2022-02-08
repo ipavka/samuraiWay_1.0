@@ -1,9 +1,9 @@
 import React from "react";
 import myPostsStyle from './Post.module.css';
-import {PostType} from "../MyPosts";
+import {PostsType} from "../../../../index";
 
 
-export const Post = (props: PostType) => {
+export const Post = (props: PostsType) => {
     return (
         <div className={myPostsStyle.item}>
             <img src="/img/madMax.jpg"/>

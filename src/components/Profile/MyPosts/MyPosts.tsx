@@ -1,17 +1,10 @@
 import React from "react";
 import myPostsStyle from './MyPosts.module.css';
 import {Post} from "./Post/Post";
+import {ProfilePageType} from "../../../index";
 
-export type DataPostsType = {
-    postData: Array<PostType>
-}
 
-export type PostType = {
-    message: string
-    likesCount: number
-}
-
-export const MyPosts = (props: DataPostsType) => {
+export const MyPosts = (props: ProfilePageType) => {
     return (
         <div className={myPostsStyle.posts}>
             <h3>My posts</h3>
@@ -22,7 +15,7 @@ export const MyPosts = (props: DataPostsType) => {
                 <button>Add</button>
             </div>
             <div>
-                {props.postData.map(el => <Post message={el.message} likesCount={el.likesCount}/>)}
+                {props.posts.map(el => <Post message={el.message} likesCount={el.likesCount}/>)}
             </div>
         </div>
     )

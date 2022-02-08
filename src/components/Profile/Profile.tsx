@@ -2,19 +2,14 @@ import React from "react";
 import profStyle from './Profile.module.css';
 import {MyPosts} from "./MyPosts/MyPosts";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
+import {ProfilePageType} from "../../index";
 
 
-const postsData = [
-    {message: "Hello! Hello! Hello!", likesCount: 1},
-    {message: "Yep!", likesCount: 5},
-    {message: "Bay!", likesCount: 10},
-]
-
-export const Profile = () => {
+export const Profile = (props: ProfilePageType) => {
     return (
         <div>
             <ProfileInfo/>
-            <MyPosts postData={postsData}/>
+            <MyPosts posts={props.posts}/>
         </div>
     )
 }

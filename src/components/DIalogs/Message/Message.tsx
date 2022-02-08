@@ -1,12 +1,8 @@
 import dStyle from "./../Dialogs.module.css";
 import React from "react";
+import {MessagesType} from "../../../index";
 
 
-export type MessageType = {
-    id: number
-    message: string
-}
-
-export const Message = (props: MessageType) => {
-    return <div className={dStyle.msg}>{props.message}</div>
+export const Message = (props: MessagesType) => {
+    return <div className={dStyle.msg} key={props.id}>{props.message}</div>
 }
