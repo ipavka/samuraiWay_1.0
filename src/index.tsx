@@ -3,9 +3,10 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {v1} from "uuid";
 
 export type MessagesType = {
-    id: number
+    id: string
     message: string
 }
 export type DialogsType = {
@@ -17,6 +18,7 @@ export type DialogsPage = {
     messages: Array<MessagesType>
 }
 export type PostsType = {
+    id: string
     message: string
     likesCount: number
 }
@@ -31,9 +33,9 @@ export type RootStateType = {
 const state: RootStateType = {
     profilePage: {
         posts: [
-            {message: "Hello! Hello! Hello!", likesCount: 1},
-            {message: "Yep!", likesCount: 5},
-            {message: "Bay!", likesCount: 10},
+            {id: v1(), message: "Hello! Hello! Hello!", likesCount: 1},
+            {id: v1(), message: "Yep!", likesCount: 5},
+            {id: v1(), message: "Bay!", likesCount: 10},
         ]
     },
     dialogsPage: {
@@ -46,9 +48,9 @@ const state: RootStateType = {
             {id: 6, name: "Pavel"},
         ],
         messages: [
-            {id: 1, message: "Hi!!!"},
-            {id: 2, message: "Yep!!"},
-            {id: 3, message: "Goodbye"},
+            {id: v1(), message: "Hi!!!"},
+            {id: v1(), message: "Yep!!"},
+            {id: v1(), message: "Goodbye"},
         ]
     }
 }

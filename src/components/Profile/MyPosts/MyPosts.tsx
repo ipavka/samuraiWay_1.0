@@ -15,7 +15,7 @@ export const MyPosts = (props: ProfilePageType) => {
                 <button>Add</button>
             </div>
             <div>
-                {props.posts.map(el => <Post message={el.message} likesCount={el.likesCount}/>)}
+                {props.posts.map(el => <Post key={el.id} id={el.id} message={el.message} likesCount={el.likesCount}/>)}
             </div>
         </div>
     )
