@@ -8,7 +8,11 @@ export const DialogItem: React.FC<DialogsType> = (props) => {
     const path = '/dialogs/' + props.id
     return (
         <div className={dStyle.dialog} key={props.id}>
-            <NavLink to={path}>{props.name}</NavLink>
+            <img src="https://clck.ru/bXfBu" alt="ава"/>
+            <div className={dStyle.prev__message}>
+                <NavLink to={path}>{props.name}</NavLink>
+                <span>Hello friend!</span>
+            </div>
         </div>
     )
 }

@@ -1,21 +1,37 @@
 .dialogs {
-    display: grid;
-    grid-template-columns: 2fr 10fr;
+    /*display: grid;*/
+    /*grid-template-columns: 2fr 10fr;*/
+    display: flex;
+    flex-direction: row;
 }
 
 .dialogsItems {
     padding: 10px;
-
 }
 
 .dialog {
     padding-bottom: 2px;
     font-size: 18px;
     font-weight: unset;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
+
 .dialog a {
     text-decoration: none;
     color: chartreuse;
+    font-weight: bold;
+}
+.dialog img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+}
+
+.prev__message {
+    display: flex;
+    flex-direction: column;
 }
 
 .messages {
@@ -23,5 +39,5 @@
 }
 
 .msg {
-
+    background-color: #d27c7c;
 }

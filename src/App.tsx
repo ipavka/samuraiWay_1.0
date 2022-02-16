@@ -9,6 +9,7 @@ import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
 import {StateType} from "./redux/state";
+import {FriendsItems} from "./components/Friends/FriendsItems/FriendsItems";
 
 
 function App(props: StateType) {
@@ -16,7 +17,7 @@ function App(props: StateType) {
         <BrowserRouter>
             <div className={'app-wrapper'}>
                 <Header/>
-                <Navbar/>
+                <Navbar state={props.state.sidebar}/>
                 <div className={'app-wrapper-content'}>
                     <Routes>
                         <Route path='/profile/*' element={<Profile  state={props.state.profilePage}/>}/>
@@ -24,6 +25,7 @@ function App(props: StateType) {
                         <Route path='/news/*' element={<News/>}/>
                         <Route path='/music/*' element={<Music/>}/>
                         <Route path='/settings/*' element={<Settings/>}/>
+                        <Route path='/friends/*' element={<FriendsItems/>}/>
                     </Routes>
                 </div>
             </div>

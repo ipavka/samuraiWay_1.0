@@ -21,9 +21,19 @@ export type PostsType = {
 export type ProfilePageType = {
     posts: Array<PostsType>
 }
+export type FriendsType = {
+    name: string
+    id: string
+    avatar: string
+    message: string
+}
+export type SidebarType = {
+    friends: Array<FriendsType>
+}
 export type RootStateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPage
+    sidebar: SidebarType
 }
 export type StateType = {
     state: RootStateType
@@ -34,6 +44,10 @@ export type StateAppProfileType = {
 export type StateAppDialogsType = {
     state: DialogsPage
 }
+export type StateAppNavbarType = {
+    state: SidebarType
+}
+
 
 
 export const state: RootStateType = {
@@ -49,14 +63,19 @@ export const state: RootStateType = {
             {id: 1, name: "Dimon"},
             {id: 2, name: "Andrey"},
             {id: 3, name: "Max"},
-            {id: 4, name: "Svetlana"},
-            {id: 5, name: "Elena"},
-            {id: 6, name: "Pavel"},
         ],
         messages: [
             {id: v1(), message: "Hi!!!"},
             {id: v1(), message: "Yep!!"},
             {id: v1(), message: "Goodbye"},
+            {id: v1(), message: "error"},
         ]
-    }
+    },
+    sidebar: {
+        friends: [
+            {id: v1(), name: 'Andrew', avatar: 'https://clck.ru/WQq57', message: 'Hello Friend!'},
+            {id: v1(), name: 'Sasha', avatar: 'https://clck.ru/WQq57', message: 'Hello Friend!'},
+            {id: v1(), name: 'Sveta', avatar: 'https://clck.ru/WQq57', message: 'Hello Friend!'},
+        ]
+    },
 }
