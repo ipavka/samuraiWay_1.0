@@ -1,7 +1,7 @@
 import React from "react";
 import myPostsStyle from './MyPosts.module.css';
 import {Post} from "./Post/Post";
-import {ProfilePageType} from "../../../index";
+import {DialogsType, ProfilePageType} from "../../../redux/state";
 
 
 export const MyPosts = (props: ProfilePageType) => {
