@@ -14,7 +14,6 @@ import {FriendsItems} from "./components/Friends/FriendsItems/FriendsItems";
 
 function App(props: StateType) {
     return (
-        <BrowserRouter>
             <div className={'app-wrapper'}>
                 <Header/>
                 <Navbar state={props.state.sidebar}/>
@@ -29,8 +28,6 @@ function App(props: StateType) {
                     </Routes>
                 </div>
             </div>
-        </BrowserRouter>
-
     );
 }
 
