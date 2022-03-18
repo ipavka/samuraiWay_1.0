@@ -1,6 +1,8 @@
 import {v1} from "uuid";
-import {rerenderTree} from "../render";
 
+let rerenderTree = (state: RootStateType) => {
+    console.log("State changed")
+}
 
 export type MessagesType = {
     id: string
@@ -24,7 +26,6 @@ export type PostsType = {
 export type ProfilePageType = {
     posts: Array<PostsType>
     newPostsText: string
-    // addPost: (postMessage: string) => void
 }
 export type FriendsType = {
     name: string
@@ -99,4 +100,8 @@ export const addPost = () => {
 export const updateNewPostText = (value: string) => {
     state.profilePage.newPostsText = value;
     rerenderTree(state)
+}
+
+export const subscribe = (observer: any) => {
+    rerenderTree = observer
 }

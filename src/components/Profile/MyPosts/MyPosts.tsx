@@ -1,7 +1,7 @@
-import React, {ChangeEvent, ChangeEventHandler, LegacyRef, RefObject} from "react";
+import React, {ChangeEvent} from "react";
 import myPostsStyle from './MyPosts.module.css';
 import {Post} from "./Post/Post";
-import {DialogsType, PostsType, ProfilePageType} from "../../../redux/state";
+import {PostsType} from "../../../redux/state";
 
 type ProfilePagePropsType = {
     posts: Array<PostsType>
@@ -10,13 +10,9 @@ type ProfilePagePropsType = {
     newPostsText: string
 }
 
-type PostPropsType = RefObject<HTMLTextAreaElement>
 export const MyPosts = (props: ProfilePagePropsType) => {
-    // let newPost:PostPropsType = React.createRef()
 
     const addPost = () => {
-        // @ts-ignore
-        // let text = newPost.current.value
         props.addPost()
     }
 

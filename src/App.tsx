@@ -8,7 +8,6 @@ import {Routes, Route} from "react-router-dom";
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
-import {StateType} from "./redux/state";
 import {FriendsItems} from "./components/Friends/FriendsItems/FriendsItems";
 
 
