@@ -46,14 +46,16 @@ export type StateAppDialogsType = {
 export type StateAppNavbarType = {
     state: SidebarType
 }
-
 export type StoreType = {
     _state: RootStateType
     getState: () => RootStateType
     _callSubscriber: (state: RootStateType) => void
-    addPost: () => void
-    updateNewPostText: (value: string) => void
     subscribe: (callBack: (props: RootStateType) => void) => void
+    dispatch: (action: DispatchActionType) => void
+}
+export type DispatchActionType = {
+    type: string
+    value?: string
 }
 
 export const store: StoreType = {
@@ -94,17 +96,20 @@ export const store: StoreType = {
     _callSubscriber(state: RootStateType) {
         console.log("State not changed")
     },
-    addPost() {
-        let newPost = {id: v1(), message: this._state.profilePage.newPostsText, likesCount: 0};
-        this._state.profilePage.posts.unshift(newPost);
-        this._state.profilePage.newPostsText = '';
-        this._callSubscriber(this._state)
-    },
-    updateNewPostText(value: string) {
-        this._state.profilePage.newPostsText = value;
-        this._callSubscriber(this._state)
-    },
     subscribe(callBack) {
         this._callSubscriber = callBack
     },
+    dispatch(action: DispatchActionType) {
+        if (action.type === 'ADD_TASKS') {
+            let newPost = {id: v1(), message: this._state.profilePage.newPostsText, likesCount: 0};
+            this._state.profilePage.posts.unshift(newPost);
+            this._state.profilePage.newPostsText = '';
+            this._callSubscriber(this._state)
+        } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
+            if (action.value != null) {
+                this._state.profilePage.newPostsText = action.value;
+            }
+            this._callSubscriber(this._state)
+        }
+    }
 }
