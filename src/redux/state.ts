@@ -54,7 +54,7 @@ export type StoreType = {
     dispatch: (action: DispatchActionType) => void
 }
 export type DispatchActionType = {
-    type: string
+    title: string
     value?: string
 }
 
@@ -100,16 +100,28 @@ export const store: StoreType = {
         this._callSubscriber = callBack
     },
     dispatch(action: DispatchActionType) {
-        if (action.type === 'ADD_TASKS') {
+        if (action.title === 'ADD_TASKS') {
             let newPost = {id: v1(), message: this._state.profilePage.newPostsText, likesCount: 0};
             this._state.profilePage.posts.unshift(newPost);
             this._state.profilePage.newPostsText = '';
             this._callSubscriber(this._state)
-        } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
+        } else if (action.title === 'UPDATE-NEW-POST-TEXT') {
             if (action.value != null) {
                 this._state.profilePage.newPostsText = action.value;
             }
             this._callSubscriber(this._state)
         }
     }
+}
+
+export const addPostAC = () => {
+    return {
+        title: 'ADD_TASKS',
+    } as const
+}
+export const updateNewPostText = (value: string) => {
+    return {
+        title: 'UPDATE-NEW-POST-TEXT',
+        value: value
+    } as const
 }

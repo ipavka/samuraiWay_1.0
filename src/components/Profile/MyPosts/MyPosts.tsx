@@ -1,7 +1,7 @@
 import React, {ChangeEvent} from "react";
 import myPostsStyle from './MyPosts.module.css';
 import {Post} from "./Post/Post";
-import {DispatchActionType, PostsType} from "../../../redux/state";
+import {addPostAC, DispatchActionType, PostsType, updateNewPostText} from "../../../redux/state";
 
 type ProfilePagePropsType = {
     posts: Array<PostsType>
@@ -12,11 +12,11 @@ type ProfilePagePropsType = {
 export const MyPosts: React.FC<ProfilePagePropsType> = (props) => {
 
     const addPost = () => {
-        props.dispatch({type: 'ADD_TASKS'})
+        props.dispatch(addPostAC())
     }
 
     const textareaChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.dispatch({type: 'UPDATE-NEW-POST-TEXT', value: e.currentTarget.value})
+        props.dispatch(updateNewPostText(e.currentTarget.value))
     }
     return (
         <div className={myPostsStyle.posts}>
