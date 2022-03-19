@@ -1,7 +1,8 @@
 import React, {ChangeEvent} from "react";
 import myPostsStyle from './MyPosts.module.css';
 import {Post} from "./Post/Post";
-import {addPostAC, DispatchActionType, PostsType, updateNewPostTextAC} from "../../../redux/state";
+import {DispatchActionType, PostsType} from "../../../redux/state";
+import {addPostAC, updateNewPostTextAC} from "../../../redux/profile-reducer";
 
 type ProfilePagePropsType = {
     posts: Array<PostsType>

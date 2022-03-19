@@ -1,4 +1,6 @@
 import {v1} from "uuid";
+import {profileReducer} from "./profile-reducer";
+import {dialogsReducer} from "./dialogs-reducer";
 
 export type MessagesType = {
     id: string
@@ -99,57 +101,9 @@ export const store: StoreType = {
     subscribe(callBack) {
         this._callSubscriber = callBack
     },
-    dispatch(action: DispatchType) {
-        if (action.title === 'ADD_TASKS') {
-            let newPost = {id: v1(), message: this._state.profilePage.newPostsText, likesCount: 0};
-            this._state.profilePage.posts.unshift(newPost);
-            this._state.profilePage.newPostsText = '';
-            this._callSubscriber(this._state)
-        } else if (action.title === 'UPDATE-NEW-POST-TEXT') {
-            if (action.value != null) {
-                this._state.profilePage.newPostsText = action.value;
-            }
-            this._callSubscriber(this._state)
-        } else if (action.title === 'UPDATE-NEW-MESSAGE-BODY') {
-            if (action.value != null) {
-                this._state.dialogsPage.newMessagesBody = action.value;
-            }
-            this._callSubscriber(this._state)
-        } else if (action.title === 'SEND-MESSAGE') {
-            let message =  {id: v1(), message: this._state.dialogsPage.newMessagesBody};
-            this._state.dialogsPage.newMessagesBody = '';
-            this._state.dialogsPage.messages.push(message);
-            this._callSubscriber(this._state);
-        }
+    dispatch(action: DispatchActionType) {
+        profileReducer(this._state.profilePage, action)
+        dialogsReducer(this._state.dialogsPage, action)
+        this._callSubscriber(this._state)
     }
-}
-
-type DispatchType = DispatchActionType | addPostACType | updateNewPostTextACType | updateNewMessageBodyType
-| sendMessageType
-type addPostACType = ReturnType<typeof addPostAC>
-
-export const addPostAC = () => {
-    return {
-        title: 'ADD_TASKS',
-    } as const
-}
-type updateNewPostTextACType = ReturnType<typeof updateNewPostTextAC>
-export const updateNewPostTextAC = (value: string) => {
-    return {
-        title: 'UPDATE-NEW-POST-TEXT',
-        value: value
-    } as const
-}
-type updateNewMessageBodyType = ReturnType<typeof updateNewMessageBodyAC>
-export const updateNewMessageBodyAC = (value: string) => {
-    return {
-        title: 'UPDATE-NEW-MESSAGE-BODY',
-        value: value
-    } as const
-}
-type sendMessageType = ReturnType<typeof sendMessageAC>
-export const sendMessageAC = () => {
-    return {
-        title: 'SEND-MESSAGE',
-    } as const
 }
