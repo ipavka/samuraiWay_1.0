@@ -1,9 +1,5 @@
 import {v1} from "uuid";
 
-let rerenderTree = (state: RootStateType) => {
-    console.log("State changed")
-}
-
 export type MessagesType = {
     id: string
     message: string
@@ -12,7 +8,6 @@ export type DialogsType = {
     id: number
     name: string
 }
-
 export type DialogsPage = {
     dialogs: Array<DialogsType>
     messages: Array<MessagesType>
@@ -41,11 +36,6 @@ export type RootStateType = {
     dialogsPage: DialogsPage
     sidebar: SidebarType
 }
-export type StateType = {
-    state: RootStateType
-    addPost: () => void
-    changeText: (value: string) => void
-}
 export type StateAppProfileType = {
     state: ProfilePageType
     addPost: () => void
@@ -57,51 +47,64 @@ export type StateAppNavbarType = {
     state: SidebarType
 }
 
-
-export const state: RootStateType = {
-    profilePage: {
-        posts: [
-            {id: v1(), message: "Hello! Hello! Hello!", likesCount: 1},
-            {id: v1(), message: "Yep!", likesCount: 5},
-            {id: v1(), message: "Bay!", likesCount: 10},
-        ],
-        newPostsText: ''
-    },
-    dialogsPage: {
-        dialogs: [
-            {id: 1, name: "Dimon"},
-            {id: 2, name: "Andrey"},
-            {id: 3, name: "Max"},
-        ],
-        messages: [
-            {id: v1(), message: "Hi!!!"},
-            {id: v1(), message: "Yep!!"},
-            {id: v1(), message: "Goodbye"},
-            {id: v1(), message: "error"},
-        ],
-        newMessagesBody: ''
-    },
-    sidebar: {
-        friends: [
-            {id: v1(), name: 'Andrew', avatar: 'https://clck.ru/WQq57', message: 'Hello Friend!'},
-            {id: v1(), name: 'Sasha', avatar: 'https://clck.ru/WQq57', message: 'Hello Friend!'},
-            {id: v1(), name: 'Sveta', avatar: 'https://clck.ru/WQq57', message: 'Hello Friend!'},
-        ]
-    },
+export type StoreType = {
+    _state: RootStateType
+    getState: () => RootStateType
+    _callSubscriber: (state: RootStateType) => void
+    addPost: () => void
+    updateNewPostText: (value: string) => void
+    subscribe: (callBack: (props: RootStateType) => void) => void
 }
 
-export const addPost = () => {
-    let newPost = {id: v1(), message: state.profilePage.newPostsText, likesCount: 0};
-    state.profilePage.posts.unshift(newPost);
-    state.profilePage.newPostsText = '';
-    rerenderTree(state)
-}
-
-export const updateNewPostText = (value: string) => {
-    state.profilePage.newPostsText = value;
-    rerenderTree(state)
-}
-
-export const subscribe = (observer: any) => {
-    rerenderTree = observer
+export const store: StoreType = {
+    _state: {
+        profilePage: {
+            posts: [
+                {id: v1(), message: "Hello! Hello! Hello!", likesCount: 1},
+                {id: v1(), message: "Yep!", likesCount: 5},
+                {id: v1(), message: "Bay!", likesCount: 10},
+            ],
+            newPostsText: ''
+        },
+        dialogsPage: {
+            dialogs: [
+                {id: 1, name: "Dimon"},
+                {id: 2, name: "Andrey"},
+                {id: 3, name: "Max"},
+            ],
+            messages: [
+                {id: v1(), message: "Hi!!!"},
+                {id: v1(), message: "Yep!!"},
+                {id: v1(), message: "Goodbye"},
+                {id: v1(), message: "error"},
+            ],
+            newMessagesBody: ''
+        },
+        sidebar: {
+            friends: [
+                {id: v1(), name: 'Andrew', avatar: 'https://clck.ru/WQq57', message: 'Hello Friend!'},
+                {id: v1(), name: 'Sasha', avatar: 'https://clck.ru/WQq57', message: 'Hello Friend!'},
+                {id: v1(), name: 'Sveta', avatar: 'https://clck.ru/WQq57', message: 'Hello Friend!'},
+            ]
+        },
+    },
+    getState() {
+        return this._state
+    },
+    _callSubscriber(state: RootStateType) {
+        console.log("State not changed")
+    },
+    addPost() {
+        let newPost = {id: v1(), message: this._state.profilePage.newPostsText, likesCount: 0};
+        this._state.profilePage.posts.unshift(newPost);
+        this._state.profilePage.newPostsText = '';
+        this._callSubscriber(this._state)
+    },
+    updateNewPostText(value: string) {
+        this._state.profilePage.newPostsText = value;
+        this._callSubscriber(this._state)
+    },
+    subscribe(callBack) {
+        this._callSubscriber = callBack
+    },
 }

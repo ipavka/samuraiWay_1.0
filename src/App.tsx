@@ -9,10 +9,11 @@ import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
 import {FriendsItems} from "./components/Friends/FriendsItems/FriendsItems";
+import {RootStateType} from "./redux/state";
 
 
 type AppPropsType = {
-    state: any
+    state: RootStateType
     addPost: () => void
     updateNewPostText: (value: string) => void
 }
@@ -24,7 +25,7 @@ function App(props: AppPropsType) {
             <Navbar state={props.state.sidebar}/>
             <div className={'app-wrapper-content'}>
                 <Routes>
-                    <Route path='/profile/*' element={<Profile newPosts={props.state.profilePage.newPosts}
+                    <Route path='/profile/*' element={<Profile newPosts={props.state.profilePage.newPostsText}
                                                                profilePage={props.state.profilePage}
                                                                addPost={props.addPost}
                                                                updateNewPostText={props.updateNewPostText}
