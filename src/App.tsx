@@ -9,7 +9,7 @@ import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
 import {FriendsItems} from "./components/Friends/FriendsItems/FriendsItems";
-import {DispatchActionType, RootStateType} from "./redux/state";
+import {DispatchActionType, RootStateType} from "./redux/store";
 
 
 type AppPropsType = {
@@ -18,6 +18,7 @@ type AppPropsType = {
 }
 
 export const App: React.FC<AppPropsType> = (props ) => {
+
     return (
         <div className={'app-wrapper'}>
             <Header/>

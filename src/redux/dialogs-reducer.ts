@@ -1,36 +1,50 @@
 import {v1} from "uuid";
-import {DialogsPage, DispatchActionType} from "./state";
+import {DialogsPage} from "./store";
 
-export const dialogsReducer = (state: DialogsPage, action: DispatchType) => {
-    switch (action.title) {
-        case 'UPDATE-NEW-MESSAGE-BODY':
-            if (action.value != null) {
-                state.newMessagesBody = action.value;
+const initialState = {
+    dialogs: [
+        {id: 1, name: "Dimon"},
+        {id: 2, name: "Andrey"},
+        {id: 3, name: "Max"},
+    ],
+    messages: [
+        {id: v1(), message: "Hi!!!"},
+        {id: v1(), message: "Yep!!"},
+        {id: v1(), message: "Goodbye"},
+        {id: v1(), message: "error"},
+    ],
+    newMessagesBody: ''
+}
+export const dialogsReducer = (state: DialogsPage = initialState, action: DialogsDispatchType) => {
+    switch (action.type) {
+        case "UPDATE_NEW_MESSAGE_BODY":
+            if (action.payload.value != null) {
+                state.newMessagesBody = action.payload.value;
             }
-            break;
-        case 'SEND-MESSAGE':
-            let message =  {id: v1(), message: state.newMessagesBody};
+            return state
+        case "SEND_MESSAGE":
+            let message = {id: v1(), message: state.newMessagesBody};
             state.newMessagesBody = '';
             state.messages.push(message);
-            break;
+            return state
         default:
             return state
     }
 }
 
-type DispatchType = DispatchActionType | updateNewMessageBodyType | sendMessageType
+export type DialogsDispatchType = updateNewMessageBodyType | sendMessageType
 
 type updateNewMessageBodyType = ReturnType<typeof updateNewMessageBodyAC>
 export const updateNewMessageBodyAC = (value: string) => {
     return {
-        title: 'UPDATE-NEW-MESSAGE-BODY',
-        value: value
+        type: "UPDATE_NEW_MESSAGE_BODY",
+        payload: {value}
     } as const
 }
 
 type sendMessageType = ReturnType<typeof sendMessageAC>
 export const sendMessageAC = () => {
     return {
-        title: 'SEND-MESSAGE',
+        type: "SEND_MESSAGE",
     } as const
 }
