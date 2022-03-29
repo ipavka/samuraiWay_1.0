@@ -9,31 +9,26 @@ import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
 import {FriendsItems} from "./components/Friends/FriendsItems/FriendsItems";
-import {DispatchActionType, RootStateType} from "./redux/store";
+import {StoreType} from "./redux/store";
+import {DialogsContainer} from "./components/DIalogs/DialogsContainer";
 
 
 type AppPropsType = {
-    state: RootStateType
-    dispatch: (action: DispatchActionType) => void
+    store: StoreType
 }
 
-export const App: React.FC<AppPropsType> = (props ) => {
+export const App: React.FC<AppPropsType> = (props) => {
 
     return (
         <div className={'app-wrapper'}>
             <Header/>
-            <Navbar state={props.state.sidebar}/>
+            <Navbar state={props.store.getState().sidebar}/>
             <div className={'app-wrapper-content'}>
                 <Routes>
                     <Route path='/profile/*' element={
-                        <Profile newPosts={props.state.profilePage.newPostsText}
-                                 profilePage={props.state.profilePage}
-                                 dispatch={props.dispatch}
-                        />}/>
+                        <Profile store={props.store}/>}/>
                     <Route path='/dialog/*' element={
-                        <Dialogs state={props.state.dialogsPage}
-                                 dispatch={props.dispatch}
-                        />}/>
+                        <DialogsContainer store={props.store}/>}/>
                     <Route path='/news/*' element={<News/>}/>
                     <Route path='/music/*' element={<Music/>}/>
                     <Route path='/settings/*' element={<Settings/>}/>

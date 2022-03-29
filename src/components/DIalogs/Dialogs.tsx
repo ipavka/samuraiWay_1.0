@@ -2,38 +2,38 @@ import React, {ChangeEvent} from "react";
 import dStyle from './Dialogs.module.css';
 import {DialogItem} from "./DIalogsItem/DIalogsItem";
 import {Message} from "./Message/Message";
-import {DialogsPage, DispatchActionType} from "../../redux/store";
-import {sendMessageAC, updateNewMessageBodyAC} from "../../redux/dialogs-reducer";
+import {DialogsType, MessagesType} from "../../redux/store";
 
 type DialogsPropsType = {
-    state: DialogsPage
-    dispatch: (action: DispatchActionType) => void
+    dialogs: DialogsType[]
+    messages: MessagesType[]
+    newMessagesBody: string
+    buttonSend: () => void
+    textareaChange: (value: string) => void
 }
 export const Dialogs: React.FC<DialogsPropsType> = (props) => {
 
-    const buttonSendHandler = () => {
-        props.dispatch(sendMessageAC())
-    }
+    const buttonSendHandler = () => props.buttonSend()
     const textareaChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.dispatch(updateNewMessageBodyAC(e.currentTarget.value))
+        props.textareaChange(e.currentTarget.value)
     }
 
     return (
         <div className={dStyle.dialogs}>
             <div className={dStyle.dialogsItems}>
-                {props.state.dialogs.map((el) => {
+                {props.dialogs.map((el) => {
                     return <DialogItem key={`${el.id}${el.name}`} name={el.name} id={el.id}/>
                 })}
             </div>
             <div className={dStyle.messages}>
                 <div>
-                    {props.state.messages.map(el => {
+                    {props.messages.map(el => {
                         return <Message key={el.id} message={el.message} id={el.id}/>
                     })}
                 </div>
                 <div>
                     <div>
-                        <textarea value={props.state.newMessagesBody}
+                        <textarea value={props.newMessagesBody}
                                   onChange={textareaChangeHandler}
                                   placeholder={"Enter your messages..."}/>
                     </div>

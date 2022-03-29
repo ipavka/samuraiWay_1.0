@@ -10,7 +10,7 @@ const initialState = {
     newPostsText: ''
 }
 
-export const profileReducer = (state: ProfilePageType = initialState, action: DispatchType) => {
+export const profileReducer = (state: ProfilePageType = initialState, action: DispatchType): ProfilePageType => {
     switch (action.type) {
         case "ADD_POST":
             let newPost = {id: v1(), message: state.newPostsText, likesCount: 0};
