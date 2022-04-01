@@ -10,7 +10,7 @@ export type DialogsType = {
     id: number
     name: string
 }
-export type DialogsPage = {
+type DialogsPage = {
     dialogs: Array<DialogsType>
     messages: Array<MessagesType>
     newMessagesBody: string

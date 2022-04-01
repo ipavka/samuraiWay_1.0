@@ -1,10 +1,9 @@
 import React from 'react';
 import navStyle from './Navbar.module.css';
 import {NavLink} from "react-router-dom";
-import {Friends} from "../Friends/Friends";
-import {StateAppNavbarType} from "../../redux/store";
+import {FriendsContainer} from "../Friends/FriendsContainer";
 
-export const Navbar:React.FC<StateAppNavbarType> = (props) => {
+export const Navbar:React.FC = () => {
     return (
         <nav className={navStyle.nav}>
             <div className={navStyle.item}>
@@ -24,7 +23,7 @@ export const Navbar:React.FC<StateAppNavbarType> = (props) => {
             </div>
             <div className={navStyle.item__friends}>
                 <NavLink to={'/friends'}>Friends</NavLink>
-                <Friends friends={props.state.friends}/>
+                <FriendsContainer />
             </div>
         </nav>)
 }

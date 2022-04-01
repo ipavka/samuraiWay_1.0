@@ -2,15 +2,8 @@ import React, {ChangeEvent} from "react";
 import dStyle from './Dialogs.module.css';
 import {DialogItem} from "./DIalogsItem/DIalogsItem";
 import {Message} from "./Message/Message";
-import {DialogsType, MessagesType} from "../../redux/store";
+import {DialogsPropsType} from "./DialogsContainer";
 
-type DialogsPropsType = {
-    dialogs: DialogsType[]
-    messages: MessagesType[]
-    newMessagesBody: string
-    buttonSend: () => void
-    textareaChange: (value: string) => void
-}
 export const Dialogs: React.FC<DialogsPropsType> = (props) => {
 
     const buttonSendHandler = () => props.buttonSend()

@@ -1,14 +1,8 @@
 import React, {ChangeEvent} from "react";
 import myPostsStyle from './MyPosts.module.css';
 import {Post} from "./Post/Post";
-import {PostsType} from "../../../redux/store";
+import {MyPostsPropsType} from "./MyPostsContainer";
 
-type MyPostsPropsType = {
-    posts: Array<PostsType>
-    updateNewPostText: (value: string) => void
-    addPost: () => void
-    newPostsText: string
-}
 
 export const MyPosts: React.FC<MyPostsPropsType> = (props) => {
 

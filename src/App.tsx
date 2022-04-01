@@ -3,32 +3,25 @@ import './App.css';
 import {Navbar} from "./components/Navbar/Navbar";
 import {Profile} from "./components/Profile/Profile";
 import {Header} from "./components/Header/Header";
-import {Dialogs} from "./components/DIalogs/Dialogs";
 import {Routes, Route} from "react-router-dom";
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
 import {FriendsItems} from "./components/Friends/FriendsItems/FriendsItems";
-import {StoreType} from "./redux/store";
 import {DialogsContainer} from "./components/DIalogs/DialogsContainer";
 
-
-type AppPropsType = {
-    store: StoreType
-}
-
-export const App: React.FC<AppPropsType> = (props) => {
+export const App: React.FC = () => {
 
     return (
         <div className={'app-wrapper'}>
             <Header/>
-            <Navbar state={props.store.getState().sidebar}/>
+            <Navbar />
             <div className={'app-wrapper-content'}>
                 <Routes>
                     <Route path='/profile/*' element={
-                        <Profile store={props.store}/>}/>
+                        <Profile />}/>
                     <Route path='/dialog/*' element={
-                        <DialogsContainer store={props.store}/>}/>
+                        <DialogsContainer />}/>
                     <Route path='/news/*' element={<News/>}/>
                     <Route path='/music/*' element={<Music/>}/>
                     <Route path='/settings/*' element={<Settings/>}/>

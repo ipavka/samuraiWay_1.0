@@ -1,8 +1,8 @@
 import React from 'react';
 import friendStyle from './Friends.module.css';
-import {SidebarType} from "../../redux/store";
+import {FriendsPropsType} from "./FriendsContainer";
 
-export const Friends: React.FC<SidebarType> = (props) => {
+export const Friends: React.FC<FriendsPropsType> = (props) => {
 
     return (
         <div className={friendStyle.main}>

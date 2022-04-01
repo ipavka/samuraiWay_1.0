@@ -1,27 +1,38 @@
 import {v1} from "uuid";
-import {DialogsPage} from "./store";
+
+export type MessagesType = {
+    id: string
+    message: string
+}
+export type DialogsType = {
+    id: number
+    name: string
+}
 
 const initialState = {
     dialogs: [
         {id: 1, name: "Dimon"},
         {id: 2, name: "Andrey"},
         {id: 3, name: "Max"},
-    ],
+    ] as DialogsType[],
     messages: [
         {id: v1(), message: "Hi!!!"},
         {id: v1(), message: "Yep!!"},
         {id: v1(), message: "Goodbye"},
         {id: v1(), message: "error"},
-    ],
+    ] as MessagesType[],
     newMessagesBody: ''
 }
-export const dialogsReducer = (state: DialogsPage = initialState, action: DialogsDispatchType) => {
+
+export type DialogsInitialStateType = typeof initialState
+
+export const dialogsReducer = (state: DialogsInitialStateType = initialState, action: DialogsDispatchType): DialogsInitialStateType => {
     switch (action.type) {
         case "UPDATE_NEW_MESSAGE_BODY":
             if (action.payload.value != null) {
                 state.newMessagesBody = action.payload.value;
             }
-            return state
+            return {...state}
         case "SEND_MESSAGE":
             let message = {id: v1(), message: state.newMessagesBody};
             state.newMessagesBody = '';
