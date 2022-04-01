@@ -3,7 +3,7 @@ import navStyle from './Navbar.module.css';
 import {NavLink} from "react-router-dom";
 import {FriendsContainer} from "../Friends/FriendsContainer";
 
-export const Navbar:React.FC = () => {
+export const Navbar: React.FC = () => {
     return (
         <nav className={navStyle.nav}>
             <div className={navStyle.item}>
@@ -11,6 +11,9 @@ export const Navbar:React.FC = () => {
             </div>
             <div className={navStyle.item}>
                 <NavLink to={'/dialog'}>Messages</NavLink>
+            </div>
+            <div className={navStyle.item}>
+                <NavLink to={'/users'}>Users</NavLink>
             </div>
             <div className={navStyle.item}>
                 <NavLink to={'/news'}>News</NavLink>
@@ -23,7 +26,7 @@ export const Navbar:React.FC = () => {
             </div>
             <div className={navStyle.item__friends}>
                 <NavLink to={'/friends'}>Friends</NavLink>
-                <FriendsContainer />
+                <FriendsContainer/>
             </div>
         </nav>)
 }
