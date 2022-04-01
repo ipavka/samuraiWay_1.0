@@ -7,7 +7,6 @@ import {BrowserRouter} from "react-router-dom";
 import {Provider} from "react-redux";
 
 
-const rerenderTree = () => {
     ReactDOM.render(
         <React.StrictMode>
             <BrowserRouter>
@@ -18,10 +17,3 @@ const rerenderTree = () => {
         </React.StrictMode>,
         document.getElementById('root')
     );
-}
-
-rerenderTree()
-
-store.subscribe( () => {
-    rerenderTree()
-});
