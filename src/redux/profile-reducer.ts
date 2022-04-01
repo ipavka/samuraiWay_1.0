@@ -17,31 +17,17 @@ const initialState = {
 export type ProfileInitialStateType = typeof initialState
 export const profileReducer = (state: ProfileInitialStateType = initialState, action: DispatchType): ProfileInitialStateType => {
     switch (action.type) {
-        case "ADD_POST": {
+        case "ADD_POST":
             let newPost = {id: v1(), message: state.newPostsText, likesCount: 0};
-            return {
-                ...state,
-                posts: [...state.posts, newPost], newPostsText: '',
-            }
-            // const stateCopy = {...state};
-            // stateCopy.posts = [...state.posts];
-            // stateCopy.posts.push(newPost);
-            // stateCopy.newPostsText = '';
-            // return stateCopy
-            }
-        case "UPDATE_NEW_POST_TEXT": {
+            return {...state, posts: [...state.posts, newPost], newPostsText: '',}
+        case "UPDATE_NEW_POST_TEXT":
             return {...state, newPostsText: action.payload.value}
-            // let stateCopy = {...state};
-            // stateCopy.newPostsText = action.payload.value;
-            // return stateCopy
-        }
         default:
             return state
-        }
-
+    }
 }
 
-export type DispatchType =  addPostACType | updateNewPostTextACType
+export type DispatchType = addPostACType | updateNewPostTextACType
 
 type addPostACType = ReturnType<typeof addPostAC>
 export const addPostAC = () => {
