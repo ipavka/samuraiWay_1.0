@@ -13,6 +13,7 @@ const rootReducer = combineReducers({
 
 export type AppStateType = ReturnType<typeof rootReducer>
 export const store = createStore(rootReducer);
+export const APP_KEY = process.env.REACT_APP_API_KEY;
 
 //@ts-ignore
-window.store = store
+// window.store = store

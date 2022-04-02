@@ -1,33 +1,36 @@
-import {v1} from "uuid";
-
 export type UsersType = {
-    id: string
-    fullName: string
-    photoUrl: string
+    id: number
+    name: string
+    photos: { large: string, small: string }
     followed: boolean
     status: 'junior' | 'middle' | 'senior'
-    location: { city: string, country: string }
+    uniqueUrlName: string
 }
 
 const initialState = {
-    users: [
-        {
-            id: v1(), fullName: 'Pol', photoUrl: 'https://clck.ru/WQq57', followed: false, status: 'junior', location: {
-                city: "Kiev", country: 'Ukraine'
-            }
-        },
-        {
-            id: v1(), fullName: 'Bob', photoUrl: 'https://clck.ru/WQq57', followed: true, status: 'middle', location: {
-                city: "Lviv", country: 'Ukraine'
-            }
-        },
-        {
-            id: v1(), fullName: 'Max', photoUrl: 'https://clck.ru/WQq57', followed: false, status: 'senior', location: {
-                city: "Minsk", country: 'Belarus'
-            }
-        },
-    ] as UsersType[],
+    users: [] as UsersType[],
+    // users: [
+    //     {
+    //         id: 55555, name: 'Pol', photos: {large: 'https://clck.ru/WQq57', small: 'https://clck.ru/WQq57'},
+    //         followed: false,
+    //         status: 'junior',
+    //         uniqueUrlName: ''
+    //     },
+    //     {
+    //         id: 55556, name: 'Bob', photos: {large: 'https://clck.ru/WQq57', small: 'https://clck.ru/WQq57'},
+    //         followed: true,
+    //         status: 'middle',
+    //         uniqueUrlName: ''
+    //     },
+    //     {
+    //         id: 55557, name: 'Max', photos: {large: 'https://clck.ru/WQq57', small: 'https://clck.ru/WQq57'},
+    //         followed: false,
+    //         status: 'senior',
+    //         uniqueUrlName: ''
+    //     },
+    // ] as UsersType[],
 }
+
 export type UsersInitialStateType = typeof initialState
 export const usersReducer = (
     state: UsersInitialStateType = initialState,
@@ -46,17 +49,20 @@ export const usersReducer = (
                 users: state.users
                     .map(user => user.id === action.payload.userID ? {...user, followed: false} : user)
             }
-        // case "SET_USERS":
-        //     return state
+        case "SET_USERS":
+            return {
+                ...state,
+                users: action.payload.users
+            }
         default:
             return state
     }
 }
 
-export type UsersDispatchType = FollowAACType | UnFollowACType
+export type UsersDispatchType = FollowAACType | UnFollowACType | SetUsersACType
 
 type FollowAACType = ReturnType<typeof followAC>
-export const followAC = (userID: string) => {
+export const followAC = (userID: number) => {
     return {
         type: "FOLLOW",
         payload: {userID}
@@ -64,17 +70,17 @@ export const followAC = (userID: string) => {
 }
 
 type UnFollowACType = ReturnType<typeof unFollowAC>
-export const unFollowAC = (userID: string) => {
+export const unFollowAC = (userID: number) => {
     return {
         type: "UNFOLLOW",
         payload: {userID}
     } as const
 }
-// type SetUsersACType = ReturnType<typeof setUsersAC>
-// export const setUsersAC = (value: string) => {
-//     return {
-//         type: "SET_USERS",
-//         payload: {value}
-//     } as const
-// }
+type SetUsersACType = ReturnType<typeof setUsersAC>
+export const setUsersAC = (users: UsersType[]) => {
+    return {
+        type: "SET_USERS",
+        payload: {users}
+    } as const
+}
 

@@ -2,6 +2,7 @@ import {v1} from "uuid";
 import {profileReducer} from "./profile-reducer";
 import {dialogsReducer} from "./dialogs-reducer";
 
+
 export type MessagesType = {
     id: string
     message: string
