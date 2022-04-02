@@ -5,25 +5,15 @@ import {UsersPropsType} from "./UsersContainer";
 
 export class UsersC extends React.Component<UsersPropsType> {
 
-    constructor(props: UsersPropsType) {
-        super(props);
+    componentDidMount() {
         axios.get('https://social-network.samuraijs.com/api/1.0/users').then(res => {
             this.props.setUsers(res.data.items)
         })
     }
 
-    // getUsers = () => {
-    //     if (this.props.users.length === 0) {
-    //         axios.get('https://social-network.samuraijs.com/api/1.0/users').then(res => {
-    //             this.props.setUsers(res.data.items)
-    //         })
-    //     }
-    // }
-
     render() {
         return (
             <div>
-                {/*<button onClick={this.getUsers}>Get Users</button>*/}
                 {this.props.users.map(user => {
                     const onClickHandler = () => {
                         user.followed ? this.props.unFollow(user.id) : this.props.follow(user.id)

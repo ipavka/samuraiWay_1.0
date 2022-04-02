@@ -36,4 +36,5 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
     }
 }
 
-export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersC)
+// export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(Users) // functional component
+export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersC) // class component
