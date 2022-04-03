@@ -3,8 +3,7 @@ import {UsersPropsType} from "./UsersContainer";
 import s from './Users.module.css'
 import axios from "axios";
 
-
-export const Users: React.FC<UsersPropsType> = (props) => {
+export const Users: React.FC<UsersPropsType> = props => {
 
     const getUsers = () => {
         if (props.users.length === 0) {

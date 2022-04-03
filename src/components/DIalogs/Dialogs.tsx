@@ -4,7 +4,7 @@ import {DialogItem} from "./DIalogsItem/DIalogsItem";
 import {Message} from "./Message/Message";
 import {DialogsPropsType} from "./DialogsContainer";
 
-export const Dialogs: React.FC<DialogsPropsType> = (props) => {
+export const Dialogs: React.FC<DialogsPropsType> = props => {
 
     const buttonSendHandler = () => props.buttonSend()
     const textareaChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
