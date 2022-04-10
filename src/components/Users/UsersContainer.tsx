@@ -16,7 +16,7 @@ import {Spinner} from "../common/Spinner";
 
 const URL = "https://social-network.samuraijs.com/api/1.0/users"
 
-export class UsersAPIContainer extends React.Component<UsersPropsType> {
+class UsersAPIContainer extends React.Component<UsersPropsType> {
 
     componentDidMount() {
         this.props.toggleSpinner(true);
@@ -55,11 +55,11 @@ export class UsersAPIContainer extends React.Component<UsersPropsType> {
 }
 
 type MapStateToPropsType = {
-    users: UsersItemType[],
-    totalCount: number,
-    pageSize: number,
-    currentPage: number,
-    isFetching: boolean,
+    users: UsersItemType[]
+    totalCount: number
+    pageSize: number
+    currentPage: number
+    isFetching: boolean
 }
 type MapDispatchPropsType = {
     follow: (userID: number) => void

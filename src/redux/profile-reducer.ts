@@ -6,13 +6,37 @@ export type PostsType = {
     likesCount: number
 }
 
+export type ProfileType = {
+    aboutMe: string,
+    contacts: {
+        facebook: string,
+        website: string,
+        vk: string,
+        twitter: string,
+        instagram: string,
+        youtube: string,
+        github: string,
+        mainLink: string,
+    },
+    lookingForAJob: boolean,
+    lookingForAJobDescription: string,
+    fullName: string,
+    userId: number,
+    photos: {
+        small: string,
+        large: string,
+    },
+
+}
+
 const initialState = {
     posts: [
         {id: v1(), message: "Hello! Hello! Hello!", likesCount: 1},
         {id: v1(), message: "Yep!", likesCount: 5},
         {id: v1(), message: "Bay!", likesCount: 10},
     ] as PostsType[],
-    newPostsText: ''
+    newPostsText: '',
+    profile: {} as ProfileType,
 }
 export type ProfileInitialStateType = typeof initialState
 export const profileReducer = (state: ProfileInitialStateType = initialState, action: DispatchType): ProfileInitialStateType => {
@@ -21,25 +45,19 @@ export const profileReducer = (state: ProfileInitialStateType = initialState, ac
             let newPost = {id: v1(), message: state.newPostsText, likesCount: 0};
             return {...state, posts: [newPost, ...state.posts], newPostsText: '',}
         case "UPDATE_NEW_POST_TEXT":
-            return {...state, newPostsText: action.payload.value}
+            return {...state, newPostsText: action.value}
+        case "SET_USER_PROFILE":
+            return {...state, profile: action.profile}
         default:
             return state
     }
 }
 
-export type DispatchType = addPostACType | updateNewPostTextACType
+export type DispatchType = ReturnType<typeof addPostAC> |
+    ReturnType<typeof updateNewPostTextAC> |
+    ReturnType<typeof setUserProfile>
 
-type addPostACType = ReturnType<typeof addPostAC>
-export const addPostAC = () => {
-    return {
-        type: "ADD_POST",
-    } as const
-}
+export const addPostAC = () => ({type: "ADD_POST", } as const)
+export const updateNewPostTextAC = (value: string) => ({type: "UPDATE_NEW_POST_TEXT", value} as const)
+export const setUserProfile = (profile: ProfileType) => ({type: "SET_USER_PROFILE", profile} as const)
 
-type updateNewPostTextACType = ReturnType<typeof updateNewPostTextAC>
-export const updateNewPostTextAC = (value: string) => {
-    return {
-        type: "UPDATE_NEW_POST_TEXT",
-        payload: {value}
-    } as const
-}

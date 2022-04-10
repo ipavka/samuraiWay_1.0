@@ -3,6 +3,7 @@ import {Paginator} from "./Paginator";
 import s from "./Users.module.css";
 import {UsersItemType} from "../../redux/users-reducer";
 import {MyButton} from "../common/SuperButton";
+import {NavLink} from "react-router-dom";
 
 type UsersFType = {
     totalCount: number
@@ -27,9 +28,14 @@ export const UsersF: React.FC<UsersFType> = props => {
                 }
                 return <div key={user.id}>
                     <span>
-                        <div><img className={s.userPhoto}
-                                  src={user.photos.small ? user.photos.small : 'https://clck.ru/WQq57'}
-                                  alt="user-ava"/></div>
+                        <div>
+                            <NavLink to={`/profile/${user.id}`}>
+                                <img className={s.userPhoto}
+                                     src={user.photos.small ? user.photos.small : 'https://clck.ru/WQq57'}
+                                     alt="user-ava"/>
+                            </NavLink>
+
+                        </div>
                         <div>
                             <MyButton onClick={onClickHandler}>
                                 {user.followed ? 'Follow' : 'UnFollow'}
