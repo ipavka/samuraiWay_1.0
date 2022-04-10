@@ -2,6 +2,7 @@ import React from 'react';
 import {Paginator} from "./Paginator";
 import s from "./Users.module.css";
 import {UsersItemType} from "../../redux/users-reducer";
+import {MyButton} from "../common/SuperButton";
 
 type UsersFType = {
     totalCount: number
@@ -30,7 +31,9 @@ export const UsersF: React.FC<UsersFType> = props => {
                                   src={user.photos.small ? user.photos.small : 'https://clck.ru/WQq57'}
                                   alt="user-ava"/></div>
                         <div>
-                            <button onClick={onClickHandler}>{user.followed ? 'Follow' : 'UnFollow'}</button>
+                            <MyButton onClick={onClickHandler}>
+                                {user.followed ? 'Follow' : 'UnFollow'}
+                            </MyButton>
                         </div>
                     </span>
                     <span>

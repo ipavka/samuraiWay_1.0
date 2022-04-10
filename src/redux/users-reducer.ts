@@ -20,6 +20,7 @@ const initialState = {
     totalCount: 0,
     pageSize: 100,
     currentPage: 1,
+    isFetching: false
     // users: [
     //     {
     //         id: 55555, name: 'Pol', photos: {large: 'https://clck.ru/WQq57', small: 'https://clck.ru/WQq57'},
@@ -75,6 +76,11 @@ export const usersReducer = (
                 ...state,
                 totalCount: action.totalUser
             }
+        case "TOGGLE_SPINNER":
+            return {
+                ...state,
+                isFetching: action.value
+            }
         default:
             return state
     }
@@ -84,11 +90,13 @@ export type UsersDispatchType = ReturnType<typeof followAC> |
     ReturnType<typeof unFollowAC> |
     ReturnType<typeof setUsersAC> |
     ReturnType<typeof setCurrentPageAC> |
-    ReturnType<typeof setTotalUsersCountAC>
+    ReturnType<typeof setTotalUsersCountAC> |
+    ReturnType<typeof toggleSpinnerAC>
 
 export const followAC = (userID: number) => ({type: "FOLLOW", userID} as const)
 export const unFollowAC = (userID: number) => ({type: "UNFOLLOW",userID} as const)
 export const setUsersAC = (users: UsersItemType[]) => ({type: "SET_USERS", users} as const)
 export const setCurrentPageAC = (pegaNumber: number) => ({type: "SET_CURRENT_PAGE", pegaNumber} as const)
 export const setTotalUsersCountAC = (totalUser: number) => ({type: "SET_TOTAL_USERS_COUNT", totalUser} as const)
+export const toggleSpinnerAC = (value: boolean) => ({type: "TOGGLE_SPINNER", value} as const)
 

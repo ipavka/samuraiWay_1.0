@@ -2,7 +2,7 @@ import React, {ChangeEvent} from "react";
 import myPostsStyle from './MyPosts.module.css';
 import {Post} from "./Post/Post";
 import {MyPostsPropsType} from "./MyPostsContainer";
-import {SuperButton} from "../../tools/SuperButton";
+import {MyButton} from "../../common/SuperButton";
 
 
 export const MyPosts: React.FC<MyPostsPropsType> = (props) => {
@@ -21,7 +21,7 @@ export const MyPosts: React.FC<MyPostsPropsType> = (props) => {
                 />
             </div>
             <div>
-                <SuperButton onClick={addPost}>Add</SuperButton>
+                <MyButton onClick={addPost}>Add</MyButton>
             </div>
             <div>
                 {props.posts.map(el => <Post key={el.id} id={el.id} message={el.message} likesCount={el.likesCount}/>)}

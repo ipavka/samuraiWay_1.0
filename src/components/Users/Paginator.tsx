@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import s from "./Users.module.css";
-import {SuperButton} from "../tools/SuperButton";
+import {MyButton} from "../common/SuperButton";
 
 type PaginatorType = {
     pagesCount: number
@@ -39,10 +39,10 @@ export const Paginator: React.FC<PaginatorType> = props => {
 
     return (
         <div className={s.pagination}>
-            <SuperButton disabled={first === 1}
+            <MyButton disabled={first === 1}
                          onClick={backHandler}>
                 back
-            </SuperButton>
+            </MyButton>
                 <span>{arrPart.map(el => {
                     return <span key={el.toString()}
                                  className={props.currentPage === el ? s.selectPage : s.page}
@@ -50,10 +50,10 @@ export const Paginator: React.FC<PaginatorType> = props => {
                     >{el}</span>
                 })}</span>
 
-            <SuperButton disabled={last === iterCount}
+            <MyButton disabled={last === iterCount}
                          onClick={forwardHandler}>
                 forward
-            </SuperButton>
+            </MyButton>
         </div>
     );
 };

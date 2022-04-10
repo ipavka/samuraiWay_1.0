@@ -1,0 +1,56 @@
+.twister {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100px;
+    width: 300px;
+    margin: 15px;
+}
+
+.bowl {
+    position: relative;
+    width: 58px;
+    height: 58px;
+    margin: 20px;
+}
+
+.bowl_ring {
+    position: absolute;
+    width: 58px;
+    height: 58px;
+    border: 5px solid rgb(0, 0, 0);
+    border-radius: 58px;
+}
+
+.ball_holder {
+    position: absolute;
+    width: 16px;
+    height: 58px;
+    left: 21px;
+    top: 0;
+    animation-name: ball_move;
+    animation-duration: 1.5s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+.ball {
+    position: absolute;
+    left: 0;
+    top: -14px;
+    width: 23px;
+    height: 23px;
+    background: rgb(0, 0, 0);
+    border-radius: 19px;
+}
+
+
+@keyframes ball_move {
+    0% {
+        transform: rotate(0deg)
+    }
+
+    100% {
+        transform: rotate(360deg)
+    }
+}
