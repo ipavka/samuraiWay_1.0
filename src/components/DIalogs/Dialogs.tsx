@@ -3,6 +3,7 @@ import dStyle from './Dialogs.module.css';
 import {DialogItem} from "./DIalogsItem/DIalogsItem";
 import {Message} from "./Message/Message";
 import {DialogsPropsType} from "./DialogsContainer";
+import {SuperButton} from "../tools/SuperButton";
 
 export const Dialogs: React.FC<DialogsPropsType> = props => {
 
@@ -31,7 +32,7 @@ export const Dialogs: React.FC<DialogsPropsType> = props => {
                                   placeholder={"Enter your messages..."}/>
                     </div>
                     <div>
-                        <button onClick={buttonSendHandler}>Send</button>
+                        <SuperButton onClick={buttonSendHandler}>Send</SuperButton>
                     </div>
                 </div>
             </div>

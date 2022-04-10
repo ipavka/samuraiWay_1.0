@@ -12,11 +12,11 @@ export const Paginator: React.FC<PaginatorType> = props => {
     const [first, setFirst] = useState(1);
     const [last, setLast] = useState(10);
 
-    const arrPages = Array.from(Array(props.pagesCount), (val, index) => index + 1);
+    const arrPages = Array.from(Array(props.pagesCount), (val, index) => index + 1); // создание массива страниц
     const arrPart = range(first, last);
     const iterCount = arrPages.length
 
-    function range(from: number, to: number, step: number = 1): Array<number> {
+    function range(from: number, to: number, step: number = 1): Array<number> { // создание части массива
         let i = from;
         const range = [];
         while (i <= to) {
@@ -27,12 +27,12 @@ export const Paginator: React.FC<PaginatorType> = props => {
     }
 
     const backHandler = () => {
-        const nextLastItem = last === iterCount ? first - 1 : last - 10;
+        const nextLastItem = last === iterCount ? first - 1 : last - 10; // проверка возврата из крайней границы
         setFirst(first - 10)
         setLast(nextLastItem)
     }
     const forwardHandler = () => {
-        const nextLastItem = last + 10 > iterCount ? iterCount : last + 10;
+        const nextLastItem = last + 10 > iterCount ? iterCount : last + 10; // проверка корректности крайней границы
         setFirst(first + 10)
         setLast(nextLastItem)
     }
