@@ -3,14 +3,13 @@ import {connect} from "react-redux";
 import {Users} from "./Users";
 import {AppStateType} from "../../redux/redux-store";
 import {
-    followAC,
-    setCurrentPageAC,
-    setTotalUsersCountAC,
-    setUsersAC, toggleSpinnerAC,
-    unFollowAC,
+    follow,
+    setCurrentPage,
+    setTotalUserCount,
+    setUsers, toggleSpinner,
+    unFollow,
     UsersItemType
 } from "../../redux/users-reducer";
-import {Dispatch} from "redux";
 import axios from "axios";
 import {UsersF} from "./UsersF";
 import {Spinner} from "../common/Spinner";
@@ -81,28 +80,9 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
         isFetching: state.users.isFetching,
     }
 }
-const mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
-    return {
-        follow: (userID: number) => {
-            dispatch(followAC(userID))
-        },
-        unFollow: (userID: number) => {
-            dispatch(unFollowAC(userID))
-        },
-        setUsers: (users: UsersItemType[]) => {
-            dispatch(setUsersAC(users))
-        },
-        setCurrentPage: (pegaNumber: number) => {
-            dispatch(setCurrentPageAC(pegaNumber))
-        },
-        setTotalUserCount: (totalUser: number) => {
-            dispatch(setTotalUsersCountAC(totalUser))
-        },
-        toggleSpinner: (value: boolean) => {
-            dispatch(toggleSpinnerAC(value))
-        },
-    }
-}
 
+
+export const UsersContainer = connect(mapStateToProps, {
+    follow, unFollow, setUsers, setCurrentPage, setTotalUserCount, toggleSpinner
+})(UsersAPIContainer) // class component
 // export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(Users) // functional component
-export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersAPIContainer) // class component

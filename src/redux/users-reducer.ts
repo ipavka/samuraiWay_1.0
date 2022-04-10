@@ -86,17 +86,17 @@ export const usersReducer = (
     }
 }
 
-export type UsersDispatchType = ReturnType<typeof followAC> |
-    ReturnType<typeof unFollowAC> |
-    ReturnType<typeof setUsersAC> |
-    ReturnType<typeof setCurrentPageAC> |
-    ReturnType<typeof setTotalUsersCountAC> |
-    ReturnType<typeof toggleSpinnerAC>
+export type UsersDispatchType = ReturnType<typeof follow> |
+    ReturnType<typeof unFollow> |
+    ReturnType<typeof setUsers> |
+    ReturnType<typeof setCurrentPage> |
+    ReturnType<typeof setTotalUserCount> |
+    ReturnType<typeof toggleSpinner>
 
-export const followAC = (userID: number) => ({type: "FOLLOW", userID} as const)
-export const unFollowAC = (userID: number) => ({type: "UNFOLLOW",userID} as const)
-export const setUsersAC = (users: UsersItemType[]) => ({type: "SET_USERS", users} as const)
-export const setCurrentPageAC = (pegaNumber: number) => ({type: "SET_CURRENT_PAGE", pegaNumber} as const)
-export const setTotalUsersCountAC = (totalUser: number) => ({type: "SET_TOTAL_USERS_COUNT", totalUser} as const)
-export const toggleSpinnerAC = (value: boolean) => ({type: "TOGGLE_SPINNER", value} as const)
+export const follow = (userID: number) => ({type: "FOLLOW", userID} as const)
+export const unFollow = (userID: number) => ({type: "UNFOLLOW",userID} as const)
+export const setUsers = (users: UsersItemType[]) => ({type: "SET_USERS", users} as const)
+export const setCurrentPage = (pegaNumber: number) => ({type: "SET_CURRENT_PAGE", pegaNumber} as const)
+export const setTotalUserCount = (totalUser: number) => ({type: "SET_TOTAL_USERS_COUNT", totalUser} as const)
+export const toggleSpinner = (value: boolean) => ({type: "TOGGLE_SPINNER", value} as const)
 
