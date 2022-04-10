@@ -1,14 +1,25 @@
-export type UsersType = {
-    id: number
+export type UsersItemType = {
     name: string
-    photos: { large: string, small: string }
-    followed: boolean
-    status: 'junior' | 'middle' | 'senior'
+    id: number
     uniqueUrlName: string
+    photos: { large: string, small: string }
+    status: 'junior' | 'middle' | 'senior'
+    followed: boolean
+}
+
+export type UsersType = {
+    items: UsersItemType[],
+    totalCount: number,
+    pageSize: number,
+    currentPage: number,
+    error: string,
 }
 
 const initialState = {
-    users: [] as UsersType[],
+    users: [] as UsersItemType[],
+    totalCount: 0,
+    pageSize: 100,
+    currentPage: 1,
     // users: [
     //     {
     //         id: 55555, name: 'Pol', photos: {large: 'https://clck.ru/WQq57', small: 'https://clck.ru/WQq57'},
@@ -41,46 +52,43 @@ export const usersReducer = (
             return {
                 ...state,
                 users: state.users
-                    .map(user => user.id === action.payload.userID ? {...user, followed: true} : user)
+                    .map(user => user.id === action.userID ? {...user, followed: true} : user)
             }
         case "UNFOLLOW":
             return {
                 ...state,
                 users: state.users
-                    .map(user => user.id === action.payload.userID ? {...user, followed: false} : user)
+                    .map(user => user.id === action.userID ? {...user, followed: false} : user)
             }
         case "SET_USERS":
             return {
                 ...state,
-                users: action.payload.users
+                users: action.users
+            }
+        case "SET_CURRENT_PAGE":
+            return {
+                ...state,
+                currentPage: action.pegaNumber
+            }
+        case "SET_TOTAL_USERS_COUNT":
+            return {
+                ...state,
+                totalCount: action.totalUser
             }
         default:
             return state
     }
 }
 
-export type UsersDispatchType = FollowAACType | UnFollowACType | SetUsersACType
+export type UsersDispatchType = ReturnType<typeof followAC> |
+    ReturnType<typeof unFollowAC> |
+    ReturnType<typeof setUsersAC> |
+    ReturnType<typeof setCurrentPageAC> |
+    ReturnType<typeof setTotalUsersCountAC>
 
-type FollowAACType = ReturnType<typeof followAC>
-export const followAC = (userID: number) => {
-    return {
-        type: "FOLLOW",
-        payload: {userID}
-    } as const
-}
-
-type UnFollowACType = ReturnType<typeof unFollowAC>
-export const unFollowAC = (userID: number) => {
-    return {
-        type: "UNFOLLOW",
-        payload: {userID}
-    } as const
-}
-type SetUsersACType = ReturnType<typeof setUsersAC>
-export const setUsersAC = (users: UsersType[]) => {
-    return {
-        type: "SET_USERS",
-        payload: {users}
-    } as const
-}
+export const followAC = (userID: number) => ({type: "FOLLOW", userID} as const)
+export const unFollowAC = (userID: number) => ({type: "UNFOLLOW",userID} as const)
+export const setUsersAC = (users: UsersItemType[]) => ({type: "SET_USERS", users} as const)
+export const setCurrentPageAC = (pegaNumber: number) => ({type: "SET_CURRENT_PAGE", pegaNumber} as const)
+export const setTotalUsersCountAC = (totalUser: number) => ({type: "SET_TOTAL_USERS_COUNT", totalUser} as const)
 

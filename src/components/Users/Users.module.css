@@ -2,3 +2,22 @@
     width: 100px;
     height: 100px;
 }
+
+.pagination {
+    margin: 7px;
+}
+
+.page {
+    padding: 5px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.selectPage {
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 5px;
+    padding: 5px;
+    font-size: larger;
+    font-weight: bold;
+}
