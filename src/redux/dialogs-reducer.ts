@@ -29,7 +29,7 @@ export type DialogsInitialStateType = typeof initialState
 export const dialogsReducer = (state: DialogsInitialStateType = initialState, action: DialogsDispatchType): DialogsInitialStateType => {
     switch (action.type) {
         case "UPDATE_NEW_MESSAGE_BODY":
-            return {...state, newMessagesBody: action.payload.value,}
+            return {...state, newMessagesBody: action.value,}
         case "SEND_MESSAGE":
             let newMessage = {id: v1(), message: state.newMessagesBody};
             return {...state, messages: [...state.messages, newMessage], newMessagesBody: '',}
@@ -38,19 +38,9 @@ export const dialogsReducer = (state: DialogsInitialStateType = initialState, ac
     }
 }
 
-export type DialogsDispatchType = updateNewMessageBodyType | sendMessageType
+export type DialogsDispatchType =
+    ReturnType<typeof updateNewMessageBodyAC> |
+    ReturnType<typeof sendMessageAC>
 
-type updateNewMessageBodyType = ReturnType<typeof updateNewMessageBodyAC>
-export const updateNewMessageBodyAC = (value: string) => {
-    return {
-        type: "UPDATE_NEW_MESSAGE_BODY",
-        payload: {value}
-    } as const
-}
-
-type sendMessageType = ReturnType<typeof sendMessageAC>
-export const sendMessageAC = () => {
-    return {
-        type: "SEND_MESSAGE",
-    } as const
-}
+export const updateNewMessageBodyAC = (value: string) => ({type: "UPDATE_NEW_MESSAGE_BODY",value} as const)
+export const sendMessageAC = () => ({type: "SEND_MESSAGE",} as const)

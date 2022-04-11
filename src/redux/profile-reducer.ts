@@ -37,6 +37,7 @@ const initialState = {
     ] as PostsType[],
     newPostsText: '',
     profile: {} as ProfileType,
+    isFetching: true,
 }
 export type ProfileInitialStateType = typeof initialState
 export const profileReducer = (state: ProfileInitialStateType = initialState, action: DispatchType): ProfileInitialStateType => {

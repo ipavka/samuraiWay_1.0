@@ -4,63 +4,57 @@ import axios from "axios";
 import {connect} from "react-redux";
 import {ProfileType, setUserProfile} from "../../redux/profile-reducer";
 import {AppStateType} from "../../redux/redux-store";
-import {
-    useLocation,
-    useNavigate,
-    useParams,
-} from "react-router-dom";
-
+import {toggleSpinner} from "../../redux/users-reducer";
+import {Spinner} from "../common/Spinner";
+import {withRouter} from "react-router-dom";
 
 const URL = "https://social-network.samuraijs.com/api/1.0/profile/"
 
 class ProfileAPIContainer extends React.Component<ProfilePropsType> {
 
     componentDidMount() {
+        this.props.toggleSpinner(true);
         //@ts-ignore
-        let profileId = this.props.router.params.userId;
-        if(!profileId) profileId = 2;
+        let profileId = this.props.match.params.userId;
+        if (!profileId) profileId = 2;
 
         axios.get(`${URL}${profileId}`)
             .then(res => {
                 this.props.setUserProfile(res.data);
+                this.props.toggleSpinner(false);
             })
     }
+
     render() {
-        return (
-            <Profile profile={this.props.profile}/>
-        );
-    }
-}
-
-// wrapper to use react router's v6 hooks in class component(to use HOC pattern, like in router v5)
-function withRouter(Component: any) {
-    function ComponentWithRouterProp(props: any) {
-        let location = useLocation();
-        let navigate = useNavigate();
-        let params = useParams();
-        return (
-            <Component
-                {...props}
-                router={{ location, navigate, params }}
-            />
+        return (<>
+                {this.props.isFetching ?
+                    <Spinner/> :
+                    <Profile profile={this.props.profile}/>}
+            </>
         );
     }
 
-    return ComponentWithRouterProp;
 }
 
 type MapStateToPropsType = {
     profile: ProfileType
+    isFetching: boolean
 }
 type MapDispatchPropsType = {
     setUserProfile: (profile: ProfileType) => void
+    toggleSpinner: (value: boolean) => void
 }
 export type ProfilePropsType = MapStateToPropsType & MapDispatchPropsType
 
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
-        profile: state.profilePage.profile
+        profile: state.profilePage.profile,
+        isFetching: state.users.isFetching,
     }
 }
-export const ProfileContainer = connect(mapStateToProps, {setUserProfile})(withRouter(ProfileAPIContainer));
+// @ts-ignore
+const WithURLDataContainer = withRouter(ProfileAPIContainer)
+export const ProfileContainer = connect(mapStateToProps,
+    {setUserProfile, toggleSpinner,})(WithURLDataContainer);
+
 // export const ProfileContainer = connect(mapStateToProps, {setUserProfile})(ProfileAPIContainer)
