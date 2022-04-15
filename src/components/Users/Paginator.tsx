@@ -9,13 +9,17 @@ type PaginatorType = {
 }
 
 export const Paginator: React.FC<PaginatorType> = props => {
-    const [first, setFirst] = useState(1);
-    const [last, setLast] = useState(10);
+    const [first, setFirst] = useState(props.currentPage);
+    const [last, setLast] = useState(props.currentPage + 9);
 
     const arrPages = Array.from(Array(props.pagesCount), (val, index) => index + 1); // создание массива страниц
-    const arrPart = range(first, last);
+    const argFirst = first < 0 ? 1 : first // проверка на что бы массив не уехал в минус
+    const argLast = last > props.pagesCount ? props.pagesCount : last // проверка на превышение реального кол-ва страниц
+    const arrPart = range(argFirst, argLast);
     const iterCount = arrPages.length
 
+
+    console.log(props.pagesCount)
     function range(from: number, to: number, step: number = 1): Array<number> { // создание части массива
         let i = from;
         const range = [];
@@ -36,21 +40,24 @@ export const Paginator: React.FC<PaginatorType> = props => {
         setFirst(first + 10)
         setLast(nextLastItem)
     }
+    const spanClickHandler = (el: number) => {
+        props.spanClick(el)
+    }
 
     return (
         <div className={s.pagination}>
-            <MyButton disabled={first === 1}
+            <MyButton disabled={first <= 1}
                          onClick={backHandler}>
                 back
             </MyButton>
                 <span>{arrPart.map(el => {
                     return <span key={el.toString()}
                                  className={props.currentPage === el ? s.selectPage : s.page}
-                                 onClick={() => props.spanClick(el)}
+                                 onClick={() => spanClickHandler(el)}
                     >{el}</span>
                 })}</span>
 
-            <MyButton disabled={last === iterCount}
+            <MyButton disabled={last >= iterCount}
                          onClick={forwardHandler}>
                 forward
             </MyButton>
