@@ -6,3 +6,18 @@
 .header img{
     width: 50px;
 }
+
+.loginBlock {
+    float: right;
+    color: #9423b9;
+    font-size: larger;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.loginBlock a {
+    color: #9423b9;
+    font-size: larger;
+    font-weight: bold;
+    text-decoration: none;
+}

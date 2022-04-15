@@ -26,7 +26,6 @@ export type ProfileType = {
         small: string,
         large: string,
     },
-
 }
 
 const initialState = {
