@@ -4,6 +4,8 @@ import s from "./Users.module.css";
 import {UsersItemType} from "../../redux/users-reducer";
 import {MyButton} from "../common/SuperButton";
 import {NavLink} from "react-router-dom";
+import axios from "axios";
+import {NETWORK_KEY} from "../../redux/redux-store";
 
 type UsersFType = {
     totalCount: number
@@ -15,8 +17,11 @@ type UsersFType = {
     unFollow: (userID: number) => void
 }
 
+const URL = "https://social-network.samuraijs.com/api/1.0/follow/"
+
 export const UsersF: React.FC<UsersFType> = props => {
     const pagesCount = Math.ceil(props.totalCount / props.pageSize);
+
     return (
         <div>
             <Paginator pagesCount={pagesCount}
@@ -24,7 +29,30 @@ export const UsersF: React.FC<UsersFType> = props => {
                        currentPage={props.currentPage}/>
             {props.users.map(user => {
                 const onClickHandler = () => {
-                    user.followed ? props.unFollow(user.id) : props.follow(user.id)
+                    user.followed ?
+                        axios.delete(`${URL}${user.id}`, {
+                            withCredentials: true,
+                            headers: {
+                                "API-KEY" : NETWORK_KEY as string
+                            }
+                        })
+                            .then(res => {
+                                if(res.data.resultCode === 0) {
+                                    props.unFollow(user.id)
+                                }
+                            })
+                         :
+                        axios.post(`${URL}${user.id}`, {}, {
+                            withCredentials: true,
+                            headers: {
+                                "API-KEY" : NETWORK_KEY as string
+                            }
+                        })
+                            .then(res => {
+                                if(res.data.resultCode === 0) {
+                                    props.follow(user.id)
+                                }
+                            })
                 }
                 return <div key={user.id}>
                     <span>
@@ -38,7 +66,7 @@ export const UsersF: React.FC<UsersFType> = props => {
                         </div>
                         <div>
                             <MyButton onClick={onClickHandler}>
-                                {user.followed ? 'Follow' : 'UnFollow'}
+                                {user.followed ? 'Unfollow' : 'Follow'}
                             </MyButton>
                         </div>
                     </span>

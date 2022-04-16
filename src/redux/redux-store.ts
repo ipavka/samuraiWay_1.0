@@ -16,6 +16,7 @@ const rootReducer = combineReducers({
 export type AppStateType = ReturnType<typeof rootReducer>
 export const store = createStore(rootReducer);
 export const APP_KEY = process.env.REACT_APP_API_KEY;
+export const NETWORK_KEY = process.env.REACT_APP_API_KEY_NETWORK;
 
 //@ts-ignore
 window.store = store

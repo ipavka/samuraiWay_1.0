@@ -1,6 +1,5 @@
 import React from 'react';
 import {connect} from "react-redux";
-import {Users} from "./Users";
 import {AppStateType} from "../../redux/redux-store";
 import {
     follow,
@@ -20,7 +19,9 @@ class UsersAPIContainer extends React.Component<UsersPropsType> {
 
     componentDidMount() {
         this.props.toggleSpinner(true);
-        axios.get(`${URL}?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+        axios.get(`${URL}?page=${this.props.currentPage}&count=${this.props.pageSize}`, {
+            withCredentials: true
+        })
             .then(res => {
                 this.props.toggleSpinner(false);
                 this.props.setUsers(res.data.items)
@@ -31,7 +32,9 @@ class UsersAPIContainer extends React.Component<UsersPropsType> {
     spanClickHandler = (e: number) => {
         this.props.toggleSpinner(true);
         this.props.setCurrentPage(e);
-        axios.get(`${URL}?page=${e}&count=${this.props.pageSize}`)
+        axios.get(`${URL}?page=${e}&count=${this.props.pageSize}`, {
+            withCredentials: true
+        })
             .then(res => {
                 this.props.toggleSpinner(false);
                 this.props.setUsers(res.data.items)

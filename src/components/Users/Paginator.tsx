@@ -18,8 +18,6 @@ export const Paginator: React.FC<PaginatorType> = props => {
     const arrPart = range(argFirst, argLast);
     const iterCount = arrPages.length
 
-
-    console.log(props.pagesCount)
     function range(from: number, to: number, step: number = 1): Array<number> { // создание части массива
         let i = from;
         const range = [];
