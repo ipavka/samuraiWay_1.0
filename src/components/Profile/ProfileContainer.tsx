@@ -1,14 +1,13 @@
 import React from 'react';
 import {Profile} from "./Profile";
-import axios from "axios";
 import {connect} from "react-redux";
 import {ProfileType, setUserProfile} from "../../redux/profile-reducer";
 import {AppStateType} from "../../redux/redux-store";
 import {toggleSpinner} from "../../redux/users-reducer";
 import {Spinner} from "../common/Spinner";
 import {withRouter} from "react-router-dom";
+import {usersAPI} from "../../api/api";
 
-const URL = "https://social-network.samuraijs.com/api/1.0/profile/"
 
 class ProfileAPIContainer extends React.Component<ProfilePropsType> {
 
@@ -18,9 +17,8 @@ class ProfileAPIContainer extends React.Component<ProfilePropsType> {
         let profileId = this.props.match.params.userId;
         if (!profileId) profileId = 2;
 
-        axios.get(`${URL}${profileId}`)
-            .then(res => {
-                this.props.setUserProfile(res.data);
+        usersAPI.getProfile(profileId).then(data => {
+                this.props.setUserProfile(data);
                 this.props.toggleSpinner(false);
             })
     }

@@ -1,20 +1,18 @@
 import React from "react";
-import axios from "axios";
 import {AppStateType} from "../../redux/redux-store";
 import {withRouter} from "react-router-dom";
 import {connect} from "react-redux";
 import {AuthType, DataAuthType, setAuthUserData} from "../../redux/auth-reducer";
 import {Header} from "./Header";
+import {usersAPI} from "../../api/api";
 
-const URL = "https://social-network.samuraijs.com/api/1.0/auth/me"
 
 class HeaderAPIContainer extends React.Component<ProfilePropsType> {
 
     componentDidMount() {
-        axios.get(`${URL}`, {withCredentials: true})
-            .then(res => {
-                if(res.data.resultCode === 0) {
-                    this.props.setAuthUserData(res.data);
+        usersAPI.getAuthMe().then(data => {
+                if(data.resultCode === 0) {
+                    this.props.setAuthUserData(data);
                 }
             })
     }

@@ -9,35 +9,28 @@ import {
     unFollow,
     UsersItemType
 } from "../../redux/users-reducer";
-import axios from "axios";
 import {UsersF} from "./UsersF";
 import {Spinner} from "../common/Spinner";
+import {usersAPI} from "../../api/api";
 
-const URL = "https://social-network.samuraijs.com/api/1.0/users"
 
 class UsersAPIContainer extends React.Component<UsersPropsType> {
 
     componentDidMount() {
         this.props.toggleSpinner(true);
-        axios.get(`${URL}?page=${this.props.currentPage}&count=${this.props.pageSize}`, {
-            withCredentials: true
-        })
-            .then(res => {
+        usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
                 this.props.toggleSpinner(false);
-                this.props.setUsers(res.data.items)
-                this.props.setTotalUserCount(res.data.totalCount)
+                this.props.setUsers(data.items)
+                this.props.setTotalUserCount(data.totalCount)
             })
     }
 
     spanClickHandler = (e: number) => {
         this.props.toggleSpinner(true);
         this.props.setCurrentPage(e);
-        axios.get(`${URL}?page=${e}&count=${this.props.pageSize}`, {
-            withCredentials: true
-        })
-            .then(res => {
+        usersAPI.getUsers(e, this.props.pageSize).then(data => {
                 this.props.toggleSpinner(false);
-                this.props.setUsers(res.data.items)
+                this.props.setUsers(data.items)
             })
     }
 

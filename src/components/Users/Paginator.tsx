@@ -13,7 +13,7 @@ export const Paginator: React.FC<PaginatorType> = props => {
     const [last, setLast] = useState(props.currentPage + 9);
 
     const arrPages = Array.from(Array(props.pagesCount), (val, index) => index + 1); // создание массива страниц
-    const argFirst = first < 0 ? 1 : first // проверка на что бы массив не уехал в минус
+    const argFirst = first <= 0 ? 1 : first // проверка на что бы массив не уехал в минус
     const argLast = last > props.pagesCount ? props.pagesCount : last // проверка на превышение реального кол-ва страниц
     const arrPart = range(argFirst, argLast);
     const iterCount = arrPages.length
