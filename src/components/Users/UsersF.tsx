@@ -14,6 +14,8 @@ type UsersFType = {
     users: UsersItemType[]
     follow: (userID: number) => void
     unFollow: (userID: number) => void
+    toggleFollowProgress: (isFetch: boolean, userID: number) => void
+    followingProgress: Array<number>
 }
 
 export const UsersF: React.FC<UsersFType> = props => {
@@ -25,32 +27,38 @@ export const UsersF: React.FC<UsersFType> = props => {
                        spanClick={props.spanClick}
                        currentPage={props.currentPage}/>
             {props.users.map(user => {
-                const onClickHandler = () => {
-                    user.followed ?
-                        usersAPI.userUnfollow(user.id).then(res => {
-                                if (res.data.resultCode === 0) {
-                                    props.unFollow(user.id)
-                                }
-                            })
-                        :
-                        usersAPI.userFollow(user.id).then(data => {
-                                if (data.resultCode === 0) {
-                                    props.follow(user.id)
-                                }
-                            })
+                const onClickHandlerFollow = () => { // обработчик если подписан
+                    props.toggleFollowProgress(true, user.id) // добавляем в массив user.id
+                    usersAPI.userUnfollow(user.id).then(data => {
+                        if (data.resultCode === 0) {
+                            props.unFollow(user.id)
+                        }
+                        props.toggleFollowProgress(false, user.id) // удаляем filter() из массива user.id
+                    })
+                }
+                const onClickHandlerUnfollow = () => { // обработчик если НЕ подписан
+                    props.toggleFollowProgress(true, user.id) // добавляем в массив user.id
+                    usersAPI.userFollow(user.id).then(data => {
+                        if (data.resultCode === 0) {
+                            props.follow(user.id)
+                        }
+                        props.toggleFollowProgress(false, user.id) // удаляем filter() из массива user.id
+                    })
                 }
                 return <div key={user.id}>
+                    <div>
+                        <NavLink to={`/profile/${user.id}`}>
+                            <img className={s.userPhoto}
+                                 src={user.photos.small ? user.photos.small : 'https://clck.ru/WQq57'}
+                                 alt="user-ava"/>
+                        </NavLink>
+                    </div>
                     <span>
-                        <div>
-                            <NavLink to={`/profile/${user.id}`}>
-                                <img className={s.userPhoto}
-                                     src={user.photos.small ? user.photos.small : 'https://clck.ru/WQq57'}
-                                     alt="user-ava"/>
-                            </NavLink>
 
-                        </div>
                         <div>
-                            <MyButton onClick={onClickHandler}>
+                            {/* логика disabled описана в users-reducer */}
+                            <MyButton disabled={props.followingProgress.some(id => id === user.id)}
+                                      onClick={user.followed ? onClickHandlerFollow : onClickHandlerUnfollow}>
                                 {user.followed ? 'Unfollow' : 'Follow'}
                             </MyButton>
                         </div>

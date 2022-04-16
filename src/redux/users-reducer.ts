@@ -7,40 +7,13 @@ export type UsersItemType = {
     followed: boolean
 }
 
-export type UsersType = {
-    items: UsersItemType[],
-    totalCount: number,
-    pageSize: number,
-    currentPage: number,
-    error: string,
-}
-
 const initialState = {
     users: [] as UsersItemType[],
     totalCount: 0,
     pageSize: 100,
     currentPage: 1,
-    isFetching: false
-    // users: [
-    //     {
-    //         id: 55555, name: 'Pol', photos: {large: 'https://clck.ru/WQq57', small: 'https://clck.ru/WQq57'},
-    //         followed: false,
-    //         status: 'junior',
-    //         uniqueUrlName: ''
-    //     },
-    //     {
-    //         id: 55556, name: 'Bob', photos: {large: 'https://clck.ru/WQq57', small: 'https://clck.ru/WQq57'},
-    //         followed: true,
-    //         status: 'middle',
-    //         uniqueUrlName: ''
-    //     },
-    //     {
-    //         id: 55557, name: 'Max', photos: {large: 'https://clck.ru/WQq57', small: 'https://clck.ru/WQq57'},
-    //         followed: false,
-    //         status: 'senior',
-    //         uniqueUrlName: ''
-    //     },
-    // ] as UsersType[],
+    isFetching: false,
+    followingProgress: [] as Array<number>
 }
 
 export type UsersInitialStateType = typeof initialState
@@ -81,6 +54,17 @@ export const usersReducer = (
                 ...state,
                 isFetching: action.value
             }
+        case "TOGGLE_FOLLOW_PROGRESS":
+            // добавляем в массив userID что бы отключить кнопку
+            // то есть все происходить в момент запроса и ответа сервера, при запросе добавляем userID (1), массив не пустой,
+            // кнопка disabled, после ответа сервера (2) возвращаем массив без данного userID
+            // isFetch - индикатор в какую логику попадать или что делать добавить или удалить(filter())
+            return {
+                ...state,
+                followingProgress: action.isFetch
+                    ? [...state.followingProgress, action.userID] // (1)
+                    : state.followingProgress.filter(id => id !== action.userID) // (2)
+            }
         default:
             return state
     }
@@ -91,7 +75,8 @@ export type UsersDispatchType = ReturnType<typeof follow> |
     ReturnType<typeof setUsers> |
     ReturnType<typeof setCurrentPage> |
     ReturnType<typeof setTotalUserCount> |
-    ReturnType<typeof toggleSpinner>
+    ReturnType<typeof toggleSpinner> |
+    ReturnType<typeof toggleFollowProgress>
 
 export const follow = (userID: number) => ({type: "FOLLOW", userID} as const)
 export const unFollow = (userID: number) => ({type: "UNFOLLOW",userID} as const)
@@ -99,4 +84,6 @@ export const setUsers = (users: UsersItemType[]) => ({type: "SET_USERS", users} 
 export const setCurrentPage = (pegaNumber: number) => ({type: "SET_CURRENT_PAGE", pegaNumber} as const)
 export const setTotalUserCount = (totalUser: number) => ({type: "SET_TOTAL_USERS_COUNT", totalUser} as const)
 export const toggleSpinner = (value: boolean) => ({type: "TOGGLE_SPINNER", value} as const)
+export const toggleFollowProgress = (isFetch: boolean, userID: number) =>
+    ({type: "TOGGLE_FOLLOW_PROGRESS", userID, isFetch} as const)
 

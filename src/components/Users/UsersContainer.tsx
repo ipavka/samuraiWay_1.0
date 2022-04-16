@@ -5,7 +5,7 @@ import {
     follow,
     setCurrentPage,
     setTotalUserCount,
-    setUsers, toggleSpinner,
+    setUsers, toggleFollowProgress, toggleSpinner,
     unFollow,
     UsersItemType
 } from "../../redux/users-reducer";
@@ -44,7 +44,10 @@ class UsersAPIContainer extends React.Component<UsersPropsType> {
                         spanClick={this.spanClickHandler}
                         users={this.props.users}
                         follow={this.props.follow}
-                        unFollow={this.props.unFollow}/>}
+                        unFollow={this.props.unFollow}
+                        toggleFollowProgress={this.props.toggleFollowProgress}
+                        followingProgress={this.props.followingProgress}
+                />}
         </>
 
     }
@@ -56,6 +59,7 @@ type MapStateToPropsType = {
     pageSize: number
     currentPage: number
     isFetching: boolean
+    followingProgress: Array<number>
 }
 type MapDispatchPropsType = {
     follow: (userID: number) => void
@@ -64,6 +68,7 @@ type MapDispatchPropsType = {
     setCurrentPage: (pegaNumber: number) => void
     setTotalUserCount: (totalUser: number) => void
     toggleSpinner: (value: boolean) => void
+    toggleFollowProgress: (isFetch: boolean, userID: number,) => void
 }
 export type UsersPropsType = MapStateToPropsType & MapDispatchPropsType
 
@@ -74,11 +79,12 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
         pageSize: state.users.pageSize,
         currentPage: state.users.currentPage,
         isFetching: state.users.isFetching,
+        followingProgress: state.users.followingProgress
     }
 }
 
 
 export const UsersContainer = connect(mapStateToProps, {
-    follow, unFollow, setUsers, setCurrentPage, setTotalUserCount, toggleSpinner
+    follow, unFollow, setUsers, setCurrentPage, setTotalUserCount, toggleSpinner, toggleFollowProgress,
 })(UsersAPIContainer) // class component
 // export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(Users) // functional component
