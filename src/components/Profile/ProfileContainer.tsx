@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import {ProfileType, setUserProfile} from "../../redux/profile-reducer";
 import {AppStateType} from "../../redux/redux-store";
 import {toggleSpinner} from "../../redux/users-reducer";
-import {Spinner} from "../common/Spinner";
+import {MySpinner} from "../common/MySpinner";
 import {withRouter} from "react-router-dom";
 import {usersAPI} from "../../api/api";
 
@@ -26,7 +26,7 @@ class ProfileAPIContainer extends React.Component<ProfilePropsType> {
     render() {
         return (<>
                 {this.props.isFetching ?
-                    <Spinner/> :
+                    <MySpinner/> :
                     <Profile profile={this.props.profile}/>}
             </>
         );

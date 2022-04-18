@@ -10,7 +10,7 @@ import {
     UsersItemType
 } from "../../redux/users-reducer";
 import {UsersF} from "./UsersF";
-import {Spinner} from "../common/Spinner";
+import {MySpinner} from "../common/MySpinner";
 import {usersAPI} from "../../api/api";
 
 
@@ -37,7 +37,7 @@ class UsersAPIContainer extends React.Component<UsersPropsType> {
     render() {
         return <>
             {this.props.isFetching ?
-                <Spinner/> :
+                <MySpinner/> :
                 <UsersF totalCount={this.props.totalCount}
                         pageSize={this.props.pageSize}
                         currentPage={this.props.currentPage}
