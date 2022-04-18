@@ -1,10 +1,13 @@
 export type UsersItemType = {
-    name: string
     id: number
-    uniqueUrlName: string
-    photos: { large: string, small: string }
-    status: 'junior' | 'middle' | 'senior'
+    name: string
     followed: boolean
+    photos: {
+        large: null | string
+        small: null | string
+    }
+    status: null | string
+    uniqueUrlName: null | string
 }
 
 const initialState = {

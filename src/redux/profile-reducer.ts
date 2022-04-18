@@ -7,24 +7,24 @@ export type PostsType = {
 }
 
 export type ProfileType = {
-    aboutMe: string,
+    aboutMe: null | string
     contacts: {
-        facebook: string,
-        website: string,
-        vk: string,
-        twitter: string,
-        instagram: string,
-        youtube: string,
-        github: string,
-        mainLink: string,
+        facebook: null | string
+        website: null | string
+        vk: null | string
+        twitter: null | string
+        instagram: null | string
+        youtube: null | string
+        github: null | string
+        mainLink: null | string
     },
-    lookingForAJob: boolean,
-    lookingForAJobDescription: string,
-    fullName: string,
-    userId: number,
+    lookingForAJob: boolean
+    lookingForAJobDescription: null | string
+    fullName: string
+    userId: number
     photos: {
-        small: string,
-        large: string,
+        small: null | string
+        large: null | string
     },
 }
 

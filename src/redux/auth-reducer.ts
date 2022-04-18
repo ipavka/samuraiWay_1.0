@@ -5,13 +5,9 @@ export type DataAuthType = {
     email: string,
 }
 export type AuthType = {
-    data: {
-        id: number,
-        login: string,
-        email: string,
-    },
-    messages: any,
-    fieldsErrors: any,
+    data: DataAuthType,
+    messages: Array<string>,
+    fieldsErrors:  Array<string>,
     resultCode: number
 }
 const initialState = {
