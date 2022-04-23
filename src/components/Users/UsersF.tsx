@@ -15,7 +15,7 @@ type UsersFType = {
     follow: (userID: number) => void
     unFollow: (userID: number) => void
     toggleFollowProgress: (isFetch: boolean, userID: number) => void
-    followingProgress: Array<number>
+    followingProgress: number[]
 }
 
 export const UsersF: React.FC<UsersFType> = props => {

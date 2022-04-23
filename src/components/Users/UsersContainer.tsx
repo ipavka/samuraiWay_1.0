@@ -59,7 +59,7 @@ type MapStateToPropsType = {
     pageSize: number
     currentPage: number
     isFetching: boolean
-    followingProgress: Array<number>
+    followingProgress: number[]
 }
 type MapDispatchPropsType = {
     follow: (userID: number) => void

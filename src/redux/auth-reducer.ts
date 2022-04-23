@@ -6,8 +6,8 @@ export type DataAuthType = {
 }
 export type AuthType = {
     data: DataAuthType,
-    messages: Array<string>,
-    fieldsErrors:  Array<string>,
+    messages: string[],
+    fieldsErrors:  string[],
     resultCode: number
 }
 const initialState = {

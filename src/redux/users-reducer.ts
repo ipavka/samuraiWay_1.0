@@ -16,7 +16,7 @@ const initialState = {
     pageSize: 100,
     currentPage: 1,
     isFetching: false,
-    followingProgress: [] as Array<number>
+    followingProgress: [] as number[]
 }
 
 export type UsersInitialStateType = typeof initialState
