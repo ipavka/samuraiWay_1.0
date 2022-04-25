@@ -1,14 +1,14 @@
 import axios, {AxiosResponse} from "axios";
-import {NETWORK_KEY} from "../redux/redux-store";
 import {AuthType} from "../redux/auth-reducer";
 import {UsersItemType} from "../redux/users-reducer";
 import {ProfileType} from "../redux/profile-reducer";
+import {apiConfig} from "../configs/config";
 
 const instance = axios.create({
     withCredentials: true,
     baseURL: "https://social-network.samuraijs.com/api/1.0/",
     headers: {
-        "API-KEY": NETWORK_KEY as string
+        "API-KEY": apiConfig.NETWORK_KEY as string
     },
 })
 
@@ -28,7 +28,7 @@ export const usersAPI = {
             .then((res: AxiosResponse<AuthType>) => res.data)
 
     },
-    getProfile(profileId: number) {
+    getProfile(profileId: string) {
         return instance.get(`profile/${profileId}`)
             .then((res: AxiosResponse<ProfileType>) => res.data)
     },

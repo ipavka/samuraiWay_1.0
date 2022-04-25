@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
 import {
-    follow,
+    follow, getUsersThunkCreator,
     setCurrentPage,
     setTotalUserCount,
     setUsers, toggleFollowProgress, toggleSpinner,
@@ -12,17 +12,19 @@ import {
 import {UsersF} from "./UsersF";
 import {MySpinner} from "../common/MySpinner";
 import {usersAPI} from "../../api/api";
+import {RouteComponentProps} from "react-router-dom";
 
 
 class UsersAPIContainer extends React.Component<UsersPropsType> {
 
     componentDidMount() {
-        this.props.toggleSpinner(true);
-        usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
-                this.props.toggleSpinner(false);
-                this.props.setUsers(data.items)
-                this.props.setTotalUserCount(data.totalCount)
-            })
+        this.props.getUsersTC(this.props.currentPage, this.props.pageSize)
+        // this.props.toggleSpinner(true);
+        // usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
+        //         this.props.toggleSpinner(false);
+        //         this.props.setUsers(data.items)
+        //         this.props.setTotalUserCount(data.totalCount)
+        //     })
     }
 
     spanClickHandler = (e: number) => {
@@ -68,8 +70,10 @@ type MapDispatchPropsType = {
     setCurrentPage: (pegaNumber: number) => void
     setTotalUserCount: (totalUser: number) => void
     toggleSpinner: (value: boolean) => void
-    toggleFollowProgress: (isFetch: boolean, userID: number,) => void
+    toggleFollowProgress: (isFetch: boolean, userID: number) => void
+    getUsersTC: (currentPage: number, pageSize: number) => void
 }
+// type RoutePropsType = RouteComponentProps<any>
 export type UsersPropsType = MapStateToPropsType & MapDispatchPropsType
 
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
@@ -84,7 +88,11 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
 }
 
 
+
 export const UsersContainer = connect(mapStateToProps, {
-    follow, unFollow, setUsers, setCurrentPage, setTotalUserCount, toggleSpinner, toggleFollowProgress,
-})(UsersAPIContainer) // class component
+    follow, unFollow, setUsers,
+    setCurrentPage, setTotalUserCount,
+    toggleSpinner, toggleFollowProgress,
+    getUsersTC: getUsersThunkCreator,
+})(UsersAPIContainer as any) // class component
 // export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(Users) // functional component

@@ -1,3 +1,6 @@
+import {usersAPI} from "../api/api";
+import {Dispatch} from "redux";
+
 export type UsersItemType = {
     id: number
     name: string
@@ -90,3 +93,13 @@ export const toggleSpinner = (value: boolean) => ({type: "TOGGLE_SPINNER", value
 export const toggleFollowProgress = (isFetch: boolean, userID: number) =>
     ({type: "TOGGLE_FOLLOW_PROGRESS", userID, isFetch} as const)
 
+export const getUsersThunkCreator = (currentPage: number, pageSize: number) => {
+    return (dispatch: Dispatch) => {
+        dispatch(toggleSpinner(true));
+        usersAPI.getUsers(currentPage, pageSize).then(data => {
+            dispatch(toggleSpinner(false));
+            dispatch(setUsers(data.items));
+            dispatch(setTotalUserCount(data.totalCount));
+        })
+    }
+}

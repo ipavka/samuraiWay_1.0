@@ -7,15 +7,16 @@ import {toggleSpinner} from "../../redux/users-reducer";
 import {MySpinner} from "../common/MySpinner";
 import {withRouter} from "react-router-dom";
 import {usersAPI} from "../../api/api";
+import {RouteComponentProps} from "react-router-dom";
 
 
 class ProfileAPIContainer extends React.Component<ProfilePropsType> {
 
     componentDidMount() {
         this.props.toggleSpinner(true);
-        //@ts-ignore
+
         let profileId = this.props.match.params.userId;
-        if (!profileId) profileId = 2;
+        if (!profileId) profileId = '2';
 
         usersAPI.getProfile(profileId).then(data => {
                 this.props.setUserProfile(data);
@@ -42,7 +43,9 @@ type MapDispatchPropsType = {
     setUserProfile: (profile: ProfileType) => void
     toggleSpinner: (value: boolean) => void
 }
-export type ProfilePropsType = MapStateToPropsType & MapDispatchPropsType
+type PathParamsType = {userId: string}
+type ProfilePropsType = RouteComponentProps<PathParamsType> & OwnPropsType
+export type OwnPropsType = MapStateToPropsType & MapDispatchPropsType
 
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
@@ -50,8 +53,8 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
         isFetching: state.users.isFetching,
     }
 }
-// @ts-ignore
-const WithURLDataContainer = withRouter(ProfileAPIContainer)
+
+const WithURLDataContainer = withRouter(ProfileAPIContainer as any)
 export const ProfileContainer = connect(mapStateToProps,
     {setUserProfile, toggleSpinner,})(WithURLDataContainer);
 
