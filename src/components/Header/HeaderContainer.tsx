@@ -2,19 +2,14 @@ import React from "react";
 import {AppStateType} from "../../redux/redux-store";
 import {withRouter} from "react-router-dom";
 import {connect} from "react-redux";
-import {AuthType, DataAuthType, setAuthUserData} from "../../redux/auth-reducer";
+import {DataAuthType, getAuthDataThunkCreator} from "../../redux/auth-reducer";
 import {Header} from "./Header";
-import {usersAPI} from "../../api/api";
 
 
 class HeaderAPIContainer extends React.Component<ProfilePropsType> {
 
     componentDidMount() {
-        usersAPI.getAuthMe().then(data => {
-                if(data.resultCode === 0) {
-                    this.props.setAuthUserData(data);
-                }
-            })
+        this.props.getAuthDataTC()
     }
 
     render() {
@@ -31,7 +26,7 @@ type MapStateToPropsType = {
     isAuth: boolean
 }
 type MapDispatchPropsType = {
-    setAuthUserData: (data: AuthType) => void
+    getAuthDataTC: () => void
 }
 export type ProfilePropsType = MapStateToPropsType & MapDispatchPropsType
 
@@ -41,7 +36,7 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
         isAuth: state.auth.isAuth,
     }
 }
-// @ts-ignore
-const WithURLDataContainer = withRouter(HeaderAPIContainer)
+
+const WithURLDataContainer = withRouter(HeaderAPIContainer as any)
 export const HeaderContainer = connect(mapStateToProps,
-    {setAuthUserData,})(WithURLDataContainer);
+    {getAuthDataTC: getAuthDataThunkCreator})(WithURLDataContainer);

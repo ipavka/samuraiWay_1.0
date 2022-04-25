@@ -1,3 +1,5 @@
+import {Dispatch} from "redux";
+import {usersAPI} from "../api/api";
 
 export type DataAuthType = {
     id: number,
@@ -36,3 +38,13 @@ export type HeaderDispatchType =
 
 export const setAuthUserData = (authData: AuthType) => (
     {type: "SET_USER_DATA", authData} as const)
+
+export const getAuthDataThunkCreator = () => {
+    return (dispatch: Dispatch) => {
+        usersAPI.getAuthMe().then(data => {
+            if(data.resultCode === 0) {
+                dispatch(setAuthUserData(data));
+            }
+        })
+    }
+}

@@ -2,38 +2,22 @@ import React from 'react';
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
 import {
-    follow, getUsersThunkCreator,
-    setCurrentPage,
-    setTotalUserCount,
-    setUsers, toggleFollowProgress, toggleSpinner,
-    unFollow,
+     followThunkCreator, getUsersThunkCreator,
+     unFollowThunkCreator,
     UsersItemType
 } from "../../redux/users-reducer";
 import {UsersF} from "./UsersF";
 import {MySpinner} from "../common/MySpinner";
-import {usersAPI} from "../../api/api";
-import {RouteComponentProps} from "react-router-dom";
 
 
 class UsersAPIContainer extends React.Component<UsersPropsType> {
 
     componentDidMount() {
         this.props.getUsersTC(this.props.currentPage, this.props.pageSize)
-        // this.props.toggleSpinner(true);
-        // usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
-        //         this.props.toggleSpinner(false);
-        //         this.props.setUsers(data.items)
-        //         this.props.setTotalUserCount(data.totalCount)
-        //     })
     }
 
     spanClickHandler = (e: number) => {
-        this.props.toggleSpinner(true);
-        this.props.setCurrentPage(e);
-        usersAPI.getUsers(e, this.props.pageSize).then(data => {
-                this.props.toggleSpinner(false);
-                this.props.setUsers(data.items)
-            })
+        this.props.getUsersTC(e, this.props.pageSize)
     }
 
     render() {
@@ -45,10 +29,9 @@ class UsersAPIContainer extends React.Component<UsersPropsType> {
                         currentPage={this.props.currentPage}
                         spanClick={this.spanClickHandler}
                         users={this.props.users}
-                        follow={this.props.follow}
-                        unFollow={this.props.unFollow}
-                        toggleFollowProgress={this.props.toggleFollowProgress}
                         followingProgress={this.props.followingProgress}
+                        followTC={this.props.followTC}
+                        unFollowTC={this.props.unFollowTC}
                 />}
         </>
 
@@ -64,16 +47,10 @@ type MapStateToPropsType = {
     followingProgress: number[]
 }
 type MapDispatchPropsType = {
-    follow: (userID: number) => void
-    unFollow: (userID: number) => void
-    setUsers: (users: UsersItemType[]) => void
-    setCurrentPage: (pegaNumber: number) => void
-    setTotalUserCount: (totalUser: number) => void
-    toggleSpinner: (value: boolean) => void
-    toggleFollowProgress: (isFetch: boolean, userID: number) => void
     getUsersTC: (currentPage: number, pageSize: number) => void
+    followTC: (userID: number) => void
+    unFollowTC: (userID: number) => void
 }
-// type RoutePropsType = RouteComponentProps<any>
 export type UsersPropsType = MapStateToPropsType & MapDispatchPropsType
 
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
@@ -87,12 +64,9 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     }
 }
 
-
-
 export const UsersContainer = connect(mapStateToProps, {
-    follow, unFollow, setUsers,
-    setCurrentPage, setTotalUserCount,
-    toggleSpinner, toggleFollowProgress,
     getUsersTC: getUsersThunkCreator,
+    followTC: followThunkCreator,
+    unFollowTC: unFollowThunkCreator
 })(UsersAPIContainer as any) // class component
 // export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(Users) // functional component

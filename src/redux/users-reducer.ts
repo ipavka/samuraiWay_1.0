@@ -96,10 +96,35 @@ export const toggleFollowProgress = (isFetch: boolean, userID: number) =>
 export const getUsersThunkCreator = (currentPage: number, pageSize: number) => {
     return (dispatch: Dispatch) => {
         dispatch(toggleSpinner(true));
+        dispatch(setCurrentPage(currentPage));
         usersAPI.getUsers(currentPage, pageSize).then(data => {
             dispatch(toggleSpinner(false));
             dispatch(setUsers(data.items));
             dispatch(setTotalUserCount(data.totalCount));
+        })
+    }
+}
+
+export const followThunkCreator = (userID: number) => {
+    return (dispatch: Dispatch) => {
+        dispatch(toggleFollowProgress(true, userID)) // добавляем в массив user.id
+        usersAPI.userFollow(userID).then(data => {
+            if (data.resultCode === 0) {
+                dispatch(follow(userID));
+            }
+            dispatch(toggleFollowProgress(false, userID)) // удаляем filter() из массива user.id
+        })
+    }
+}
+
+export const unFollowThunkCreator = (userID: number) => {
+    return (dispatch: Dispatch) => {
+        dispatch(toggleFollowProgress(true, userID)); // добавляем в массив user.id
+        usersAPI.userUnfollow(userID).then(data => {
+            if (data.resultCode === 0) {
+                dispatch(unFollow(userID));
+            }
+            dispatch(toggleFollowProgress(false, userID)); // удаляем filter() из массива user.id
         })
     }
 }

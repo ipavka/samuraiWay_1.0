@@ -1,4 +1,7 @@
 import {v1} from "uuid";
+import {Dispatch} from "redux";
+import {usersAPI} from "../api/api";
+import {toggleSpinner} from "./users-reducer";
 
 export type PostsType = {
     id: string
@@ -21,7 +24,7 @@ export type ProfileType = {
     lookingForAJob: boolean
     lookingForAJobDescription: null | string
     fullName: string
-    userId: number
+    userId: string
     photos: {
         small: null | string
         large: null | string
@@ -61,3 +64,12 @@ export const addPostAC = () => ({type: "ADD_POST", } as const)
 export const updateNewPostTextAC = (value: string) => ({type: "UPDATE_NEW_POST_TEXT", value} as const)
 export const setUserProfile = (profile: ProfileType) => ({type: "SET_USER_PROFILE", profile} as const)
 
+export const getProfileThunkCreator = (profileId: string) => {
+    return (dispatch: Dispatch) => {
+        dispatch(toggleSpinner(true));
+        usersAPI.getProfile(profileId).then(data => {
+            dispatch(setUserProfile(data));
+            dispatch(toggleSpinner(false));
+        })
+    }
+}

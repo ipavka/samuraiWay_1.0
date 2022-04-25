@@ -4,7 +4,6 @@ import s from "./Users.module.css";
 import {UsersItemType} from "../../redux/users-reducer";
 import {MyButton} from "../common/SuperButton";
 import {NavLink} from "react-router-dom";
-import {usersAPI} from "../../api/api";
 
 type UsersFType = {
     totalCount: number
@@ -12,10 +11,9 @@ type UsersFType = {
     currentPage: number
     spanClick: (el: number) => void
     users: UsersItemType[]
-    follow: (userID: number) => void
-    unFollow: (userID: number) => void
-    toggleFollowProgress: (isFetch: boolean, userID: number) => void
     followingProgress: number[]
+    followTC: (userID: number) => void
+    unFollowTC: (userID: number) => void
 }
 
 export const UsersF: React.FC<UsersFType> = props => {
@@ -28,22 +26,10 @@ export const UsersF: React.FC<UsersFType> = props => {
                        currentPage={props.currentPage}/>
             {props.users.map(user => {
                 const onClickHandlerFollow = () => { // обработчик если подписан
-                    props.toggleFollowProgress(true, user.id) // добавляем в массив user.id
-                    usersAPI.userUnfollow(user.id).then(data => {
-                        if (data.resultCode === 0) {
-                            props.unFollow(user.id)
-                        }
-                        props.toggleFollowProgress(false, user.id) // удаляем filter() из массива user.id
-                    })
+                    props.unFollowTC(user.id)
                 }
                 const onClickHandlerUnfollow = () => { // обработчик если НЕ подписан
-                    props.toggleFollowProgress(true, user.id) // добавляем в массив user.id
-                    usersAPI.userFollow(user.id).then(data => {
-                        if (data.resultCode === 0) {
-                            props.follow(user.id)
-                        }
-                        props.toggleFollowProgress(false, user.id) // удаляем filter() из массива user.id
-                    })
+                    props.followTC(user.id)
                 }
                 return <div key={user.id}>
                     <div>
