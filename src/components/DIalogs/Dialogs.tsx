@@ -4,6 +4,7 @@ import {DialogItem} from "./DIalogsItem/DIalogsItem";
 import {Message} from "./Message/Message";
 import {DialogsPropsType} from "./DialogsContainer";
 import {MyButton} from "../common/SuperButton";
+import {Redirect} from "react-router-dom";
 
 export const Dialogs: React.FC<DialogsPropsType> = props => {
 
@@ -11,6 +12,8 @@ export const Dialogs: React.FC<DialogsPropsType> = props => {
     const textareaChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         props.textareaChange(e.currentTarget.value)
     }
+
+    if (!props.isAuth) return <Redirect to={'/login'}/>
 
     return (
         <div className={dStyle.dialogs}>
