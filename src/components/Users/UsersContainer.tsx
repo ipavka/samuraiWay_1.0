@@ -8,6 +8,7 @@ import {
 } from "../../redux/users-reducer";
 import {UsersF} from "./UsersF";
 import {MySpinner} from "../common/MySpinner";
+import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
 
 
 class UsersAPIContainer extends React.Component<UsersPropsType> {
@@ -64,9 +65,11 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     }
 }
 
-export const UsersContainer = connect(mapStateToProps, {
+export const UsersContainer = WithAuthRedirect(connect(mapStateToProps, {
     getUsersTC: getUsersThunkCreator,
     followTC: followThunkCreator,
     unFollowTC: unFollowThunkCreator
-})(UsersAPIContainer as any) // class component
+})(UsersAPIContainer as any)) // class component
+
+
 // export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(Users) // functional component
