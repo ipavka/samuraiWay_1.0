@@ -7,9 +7,9 @@ import {MyButton} from "../common/SuperButton";
 
 export const Dialogs: React.FC<DialogsPropsType> = props => {
 
-    const buttonSendHandler = () => props.buttonSend()
+    const buttonSendHandler = () => props.buttonSendTC()
     const textareaChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.textareaChange(e.currentTarget.value)
+        props.textareaChangeTC(e.currentTarget.value)
     }
 
     return (

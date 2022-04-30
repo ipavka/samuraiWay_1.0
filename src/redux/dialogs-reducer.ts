@@ -1,4 +1,5 @@
 import {v1} from "uuid";
+import {Dispatch} from "redux";
 
 export type MessagesType = {
     id: string
@@ -44,3 +45,14 @@ export type DialogsDispatchType =
 
 export const updateNewMessageBodyAC = (value: string) => ({type: "UPDATE_NEW_MESSAGE_BODY",value} as const)
 export const sendMessageAC = () => ({type: "SEND_MESSAGE",} as const)
+
+export const buttonSendThunkCreator = () => {
+    return (dispatch: Dispatch) => {
+        dispatch(sendMessageAC())
+    }
+}
+export const textareaChangeThunkCreator = (value: string) => {
+    return (dispatch: Dispatch) => {
+        dispatch(updateNewMessageBodyAC(value))
+    }
+}

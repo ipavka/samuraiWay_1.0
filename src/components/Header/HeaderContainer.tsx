@@ -4,9 +4,10 @@ import {withRouter} from "react-router-dom";
 import {connect} from "react-redux";
 import {DataAuthType, getAuthDataThunkCreator} from "../../redux/auth-reducer";
 import {Header} from "./Header";
+import {compose} from "redux";
 
 
-class HeaderAPIContainer extends React.Component<ProfilePropsType> {
+class HeaderContainer extends React.Component<ProfilePropsType> {
 
     componentDidMount() {
         this.props.getAuthDataTC()
@@ -37,6 +38,12 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     }
 }
 
-const WithURLDataContainer = withRouter(HeaderAPIContainer as any)
-export const HeaderContainer = connect(mapStateToProps,
-    {getAuthDataTC: getAuthDataThunkCreator})(WithURLDataContainer);
+// const WithURLDataContainer = withRouter(HeaderAPIContainer as any)
+// export const HeaderContainer = connect(mapStateToProps,
+//     {getAuthDataTC: getAuthDataThunkCreator})(WithURLDataContainer);
+
+export default compose<React.FC>(
+    connect(mapStateToProps,
+        {getAuthDataTC: getAuthDataThunkCreator}),
+    withRouter
+)(HeaderContainer)

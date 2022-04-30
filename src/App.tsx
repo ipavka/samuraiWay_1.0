@@ -6,11 +6,11 @@ import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
 import {FriendsItems} from "./components/Friends/FriendsItems/FriendsItems";
-import {DialogsContainer} from "./components/DIalogs/DialogsContainer";
-import {UsersContainer} from "./components/Users/UsersContainer";
-import {ProfileContainer} from "./components/Profile/ProfileContainer";
-import {HeaderContainer} from "./components/Header/HeaderContainer";
+import DialogsContainer from "./components/DIalogs/DialogsContainer";
+import UsersContainer from "./components/Users/UsersContainer";
+import ProfileContainer from "./components/Profile/ProfileContainer";
 import {Login} from "./components/Login/Login";
+import HeaderContainer from "./components/Header/HeaderContainer";
 
 export const App = () => {
 
@@ -20,7 +20,7 @@ export const App = () => {
             <Navbar/>
             <div className={'app-wrapper-content'}>
                 <Route path='/profile/:userId?' render={() => <ProfileContainer/>}/>
-                <Route path='/dialog' render={() => <DialogsContainer/>}/>
+                <Route path='/dialog' render={() => <DialogsContainer />}/>
                 <Route path='/news' render={() => <News/>}/>
                 <Route path='/music' render={() => <Music/>}/>
                 <Route path='/settings' render={() => <Settings/>}/>

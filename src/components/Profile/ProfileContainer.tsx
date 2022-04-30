@@ -7,9 +7,10 @@ import {MySpinner} from "../common/MySpinner";
 import {withRouter} from "react-router-dom";
 import {RouteComponentProps} from "react-router-dom";
 import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
+import {compose} from "redux";
 
 
-class ProfileAPIContainer extends React.Component<ProfilePropsType> {
+export class ProfileContainer extends React.Component<ProfilePropsType> {
 
     componentDidMount() {
         let profileId = this.props.match.params.userId;
@@ -35,7 +36,7 @@ type MapStateToPropsType = {
 type MapDispatchPropsType = {
     getProfileTC: (profileId: string) => void
 }
-type PathParamsType = {userId: string}
+type PathParamsType = { userId: string }
 type ProfilePropsType = RouteComponentProps<PathParamsType> & OwnPropsType
 export type OwnPropsType = MapStateToPropsType & MapDispatchPropsType
 
@@ -46,9 +47,13 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     }
 }
 
-const WithURLDataContainer = withRouter(ProfileAPIContainer as any)
-export const ProfileContainer = WithAuthRedirect(connect(mapStateToProps,
-    {getProfileTC: getProfileThunkCreator,
-    })(WithURLDataContainer));
+// const WithURLDataContainer = withRouter(ProfileAPIContainer as any)
+// export const ProfileContainer = WithAuthRedirect(connect(mapStateToProps,
+//     {getProfileTC: getProfileThunkCreator,
+//     })(WithURLDataContainer));
 
-// export const ProfileContainer = connect(mapStateToProps, {setUserProfile})(ProfileAPIContainer)
+export default compose<React.FC>(
+    connect(mapStateToProps,{getProfileTC: getProfileThunkCreator,}),
+    withRouter,
+    WithAuthRedirect
+)(ProfileContainer)

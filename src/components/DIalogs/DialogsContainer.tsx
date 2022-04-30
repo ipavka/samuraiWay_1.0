@@ -1,15 +1,32 @@
 import React from "react";
 import {
+    buttonSendThunkCreator,
     DialogsType,
     MessagesType,
-    sendMessageAC,
-    updateNewMessageBodyAC
+    textareaChangeThunkCreator,
 } from "../../redux/dialogs-reducer";
 import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
-import {Dispatch} from "redux";
 import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
+import {compose} from "redux";
+
+
+export class DialogsContainer extends React.Component<DialogsPropsType> {
+
+    render() {
+        return (<>
+                <Dialogs buttonSendTC={this.props.buttonSendTC}
+                         textareaChangeTC={this.props.textareaChangeTC}
+                         dialogs={this.props.dialogs}
+                         messages={this.props.messages}
+                         newMessagesBody={this.props.newMessagesBody}
+                />
+            </>
+        );
+    }
+
+}
 
 type MapStateToPropsType = {
     dialogs: DialogsType[]
@@ -17,27 +34,26 @@ type MapStateToPropsType = {
     newMessagesBody: string
 }
 type MapDispatchPropsType = {
-    buttonSend: () => void
-    textareaChange: (value: string) => void
+    buttonSendTC: () => void
+    textareaChangeTC: (value: string) => void
 }
 
 export type DialogsPropsType = MapStateToPropsType & MapDispatchPropsType
 
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
-  return {
-      dialogs: state.dialogsPage.dialogs,
-      messages: state.dialogsPage.messages,
-      newMessagesBody: state.dialogsPage.newMessagesBody,
-  }
-}
-const mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
     return {
-        buttonSend: () => {
-            dispatch(sendMessageAC())
-        },
-        textareaChange: (value: string) => {
-            dispatch(updateNewMessageBodyAC(value))
-        }
+        dialogs: state.dialogsPage.dialogs,
+        messages: state.dialogsPage.messages,
+        newMessagesBody: state.dialogsPage.newMessagesBody,
     }
 }
-export const DialogsContainer = WithAuthRedirect(connect (mapStateToProps, mapDispatchToProps)(Dialogs))
+
+export default compose<React.FC>(
+    WithAuthRedirect,
+    connect(mapStateToProps,
+        {
+            buttonSendTC: buttonSendThunkCreator,
+            textareaChangeTC: textareaChangeThunkCreator,
+        }
+    )
+)(DialogsContainer)

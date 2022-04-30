@@ -2,16 +2,17 @@ import React from 'react';
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
 import {
-     followThunkCreator, getUsersThunkCreator,
-     unFollowThunkCreator,
+    followThunkCreator, getUsersThunkCreator,
+    unFollowThunkCreator,
     UsersItemType
 } from "../../redux/users-reducer";
 import {UsersF} from "./UsersF";
 import {MySpinner} from "../common/MySpinner";
 import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
+import {compose} from "redux";
 
 
-class UsersAPIContainer extends React.Component<UsersPropsType> {
+class UsersContainer extends React.Component<UsersPropsType> {
 
     componentDidMount() {
         this.props.getUsersTC(this.props.currentPage, this.props.pageSize)
@@ -65,11 +66,11 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     }
 }
 
-export const UsersContainer = WithAuthRedirect(connect(mapStateToProps, {
-    getUsersTC: getUsersThunkCreator,
-    followTC: followThunkCreator,
-    unFollowTC: unFollowThunkCreator
-})(UsersAPIContainer as any)) // class component
-
-
-// export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(Users) // functional component
+export default compose<React.FC>(
+    connect(mapStateToProps, {
+        getUsersTC: getUsersThunkCreator,
+        followTC: followThunkCreator,
+        unFollowTC: unFollowThunkCreator
+    }),
+    WithAuthRedirect
+)(UsersContainer)
