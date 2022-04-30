@@ -38,10 +38,6 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     }
 }
 
-// const WithURLDataContainer = withRouter(HeaderAPIContainer as any)
-// export const HeaderContainer = connect(mapStateToProps,
-//     {getAuthDataTC: getAuthDataThunkCreator})(WithURLDataContainer);
-
 export default compose<React.FC>(
     connect(mapStateToProps,
         {getAuthDataTC: getAuthDataThunkCreator}),

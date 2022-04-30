@@ -47,11 +47,6 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     }
 }
 
-// const WithURLDataContainer = withRouter(ProfileAPIContainer as any)
-// export const ProfileContainer = WithAuthRedirect(connect(mapStateToProps,
-//     {getProfileTC: getProfileThunkCreator,
-//     })(WithURLDataContainer));
-
 export default compose<React.FC>(
     connect(mapStateToProps,{getProfileTC: getProfileThunkCreator,}),
     withRouter,

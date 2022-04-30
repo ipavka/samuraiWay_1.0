@@ -1,7 +1,3 @@
-import {v1} from "uuid";
-import {profileReducer} from "./profile-reducer";
-import {dialogsReducer} from "./dialogs-reducer";
-
 
 export type MessagesType = {
     id: string
@@ -21,42 +17,42 @@ export type PostsType = {
     message: string
     likesCount: number
 }
-export type ProfilePageType = {
+type ProfilePageType = {
     posts: Array<PostsType>
     newPostsText: string
 }
-export type FriendsType = {
+type FriendsType = {
     name: string
     id: string
     avatar: string
     message: string
 }
-export type SidebarType = {
+type SidebarType = {
     friends: Array<FriendsType>
 }
-export type RootStateType = {
+type RootStateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPage
     sidebar: SidebarType
 }
-export type StateAppProfileType = {
+type StateAppProfileType = {
     state: ProfilePageType
     addPost: () => void
 }
-export type StateAppDialogsType = {
+type StateAppDialogsType = {
     state: DialogsPage
 }
-export type StateAppNavbarType = {
+type StateAppNavbarType = {
     state: SidebarType
 }
-export type StoreType = {
+type StoreType = {
     _state: RootStateType
     getState: () => RootStateType
     _callSubscriber: (state: RootStateType) => void
     subscribe: (callBack: (props: RootStateType) => void) => void
     dispatch: (action: DispatchActionType) => void
 }
-export type DispatchActionType = {
+type DispatchActionType = {
     type: string
     value?: string
 }
