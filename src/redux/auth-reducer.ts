@@ -9,7 +9,7 @@ export type DataAuthType = {
 export type AuthType = {
     data: DataAuthType,
     messages: string[],
-    fieldsErrors:  string[],
+    fieldsErrors: string[],
     resultCode: number
 }
 const initialState = {
@@ -39,12 +39,21 @@ export type HeaderDispatchType =
 export const setAuthUserData = (authData: AuthType) => (
     {type: "SET_USER_DATA", authData} as const)
 
+// export const getAuthDataThunkCreator = () => {
+//     return (dispatch: Dispatch) => {
+//         usersAPI.getAuthMe().then(data => {
+//             if(data.resultCode === 0) {
+//                 dispatch(setAuthUserData(data));
+//             }
+//         })
+//     }
+// }
+
 export const getAuthDataThunkCreator = () => {
-    return (dispatch: Dispatch) => {
-        usersAPI.getAuthMe().then(data => {
-            if(data.resultCode === 0) {
-                dispatch(setAuthUserData(data));
-            }
-        })
+    return async (dispatch: Dispatch) => {
+        const data = await usersAPI.getAuthMe()
+        if(data.resultCode === 0) {
+            dispatch(setAuthUserData(data));
+        }
     }
 }

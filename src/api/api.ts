@@ -20,24 +20,24 @@ type UserResponseType = {
 
 export const usersAPI = {
     getUsers(currentPage: number, pageSize: number) {
-        return instance.get(`users?page=${currentPage}&count=${pageSize}`)
-            .then((res: AxiosResponse<UserResponseType>) => res.data)
+        return instance.get<UserResponseType>(`users?page=${currentPage}&count=${pageSize}`)
+            .then(res => res.data)
     },
     getAuthMe() {
-        return instance.get(`auth/me`)
-            .then((res: AxiosResponse<AuthType>) => res.data)
+        return instance.get<AuthType>(`auth/me`)
+            .then(res => res.data)
 
     },
     getProfile(profileId: string) {
-        return instance.get(`profile/${profileId}`)
-            .then((res: AxiosResponse<ProfileType>) => res.data)
+        return instance.get<ProfileType>(`profile/${profileId}`)
+            .then(res => res.data)
     },
     userFollow(userID: number) {
-        return instance.post(`follow/${userID}`)
-            .then((res: AxiosResponse<AuthType>) => res.data)
+        return instance.post<AuthType>(`follow/${userID}`)
+            .then(res => res.data)
     },
     userUnfollow(userID: number) {
-        return instance.delete(`follow/${userID}`)
-            .then((res: AxiosResponse<AuthType>) => res.data)
+        return instance.delete<AuthType>(`follow/${userID}`)
+            .then(res => res.data)
     },
 }
