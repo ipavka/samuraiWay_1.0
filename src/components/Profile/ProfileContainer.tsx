@@ -3,7 +3,7 @@ import {Profile} from "./Profile";
 import {connect} from "react-redux";
 import {getProfileThunkCreator, ProfileType} from "../../redux/profile-reducer";
 import {AppStateType} from "../../redux/redux-store";
-import {MySpinner} from "../common/MySpinner";
+import {MySpinner} from "../common/MySpinner/MySpinner";
 import {withRouter} from "react-router-dom";
 import {RouteComponentProps} from "react-router-dom";
 import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
@@ -50,5 +50,5 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
 export default compose<React.FC>(
     connect(mapStateToProps,{getProfileTC: getProfileThunkCreator,}),
     withRouter,
-    WithAuthRedirect
+    // WithAuthRedirect
 )(ProfileContainer)

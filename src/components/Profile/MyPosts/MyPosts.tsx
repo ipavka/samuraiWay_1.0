@@ -2,7 +2,7 @@ import React, {ChangeEvent} from "react";
 import myPostsStyle from './MyPosts.module.css';
 import {Post} from "./Post/Post";
 import {MyPostsPropsType} from "./MyPostsContainer";
-import {MyButton} from "../../common/SuperButton";
+import {MyButton} from "../../common/SuperButton/SuperButton";
 
 
 export const MyPosts: React.FC<MyPostsPropsType> = (props) => {

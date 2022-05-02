@@ -3,7 +3,7 @@ import dStyle from './Dialogs.module.css';
 import {DialogItem} from "./DIalogsItem/DIalogsItem";
 import {Message} from "./Message/Message";
 import {DialogsPropsType} from "./DialogsContainer";
-import {MyButton} from "../common/SuperButton";
+import {MyButton} from "../common/SuperButton/SuperButton";
 
 export const Dialogs: React.FC<DialogsPropsType> = props => {
 

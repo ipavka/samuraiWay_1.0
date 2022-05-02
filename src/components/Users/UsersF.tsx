@@ -2,7 +2,7 @@ import React from 'react';
 import {Paginator} from "./Paginator";
 import s from "./Users.module.css";
 import {UsersItemType} from "../../redux/users-reducer";
-import {MyButton} from "../common/SuperButton";
+import {MyButton} from "../common/SuperButton/SuperButton";
 import {NavLink} from "react-router-dom";
 
 type UsersFType = {

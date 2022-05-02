@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import s from "./Users.module.css";
-import {MyButton} from "../common/SuperButton";
+import {MyButton} from "../common/SuperButton/SuperButton";
+
 
 type PaginatorType = {
     pagesCount: number

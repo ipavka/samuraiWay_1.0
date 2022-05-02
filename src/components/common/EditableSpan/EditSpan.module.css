@@ -1,0 +1,13 @@
+.inputSpan {
+    display: none;
+}
+
+.mainSpan {
+    display: flex;
+    padding-left: 40px;
+    font-weight: bold;
+    align-items: center;
+    background-repeat: no-repeat;
+    height: 40px;
+    background-image: url('./pen_pencil.png');
+}
