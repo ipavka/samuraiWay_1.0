@@ -9,11 +9,9 @@ import {
 import {UsersF} from "./UsersF";
 import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
 import {compose} from "redux";
+import {MySpinner} from "../common/MySpinner/MySpinner";
 
 
-function MySpinne(props: { r: boolean }) {
-    return null;
-}
 
 class UsersContainer extends React.Component<UsersPropsType> {
 
@@ -28,7 +26,7 @@ class UsersContainer extends React.Component<UsersPropsType> {
     render() {
         return <>
             {this.props.isFetching ?
-                <MySpinne r/> :
+                <MySpinner/> :
                 <UsersF totalCount={this.props.totalCount}
                         pageSize={this.props.pageSize}
                         currentPage={this.props.currentPage}

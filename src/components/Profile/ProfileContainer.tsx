@@ -14,7 +14,7 @@ export class ProfileContainer extends React.Component<ProfilePropsType> {
 
     componentDidMount() {
         let profileId = this.props.match.params.userId;
-        if (!profileId) profileId = '2';
+        if (!profileId) profileId = '23216';
         this.props.getProfileTC(profileId)
     }
 

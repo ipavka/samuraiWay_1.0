@@ -1,4 +1,4 @@
-import axios, {AxiosResponse} from "axios";
+import axios from "axios";
 import {AuthType} from "../redux/auth-reducer";
 import {UsersItemType} from "../redux/users-reducer";
 import {ProfileType} from "../redux/profile-reducer";
@@ -38,6 +38,14 @@ export const usersAPI = {
     },
     userUnfollow(userID: number) {
         return instance.delete<AuthType>(`follow/${userID}`)
+            .then(res => res.data)
+    },
+    changeStatus(status: string) { // experiment
+        return instance.put(`profile/status`, {status})
+            .then(res => res.data)
+    },
+    getStatus(userId: string) { // experiment
+        return instance.get(`profile/status/${userId}`)
             .then(res => res.data)
     },
 }

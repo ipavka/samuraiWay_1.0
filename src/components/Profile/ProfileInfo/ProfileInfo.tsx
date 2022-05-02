@@ -23,6 +23,7 @@ export const ProfileInfo: React.FC<ProfileInfoPropsType> = props => {
                 <div>{props.profile.fullName}</div>
                 <div>{props.profile.aboutMe}</div>
                 <div>{props.profile.lookingForAJobDescription}</div>
+                {/*<div>{props.profile.}</div>*/}
             </div>
         </div>
     )
