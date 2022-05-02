@@ -1,7 +1,12 @@
 import React from 'react';
 import {Profile} from "./Profile";
 import {connect} from "react-redux";
-import {getProfileThunkCreator, ProfileType} from "../../redux/profile-reducer";
+import {
+    getProfileThunkCreator,
+    ProfileType,
+    setStatusThunkCreator,
+    updateStatusThunkCreator
+} from "../../redux/profile-reducer";
 import {AppStateType} from "../../redux/redux-store";
 import {MySpinner} from "../common/MySpinner/MySpinner";
 import {withRouter} from "react-router-dom";
@@ -16,13 +21,17 @@ export class ProfileContainer extends React.Component<ProfilePropsType> {
         let profileId = this.props.match.params.userId;
         if (!profileId) profileId = '23216';
         this.props.getProfileTC(profileId)
+        this.props.setStatusTC(profileId)
     }
 
     render() {
         return (<>
                 {this.props.isFetching ?
                     <MySpinner/> :
-                    <Profile profile={this.props.profile}/>}
+                    <Profile profile={this.props.profile}
+                             status={this.props.status}
+                             updateStatus={this.props.updateStatusTC}
+                    />}
             </>
         );
     }
@@ -32,9 +41,12 @@ export class ProfileContainer extends React.Component<ProfilePropsType> {
 type MapStateToPropsType = {
     profile: ProfileType
     isFetching: boolean
+    status: string
 }
 type MapDispatchPropsType = {
     getProfileTC: (profileId: string) => void
+    setStatusTC: (userId: string) => void
+    updateStatusTC: (status: string) => void
 }
 type PathParamsType = { userId: string }
 type ProfilePropsType = RouteComponentProps<PathParamsType> & OwnPropsType
@@ -43,12 +55,17 @@ export type OwnPropsType = MapStateToPropsType & MapDispatchPropsType
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
         profile: state.profilePage.profile,
+        status: state.profilePage.status,
         isFetching: state.users.isFetching,
     }
 }
 
 export default compose<React.FC>(
-    connect(mapStateToProps,{getProfileTC: getProfileThunkCreator,}),
+    connect(mapStateToProps,{
+        getProfileTC: getProfileThunkCreator,
+        setStatusTC: setStatusThunkCreator,
+        updateStatusTC: updateStatusThunkCreator,
+    }),
     withRouter,
     // WithAuthRedirect
 )(ProfileContainer)

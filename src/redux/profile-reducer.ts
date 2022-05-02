@@ -40,6 +40,7 @@ const initialState = {
     newPostsText: '',
     profile: {} as ProfileType,
     isFetching: true,
+    status: '',
 }
 export type ProfileInitialStateType = typeof initialState
 export const profileReducer = (state: ProfileInitialStateType = initialState, action: DispatchType): ProfileInitialStateType => {
@@ -51,6 +52,8 @@ export const profileReducer = (state: ProfileInitialStateType = initialState, ac
             return {...state, newPostsText: action.value}
         case "SET_USER_PROFILE":
             return {...state, profile: action.profile}
+        case "SET_STATUS":
+            return {...state, status: action.status}
         default:
             return state
     }
@@ -58,11 +61,13 @@ export const profileReducer = (state: ProfileInitialStateType = initialState, ac
 
 export type DispatchType = ReturnType<typeof addPostAC> |
     ReturnType<typeof updateNewPostTextAC> |
-    ReturnType<typeof setUserProfile>
+    ReturnType<typeof setUserProfile> |
+    ReturnType<typeof setStatus>
 
 export const addPostAC = () => ({type: "ADD_POST", } as const)
 export const updateNewPostTextAC = (value: string) => ({type: "UPDATE_NEW_POST_TEXT", value} as const)
 export const setUserProfile = (profile: ProfileType) => ({type: "SET_USER_PROFILE", profile} as const)
+export const setStatus = (status: string) => ({type: "SET_STATUS", status} as const)
 
 export const getProfileThunkCreator = (profileId: string) => {
     return (dispatch: Dispatch) => {
@@ -70,6 +75,24 @@ export const getProfileThunkCreator = (profileId: string) => {
         usersAPI.getProfile(profileId).then(data => {
             dispatch(setUserProfile(data));
             dispatch(toggleSpinner(false));
+        })
+    }
+}
+
+export const setStatusThunkCreator = (userId: string) => {
+    return (dispatch: Dispatch) => {
+        usersAPI.getStatus(userId).then(data => {
+            dispatch(setStatus(data));
+        })
+    }
+}
+
+export const updateStatusThunkCreator = (status: string) => {
+    return (dispatch: Dispatch) => {
+        usersAPI.changeStatus(status).then(res => {
+            if (res.data.resultCode === 0) {
+                dispatch(setStatus(status));
+            }
         })
     }
 }

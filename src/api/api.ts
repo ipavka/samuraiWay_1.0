@@ -17,7 +17,7 @@ type UserResponseType = {
     items: UsersItemType[]
     totalCount: number
 }
-
+//  ToDo: разделить на разные категории: usersAPI, profileAPI, authAPI, followAPI
 export const usersAPI = {
     getUsers(currentPage: number, pageSize: number) {
         return instance.get<UserResponseType>(`users?page=${currentPage}&count=${pageSize}`)
@@ -41,7 +41,7 @@ export const usersAPI = {
             .then(res => res.data)
     },
     changeStatus(status: string) { // experiment
-        return instance.put(`profile/status`, {status})
+        return instance.put(`profile/status`, {status: status})
             .then(res => res.data)
     },
     getStatus(userId: string) { // experiment

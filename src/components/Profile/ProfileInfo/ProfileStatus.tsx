@@ -1,23 +1,23 @@
 import React, {useEffect, useState} from 'react';
 import s from "./ProfileInfo.module.css";
 import {EditableSpan} from "../../common/EditableSpan/EditableSpan";
-import {usersAPI} from "../../../api/api";
 
 
-export const ProfileStatus = () => {
+type ProfileStatusPropsType = {
+    status: string
+    updateStatus: (status: string) => void
+}
+
+export const ProfileStatus: React.FC<ProfileStatusPropsType> = props => {
 
     const [value, setValue] = useState('');
 
-    // useEffect(() => { // как убрать ошибку
-    //     usersAPI.getStatus('23216').then(res => {
-    //         setValue(res);
-    //     })
-    // }, [])
+    useEffect(() => {
+        setValue(props.status)
+    }, [])
 
     const addHandler = () => {
-        usersAPI.changeStatus(value).then(res => {
-            console.log(res)
-        })
+        props.updateStatus(value)
     }
 
     return (
