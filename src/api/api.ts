@@ -48,4 +48,8 @@ export const usersAPI = {
         return instance.get(`profile/status/${userId}`)
             .then(res => res.data)
     },
+    authLogin(email: string, password: string, rememberMe: boolean) { // experiment_2
+        return instance.post(`auth/login`, {email, password, rememberMe})
+            .then(res => res.data)
+    },
 }
