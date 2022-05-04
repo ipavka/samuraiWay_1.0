@@ -26,7 +26,14 @@ export const usersAPI = {
     getAuthMe() {
         return instance.get<AuthType>(`auth/me`)
             .then(res => res.data)
-
+    },
+    authLogIn(email: string, password: string, rememberMe: boolean) {
+        return instance.post(`auth/login`, {email, password, rememberMe})
+            .then(res => res.data)
+    },
+    authLogOut() {
+        return instance.delete(`auth/login`)
+            .then(res => res.data)
     },
     getProfile(profileId: string) {
         return instance.get<ProfileType>(`profile/${profileId}`)
@@ -46,10 +53,6 @@ export const usersAPI = {
     },
     getStatus(userId: string) { // experiment
         return instance.get(`profile/status/${userId}`)
-            .then(res => res.data)
-    },
-    authLogin(email: string, password: string, rememberMe: boolean) { // experiment_2
-        return instance.post(`auth/login`, {email, password, rememberMe})
             .then(res => res.data)
     },
 }

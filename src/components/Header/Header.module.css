@@ -14,6 +14,10 @@
     font-weight: bold;
     text-decoration: underline;
 }
+.loginBlockItem {
+    display: flex;
+    flex-direction: column;
+}
 
 .loginBlock a {
     color: #9423b9;

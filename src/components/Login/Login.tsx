@@ -2,6 +2,10 @@ import React from 'react';
 import {Field, Form, Formik} from 'formik';
 import {apiConfig} from "../../configs/config";
 import {usersAPI} from "../../api/api";
+import {useDispatch, useSelector} from "react-redux";
+import {authLogInThunkCreator} from "../../redux/auth-reducer";
+import {AppStateType} from "../../redux/redux-store";
+
 // ToDo: delete "final-form": "^4.20.7", "react-final-form": "^6.5.9",
 // ToDo: сделать стили для инпутов
 
@@ -18,19 +22,20 @@ type setSubmittingType = {
 }
 
 const LoginForm = () => {
-    usersAPI.authLogin(apiConfig.EMAIL as string, apiConfig.PASSWORD as string, true).then(res => {
-        console.log(res)
-    })
+
+    const dispatch = useDispatch();
+    // const authData = useSelector<AppStateType, boolean>(state => state.auth.isAuth)
+
     const submit = (values: LoginFormType, {setSubmitting}:setSubmittingType) => {
-        console.log(values)
-        if (values.email && values.password)
+        if (values.email && values.password) {
+            dispatch(authLogInThunkCreator(values.email, values.password, values.rememberMe));
+        }
         setSubmitting(false)
     }
     return <Formik
         initialValues={{ email: '', password: '', rememberMe: false}}
         validate={validateForm}
-        onSubmit={submit}
-    >
+        onSubmit={submit}>
         {({isSubmitting}) => (
             <Form>
                 <Field placeholder="login" type="text" name="email"/>

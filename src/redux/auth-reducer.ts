@@ -57,3 +57,17 @@ export const getAuthDataThunkCreator = () => {
         }
     }
 }
+export const authLogInThunkCreator = (email: string, password: string, rememberMe: boolean) => {
+    return async (dispatch: Dispatch) => {
+        const data = await usersAPI.authLogIn(email, password, rememberMe)
+        if(data.resultCode === 0) window.location.reload()
+        console.log(data.messages)
+    }
+}
+export const authLogOutThunkCreator = () => {
+    return async (dispatch: Dispatch) => {
+        const data = await usersAPI.authLogOut()
+        if(data.resultCode === 0) window.location.reload()
+        console.log(data.messages)
+    }
+}
