@@ -3,7 +3,6 @@ import {
     buttonSendThunkCreator,
     DialogsType,
     MessagesType,
-    textareaChangeThunkCreator,
 } from "../../redux/dialogs-reducer";
 import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
@@ -17,10 +16,8 @@ export class DialogsContainer extends React.Component<DialogsPropsType> {
     render() {
         return (<>
                 <Dialogs buttonSendTC={this.props.buttonSendTC}
-                         textareaChangeTC={this.props.textareaChangeTC}
                          dialogs={this.props.dialogs}
                          messages={this.props.messages}
-                         newMessagesBody={this.props.newMessagesBody}
                 />
             </>
         );
@@ -31,11 +28,9 @@ export class DialogsContainer extends React.Component<DialogsPropsType> {
 type MapStateToPropsType = {
     dialogs: DialogsType[]
     messages: MessagesType[]
-    newMessagesBody: string
 }
 type MapDispatchPropsType = {
-    buttonSendTC: () => void
-    textareaChangeTC: (value: string) => void
+    buttonSendTC: (message: string) => void
 }
 
 export type DialogsPropsType = MapStateToPropsType & MapDispatchPropsType
@@ -44,7 +39,6 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
         dialogs: state.dialogsPage.dialogs,
         messages: state.dialogsPage.messages,
-        newMessagesBody: state.dialogsPage.newMessagesBody,
     }
 }
 
@@ -53,7 +47,6 @@ export default compose<React.FC>(
     connect(mapStateToProps,
         {
             buttonSendTC: buttonSendThunkCreator,
-            textareaChangeTC: textareaChangeThunkCreator,
         }
     )
 )(DialogsContainer)

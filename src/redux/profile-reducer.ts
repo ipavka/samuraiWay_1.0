@@ -37,7 +37,6 @@ const initialState = {
         {id: v1(), message: "Yep!", likesCount: 5},
         {id: v1(), message: "Bay!", likesCount: 10},
     ] as PostsType[],
-    newPostsText: '',
     profile: {} as ProfileType,
     isFetching: true,
     status: '',
@@ -46,10 +45,8 @@ export type ProfileInitialStateType = typeof initialState
 export const profileReducer = (state: ProfileInitialStateType = initialState, action: DispatchType): ProfileInitialStateType => {
     switch (action.type) {
         case "ADD_POST":
-            let newPost = {id: v1(), message: state.newPostsText, likesCount: 0};
-            return {...state, posts: [newPost, ...state.posts], newPostsText: '',}
-        case "UPDATE_NEW_POST_TEXT":
-            return {...state, newPostsText: action.value}
+            let newPost = {id: v1(), message: action.post, likesCount: 0};
+            return {...state, posts: [newPost, ...state.posts]}
         case "SET_USER_PROFILE":
             return {...state, profile: action.profile}
         case "SET_STATUS":
@@ -60,12 +57,10 @@ export const profileReducer = (state: ProfileInitialStateType = initialState, ac
 }
 
 export type DispatchType = ReturnType<typeof addPostAC> |
-    ReturnType<typeof updateNewPostTextAC> |
     ReturnType<typeof setUserProfile> |
     ReturnType<typeof setStatus>
 
-export const addPostAC = () => ({type: "ADD_POST", } as const)
-export const updateNewPostTextAC = (value: string) => ({type: "UPDATE_NEW_POST_TEXT", value} as const)
+export const addPostAC = (post: string) => ({type: "ADD_POST", post} as const)
 export const setUserProfile = (profile: ProfileType) => ({type: "SET_USER_PROFILE", profile} as const)
 export const setStatus = (status: string) => ({type: "SET_STATUS", status} as const)
 

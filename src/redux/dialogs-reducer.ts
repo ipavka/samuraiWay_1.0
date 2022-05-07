@@ -22,37 +22,27 @@ const initialState = {
         {id: v1(), message: "Goodbye"},
         {id: v1(), message: "error"},
     ] as MessagesType[],
-    newMessagesBody: ''
 }
 
 export type DialogsInitialStateType = typeof initialState
 
 export const dialogsReducer = (state: DialogsInitialStateType = initialState, action: DialogsDispatchType): DialogsInitialStateType => {
     switch (action.type) {
-        case "UPDATE_NEW_MESSAGE_BODY":
-            return {...state, newMessagesBody: action.value,}
         case "SEND_MESSAGE":
-            let newMessage = {id: v1(), message: state.newMessagesBody};
-            return {...state, messages: [...state.messages, newMessage], newMessagesBody: '',}
+            let newMessage = {id: v1(), message: action.message};
+            return {...state, messages: [...state.messages, newMessage]}
         default:
             return state
     }
 }
 
 export type DialogsDispatchType =
-    ReturnType<typeof updateNewMessageBodyAC> |
     ReturnType<typeof sendMessageAC>
 
-export const updateNewMessageBodyAC = (value: string) => ({type: "UPDATE_NEW_MESSAGE_BODY",value} as const)
-export const sendMessageAC = () => ({type: "SEND_MESSAGE",} as const)
+export const sendMessageAC = (message: string) => ({type: "SEND_MESSAGE", message} as const)
 
-export const buttonSendThunkCreator = () => {
+export const buttonSendThunkCreator = (message: string) => {
     return (dispatch: Dispatch) => {
-        dispatch(sendMessageAC())
-    }
-}
-export const textareaChangeThunkCreator = (value: string) => {
-    return (dispatch: Dispatch) => {
-        dispatch(updateNewMessageBodyAC(value))
+        dispatch(sendMessageAC(message))
     }
 }

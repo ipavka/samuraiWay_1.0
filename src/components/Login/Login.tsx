@@ -1,13 +1,9 @@
 import React from 'react';
 import {Field, Form, Formik} from 'formik';
-import {apiConfig} from "../../configs/config";
-import {usersAPI} from "../../api/api";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {authLogInThunkCreator} from "../../redux/auth-reducer";
-import {AppStateType} from "../../redux/redux-store";
-
-// ToDo: delete "final-form": "^4.20.7", "react-final-form": "^6.5.9",
-// ToDo: сделать стили для инпутов
+import {MyButton} from "../common/SuperButton/SuperButton";
+import s from './Login.module.css'
 
 const validateForm = (values: any) => {
     return {};
@@ -24,31 +20,32 @@ type setSubmittingType = {
 const LoginForm = () => {
 
     const dispatch = useDispatch();
-    // const authData = useSelector<AppStateType, boolean>(state => state.auth.isAuth)
 
-    const submit = (values: LoginFormType, {setSubmitting}:setSubmittingType) => {
+    const submit = (values: LoginFormType, {setSubmitting}: setSubmittingType) => {
         if (values.email && values.password) {
             dispatch(authLogInThunkCreator(values.email, values.password, values.rememberMe));
         }
         setSubmitting(false)
     }
     return <Formik
-        initialValues={{ email: '', password: '', rememberMe: false}}
+        initialValues={{email: '', password: '', rememberMe: false}}
         validate={validateForm}
         onSubmit={submit}>
         {({isSubmitting}) => (
             <Form>
-                <Field placeholder="login" type="text" name="email"/>
                 <div>
-                    <Field placeholder="password" type="password" name="password"/>
+                    <Field className={s.superInput} placeholder="login" type="text" name="email"/>
+                </div>
+                <div>
+                    <Field className={s.superInput} placeholder="password" type="password" name="password"/>
                 </div>
                 <div>
                     <Field type="checkbox" name="rememberMe"/>
                     Remember me
                 </div>
-                <button type="submit" disabled={isSubmitting}>
+                <MyButton type="submit" disabled={isSubmitting}>
                     Login
-                </button>
+                </MyButton>
             </Form>
         )}
     </Formik>
