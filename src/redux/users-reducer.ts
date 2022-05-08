@@ -25,7 +25,7 @@ const initialState = {
 export type UsersInitialStateType = typeof initialState
 export const usersReducer = (
     state: UsersInitialStateType = initialState,
-    action: UsersDispatchType
+    action: UsersActionType
 ): UsersInitialStateType => {
     switch (action.type) {
         case "FOLLOW":
@@ -76,7 +76,7 @@ export const usersReducer = (
     }
 }
 
-export type UsersDispatchType = ReturnType<typeof follow> |
+export type UsersActionType = ReturnType<typeof follow> |
     ReturnType<typeof unFollow> |
     ReturnType<typeof setUsers> |
     ReturnType<typeof setCurrentPage> |

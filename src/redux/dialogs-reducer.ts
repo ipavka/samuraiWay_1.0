@@ -26,7 +26,7 @@ const initialState = {
 
 export type DialogsInitialStateType = typeof initialState
 
-export const dialogsReducer = (state: DialogsInitialStateType = initialState, action: DialogsDispatchType): DialogsInitialStateType => {
+export const dialogsReducer = (state: DialogsInitialStateType = initialState, action: DialogsActionType): DialogsInitialStateType => {
     switch (action.type) {
         case "SEND_MESSAGE":
             let newMessage = {id: v1(), message: action.message};
@@ -36,7 +36,7 @@ export const dialogsReducer = (state: DialogsInitialStateType = initialState, ac
     }
 }
 
-export type DialogsDispatchType =
+export type DialogsActionType =
     ReturnType<typeof sendMessageAC>
 
 export const sendMessageAC = (message: string) => ({type: "SEND_MESSAGE", message} as const)

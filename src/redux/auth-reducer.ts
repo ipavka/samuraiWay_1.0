@@ -20,7 +20,7 @@ const initialState = {
 export type HeaderInitialStateType = typeof initialState
 
 export const authReducer = (
-    state: HeaderInitialStateType = initialState, action: HeaderDispatchType): HeaderInitialStateType => {
+    state: HeaderInitialStateType = initialState, action: AuthActionType): HeaderInitialStateType => {
     switch (action.type) {
         case "SET_USER_DATA":
             return {
@@ -33,7 +33,7 @@ export const authReducer = (
     }
 }
 
-export type HeaderDispatchType =
+export type AuthActionType =
     ReturnType<typeof setAuthUserData>
 
 export const setAuthUserData = (authData: AuthType) => (

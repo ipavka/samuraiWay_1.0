@@ -42,7 +42,7 @@ const initialState = {
     status: '',
 }
 export type ProfileInitialStateType = typeof initialState
-export const profileReducer = (state: ProfileInitialStateType = initialState, action: DispatchType): ProfileInitialStateType => {
+export const profileReducer = (state: ProfileInitialStateType = initialState, action: ProfileActionType): ProfileInitialStateType => {
     switch (action.type) {
         case "ADD_POST":
             let newPost = {id: v1(), message: action.post, likesCount: 0};
@@ -56,7 +56,7 @@ export const profileReducer = (state: ProfileInitialStateType = initialState, ac
     }
 }
 
-export type DispatchType = ReturnType<typeof addPostAC> |
+export type ProfileActionType = ReturnType<typeof addPostAC> |
     ReturnType<typeof setUserProfile> |
     ReturnType<typeof setStatus>
 
