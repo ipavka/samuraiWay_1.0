@@ -4,7 +4,6 @@ import {Post} from "./Post/Post";
 import {MyPostsPropsType} from "./MyPostsContainer";
 import {MyButton} from "../../common/SuperButton/SuperButton";
 import {Field, Form, Formik} from "formik";
-import s from "../../Login/Login.module.css";
 
 
 export const MyPosts: React.FC<MyPostsPropsType> = (props) => {
@@ -24,35 +23,46 @@ export const MyPosts: React.FC<MyPostsPropsType> = (props) => {
     )
 }
 
-type addMessageType = {
-    newMassageBody: string
+type addPostType = {
+    newPostBody: string
 }
 type onSubmitType = {
     setSubmitting: (isSubmitting: boolean) => void
 }
-
 type AddNewPostFormType = {
     onSubmit: (message: string) => void
 }
 
 const AddNewPostForm: React.FC<AddNewPostFormType> = ({onSubmit}) => {
 
-    const onSubmitHandler = (values: addMessageType, {setSubmitting}: onSubmitType) => {
-        onSubmit(values.newMassageBody)
-        values.newMassageBody = ''
+    const validateTextarea = (values: addPostType) => {
+        const errors = {} as addPostType;
+        if (!values.newPostBody) {
+            errors.newPostBody = 'Post is required';
+        }
+        if(values.newPostBody.length > 50) {
+            errors.newPostBody = 'Must be 50 characters or less';
+        }
+        return errors;
+    }
+    const onSubmitHandler = (values: addPostType, {setSubmitting}: onSubmitType) => {
+        onSubmit(values.newPostBody)
+        values.newPostBody = ''
         setSubmitting(false)
     }
     return <Formik
-        initialValues={{newMassageBody: ''}}
+        initialValues={{newPostBody: ''}}
+        validate={validateTextarea}
         onSubmit={onSubmitHandler}>
-        {({isSubmitting}) => (
+        {({isSubmitting, errors, touched}) => (
             <Form>
                 <div>
-                    <Field className={s.superInput}
+                    <Field as="textarea" rows={4} cols={30}
                            placeholder="Enter your messages..."
-                           type="textarea" name="newMassageBody"/>
+                           name="newPostBody"/>
+                    {errors.newPostBody ? <div>{errors.newPostBody}</div> : null}
+                    {/*{touched.newPostBody && errors.newPostBody && <div>{errors.newPostBody}</div>}*/}
                 </div>
-
                 <MyButton type="submit" disabled={isSubmitting}>
                     Send
                 </MyButton>
