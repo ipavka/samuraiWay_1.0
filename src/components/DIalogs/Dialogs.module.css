@@ -38,6 +38,10 @@
     padding: 10px;
 }
 
+.errorMessage {
+    color: red;
+}
+
 .msg {
     background-color: #d27c7c;
 }

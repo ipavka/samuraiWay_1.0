@@ -1,5 +1,5 @@
 import React from "react";
-import myPostsStyle from './MyPosts.module.css';
+import s from './MyPosts.module.css';
 import {Post} from "./Post/Post";
 import {MyPostsPropsType} from "./MyPostsContainer";
 import {MyButton} from "../../common/SuperButton/SuperButton";
@@ -13,7 +13,7 @@ export const MyPosts: React.FC<MyPostsPropsType> = (props) => {
     }
 
     return (
-        <div className={myPostsStyle.posts}>
+        <div className={s.posts}>
             <h3>My posts</h3>
             <AddNewPostForm onSubmit={addPost}/>
             <div>
@@ -60,8 +60,7 @@ const AddNewPostForm: React.FC<AddNewPostFormType> = ({onSubmit}) => {
                     <Field as="textarea" rows={4} cols={30}
                            placeholder="Enter your messages..."
                            name="newPostBody"/>
-                    {errors.newPostBody ? <div>{errors.newPostBody}</div> : null}
-                    {/*{touched.newPostBody && errors.newPostBody && <div>{errors.newPostBody}</div>}*/}
+                    {touched.newPostBody && errors.newPostBody ? <div className={s.errorMessage}>{errors.newPostBody}</div> : null}
                 </div>
                 <MyButton type="submit" disabled={isSubmitting}>
                     Send

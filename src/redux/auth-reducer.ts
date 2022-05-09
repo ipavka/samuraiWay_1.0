@@ -39,35 +39,29 @@ export type AuthActionType =
 export const setAuthUserData = (authData: AuthType) => (
     {type: "SET_USER_DATA", authData} as const)
 
-// export const getAuthDataThunkCreator = () => {
-//     return (dispatch: Dispatch) => {
-//         usersAPI.getAuthMe().then(data => {
-//             if(data.resultCode === 0) {
-//                 dispatch(setAuthUserData(data));
-//             }
-//         })
-//     }
-// }
 
 export const getAuthDataThunkCreator = () => {
     return async (dispatch: Dispatch) => {
         const data = await usersAPI.getAuthMe()
-        if(data.resultCode === 0) {
+        if (data.resultCode === 0) {
             dispatch(setAuthUserData(data));
         }
     }
 }
-export const authLogInThunkCreator = (email: string, password: string, rememberMe: boolean) => {
-    return async (dispatch: Dispatch) => {
+export const authLogInThunkCreator = (
+    email: string, password: string, rememberMe: boolean, setStatus: any) => {
+    return async () => {
         const data = await usersAPI.authLogIn(email, password, rememberMe)
-        if(data.resultCode === 0) window.location.reload()
-        console.log(data.messages)
+        if (data.resultCode === 0) window.location.reload()
+        else {
+            // error incorrect password or email
+            setStatus(data.messages)
+        }
     }
 }
 export const authLogOutThunkCreator = () => {
-    return async (dispatch: Dispatch) => {
+    return async () => {
         const data = await usersAPI.authLogOut()
-        if(data.resultCode === 0) window.location.reload()
-        console.log(data.messages)
+        if (data.resultCode === 0) window.location.reload()
     }
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import dStyle from './Dialogs.module.css';
+import s from './Dialogs.module.css';
 import {DialogItem} from "./DIalogsItem/DIalogsItem";
 import {Message} from "./Message/Message";
 import {DialogsPropsType} from "./DialogsContainer";
@@ -12,13 +12,13 @@ export const Dialogs: React.FC<DialogsPropsType> = props => {
         props.buttonSendTC(message)
     }
     return (
-        <div className={dStyle.dialogs}>
-            <div className={dStyle.dialogsItems}>
+        <div className={s.dialogs}>
+            <div className={s.dialogsItems}>
                 {props.dialogs.map((el) => {
                     return <DialogItem key={`${el.id}${el.name}`} name={el.name} id={el.id}/>
                 })}
             </div>
-            <div className={dStyle.messages}>
+            <div className={s.messages}>
                 <div>
                     {props.messages.map(el => {
                         return <Message key={el.id} message={el.message} id={el.id}/>
@@ -72,7 +72,7 @@ const AddMessageForm: React.FC<AddMessageFormType> = ({onSubmit}) => {
                            placeholder="Enter your messages..."
                            name="newMassageBody"/>
                     {/*{errors.newMassageBody ? <div>{errors.newMassageBody}</div> : null}*/}
-                    {touched.newMassageBody && errors.newMassageBody && <div>{errors.newMassageBody}</div>}
+                    {touched.newMassageBody && errors.newMassageBody && <div className={s.errorMessage}>{errors.newMassageBody}</div>}
                 </div>
 
                 <MyButton type="submit" disabled={isSubmitting}>

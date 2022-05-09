@@ -1,9 +1,11 @@
 import React from 'react';
 import {Field, Form, Formik} from 'formik';
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {authLogInThunkCreator} from "../../redux/auth-reducer";
 import {MyButton} from "../common/SuperButton/SuperButton";
+import {Redirect} from "react-router-dom";
 import s from './Login.module.css'
+import {AppStateType} from "../../redux/redux-store";
 
 
 type LoginFormType = {
@@ -34,27 +36,27 @@ const LoginForm = () => {
 
     const dispatch = useDispatch();
 
-    const submit = (values: LoginFormType, {setSubmitting}: setSubmittingType) => {
+    const submit = (values: LoginFormType, {setSubmitting}: setSubmittingType, {setStatus}: any) => {
         if (values.email && values.password) {
-            dispatch(authLogInThunkCreator(values.email, values.password, values.rememberMe));
+            dispatch(authLogInThunkCreator(values.email, values.password, values.rememberMe, setStatus));
         }
         setSubmitting(false)
     }
     return <Formik
         initialValues={{email: '', password: '', rememberMe: false}}
         validate={validateLoginForm}
-        onSubmit={submit}>
-        {({isSubmitting, errors}) => (
+        onSubmit={(formData, {setSubmitting, setStatus}) => submit(formData, {setSubmitting}, {setStatus})}>
+        {({isSubmitting, errors, status, touched}) => (
             <Form>
                 <div>
                     <Field className={s.superInput} placeholder="login" type="text" name="email"/>
-                    {errors.email ? <div>{errors.email}</div> : null}
-                    {/*<Field  placeholder="login" component={InputText} name="email"/>*/}
+                    {touched.password && errors.email ? <div className={s.errorMessage}>{errors.email}</div> : null}
                 </div>
                 <div>
                     <Field className={s.superInput} placeholder="password" type="password" name="password"/>
-                    {errors.password ? <div>{errors.password}</div> : null}
+                    {touched.password && errors.password ? <div className={s.errorMessage}>{errors.password}</div> : null}
                 </div>
+                {status && <div className={s.errorMessage}>{status}</div>}
                 <div>
                     <Field type="checkbox" name="rememberMe"/>
                     Remember me
@@ -67,12 +69,20 @@ const LoginForm = () => {
     </Formik>
 }
 
+
 export const Login = () => {
-    return (
-        <div>
-            <h2>Login</h2>
-            <LoginForm/>
-        </div>
-    );
+    const authStatus = useSelector<AppStateType, boolean>(state => state.auth.isAuth)
+    console.log(authStatus)
+    return (<>
+            {authStatus
+                ?
+                <Redirect to={'/profile'}>Login</Redirect>
+
+                : <div>
+                    <h2>Login</h2>
+                    <LoginForm/>
+                </div>}
+        </>
+    )
 };
 
