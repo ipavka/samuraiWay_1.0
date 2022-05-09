@@ -72,7 +72,7 @@ const LoginForm = () => {
 
 export const Login = () => {
     const authStatus = useSelector<AppStateType, boolean>(state => state.auth.isAuth)
-    console.log(authStatus)
+
     return (<>
             {authStatus
                 ?

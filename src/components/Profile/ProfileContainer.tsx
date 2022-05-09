@@ -19,6 +19,7 @@ export class ProfileContainer extends React.Component<ProfilePropsType> {
 
     componentDidMount() {
         let profileId = this.props.match.params.userId;
+        // if (!profileId) profileId = String(this.props.authID);
         if (!profileId) profileId = '23216';
         this.props.getProfileTC(profileId)
         this.props.setStatusTC(profileId)
@@ -42,6 +43,7 @@ type MapStateToPropsType = {
     profile: ProfileType
     isFetching: boolean
     status: string
+    authID: number
 }
 type MapDispatchPropsType = {
     getProfileTC: (profileId: string) => void
@@ -57,6 +59,7 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
         profile: state.profilePage.profile,
         status: state.profilePage.status,
         isFetching: state.users.isFetching,
+        authID: state.auth.authData.data?.id
     }
 }
 
