@@ -1,8 +1,12 @@
 .nav {
-    grid-area: n;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
     background-color: bisque;
-    padding: 20px;
-    text-decoration: none;
+    padding: 10px;
+    width: 100%;
+    border-radius: 15px;
+    box-shadow: 0 1px 15px 0 rgb(51 51 51 / 20%);
 }
 
 .item {
@@ -18,6 +22,18 @@
     text-decoration: none;
     color: #b02adc;
 }
+.loginBlock {
+    float: right;
+    color: #9423b9;
+    font-size: larger;
+    font-weight: bold;
+    text-decoration: underline;
+}
+.loginBlockItem {
+    display: flex;
+    flex-direction: column;
+}
+
 
 .item__friends {
     margin-top: 20px;

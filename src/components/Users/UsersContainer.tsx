@@ -6,7 +6,7 @@ import {
     unFollowThunkCreator,
     UsersItemType
 } from "../../redux/users-reducer";
-import {UsersF} from "./UsersF";
+import {Users} from "./Users";
 import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
 import {compose} from "redux";
 import {MySpinner} from "../common/MySpinner/MySpinner";
@@ -27,14 +27,14 @@ class UsersContainer extends React.Component<UsersPropsType> {
         return <>
             {this.props.isFetching ?
                 <MySpinner/> :
-                <UsersF totalCount={this.props.totalCount}
-                        pageSize={this.props.pageSize}
-                        currentPage={this.props.currentPage}
-                        spanClick={this.spanClickHandler}
-                        users={this.props.users}
-                        followingProgress={this.props.followingProgress}
-                        followTC={this.props.followTC}
-                        unFollowTC={this.props.unFollowTC}
+                <Users totalCount={this.props.totalCount}
+                       pageSize={this.props.pageSize}
+                       currentPage={this.props.currentPage}
+                       spanClick={this.spanClickHandler}
+                       users={this.props.users}
+                       followingProgress={this.props.followingProgress}
+                       followTC={this.props.followTC}
+                       unFollowTC={this.props.unFollowTC}
                 />}
         </>
 

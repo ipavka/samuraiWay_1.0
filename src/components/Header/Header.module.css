@@ -1,23 +1,27 @@
 .header {
-    grid-area: h;
-    background-color: aquamarine;
+    display: flex;
+    justify-content: center;
+    top: 0;
+    position: fixed;
+    width: 100%;
+    max-width: 1200px;
 }
 
 .header img{
     width: 50px;
 }
 
-.loginBlock {
-    float: right;
-    color: #9423b9;
-    font-size: larger;
-    font-weight: bold;
-    text-decoration: underline;
-}
-.loginBlockItem {
-    display: flex;
-    flex-direction: column;
-}
+/*.loginBlock {*/
+/*    float: right;*/
+/*    color: #9423b9;*/
+/*    font-size: larger;*/
+/*    font-weight: bold;*/
+/*    text-decoration: underline;*/
+/*}*/
+/*.loginBlockItem {*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*}*/
 
 .loginBlock a {
     color: #9423b9;

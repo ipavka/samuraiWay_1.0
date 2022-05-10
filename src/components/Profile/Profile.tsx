@@ -1,4 +1,5 @@
 import React from "react";
+import s from './Profile.module.css'
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
 import {ProfileType} from "../../redux/profile-reducer";
@@ -11,7 +12,7 @@ type ProfilePropsType = {
 
 export const Profile: React.FC<ProfilePropsType> = props => {
     return (
-        <div>
+        <div className={s.profileMainBlock}>
             <ProfileInfo profile={props.profile}
                          status={props.status}
                          updateStatus={props.updateStatus}

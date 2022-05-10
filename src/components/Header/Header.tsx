@@ -3,6 +3,7 @@ import React from "react";
 import {authLogOutThunkCreator, DataAuthType} from "../../redux/auth-reducer";
 import {NavLink} from "react-router-dom";
 import {useDispatch} from "react-redux";
+import {Navbar} from "../Navbar/Navbar";
 
 type HeaderPropsType = {
     data: DataAuthType
@@ -10,23 +11,24 @@ type HeaderPropsType = {
 }
 
 export const Header: React.FC<HeaderPropsType> = ({data, isAuth}) => {
-    const dispatch = useDispatch();
-    const logOutHandler = () => {
-        dispatch(authLogOutThunkCreator())
-    }
+    // const dispatch = useDispatch();
+    // const logOutHandler = () => {
+    //     dispatch(authLogOutThunkCreator())
+    // }
     return (<>
             <header className={s.header}>
-                <img
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcST9Bj04UUgRET0JT4J8kZ3Lq60KlDUrrUAuA&usqp=CAU"
-                    alt="logo"/>
-                <div className={s.loginBlock}>
-                    {isAuth
-                        ? <div className={s.loginBlockItem}>
-                            {data?.login}
-                            <button onClick={logOutHandler}>LogOut</button>
-                        </div>
-                        : <NavLink to={'/login'}>Login</NavLink>}
-                </div>
+                <Navbar data={data} isAuth={isAuth}/>
+                {/*<img*/}
+                {/*    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcST9Bj04UUgRET0JT4J8kZ3Lq60KlDUrrUAuA&usqp=CAU"*/}
+                {/*    alt="logo"/>*/}
+                {/*<div className={s.loginBlock}>*/}
+                {/*    {isAuth*/}
+                {/*        ? <div className={s.loginBlockItem}>*/}
+                {/*            {data?.login}*/}
+                {/*            <button onClick={logOutHandler}>LogOut</button>*/}
+                {/*        </div>*/}
+                {/*        : <NavLink to={'/login'}>Login</NavLink>}*/}
+                {/*</div>*/}
             </header>
         </>
 
