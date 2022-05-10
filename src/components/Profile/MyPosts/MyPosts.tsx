@@ -4,6 +4,7 @@ import {Post} from "./Post/Post";
 import {MyPostsPropsType} from "./MyPostsContainer";
 import {MyButton} from "../../common/SuperButton/SuperButton";
 import {Field, Form, Formik} from "formik";
+import {FormikHelpers} from "formik/dist/types";
 
 
 export const MyPosts: React.FC<MyPostsPropsType> = (props) => {
@@ -26,9 +27,6 @@ export const MyPosts: React.FC<MyPostsPropsType> = (props) => {
 type addPostType = {
     newPostBody: string
 }
-type onSubmitType = {
-    setSubmitting: (isSubmitting: boolean) => void
-}
 type AddNewPostFormType = {
     onSubmit: (message: string) => void
 }
@@ -45,15 +43,15 @@ const AddNewPostForm: React.FC<AddNewPostFormType> = ({onSubmit}) => {
         }
         return errors;
     }
-    const onSubmitHandler = (values: addPostType, {setSubmitting}: onSubmitType) => {
-        onSubmit(values.newPostBody)
-        values.newPostBody = ''
-        setSubmitting(false)
+    const onSubmitHandler = (values: addPostType, actions: FormikHelpers<any>) => {
+        onSubmit(values.newPostBody);
+        actions.resetForm({})
+        actions.setSubmitting(false);
     }
     return <Formik
         initialValues={{newPostBody: ''}}
         validate={validateTextarea}
-        onSubmit={onSubmitHandler}>
+        onSubmit={(values, actions) => onSubmitHandler(values, actions)}>
         {({isSubmitting, errors, touched}) => (
             <Form>
                 <div>

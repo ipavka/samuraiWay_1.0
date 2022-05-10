@@ -6,15 +6,13 @@ import {MyButton} from "../common/SuperButton/SuperButton";
 import {Redirect} from "react-router-dom";
 import s from './Login.module.css'
 import {AppStateType} from "../../redux/redux-store";
+import {FormikHelpers} from "formik/dist/types";
 
 
 type LoginFormType = {
     email: string
     password: string
     rememberMe: boolean
-}
-type setSubmittingType = {
-    setSubmitting: (isSubmitting: boolean) => void
 }
 
 const LoginForm = () => {
@@ -36,16 +34,16 @@ const LoginForm = () => {
 
     const dispatch = useDispatch();
 
-    const submit = (values: LoginFormType, {setSubmitting}: setSubmittingType, {setStatus}: any) => {
+    const submit = (values: LoginFormType, actions: FormikHelpers<any>) => {
         if (values.email && values.password) {
-            dispatch(authLogInThunkCreator(values.email, values.password, values.rememberMe, setStatus));
+            dispatch(authLogInThunkCreator(values.email, values.password, values.rememberMe, actions.setStatus));
         }
-        setSubmitting(false)
+        actions.setSubmitting(false)
     }
     return <Formik
         initialValues={{email: '', password: '', rememberMe: false}}
         validate={validateLoginForm}
-        onSubmit={(formData, {setSubmitting, setStatus}) => submit(formData, {setSubmitting}, {setStatus})}>
+        onSubmit={(values, actions) => submit(values, actions)}>
         {({isSubmitting, errors, status, touched}) => (
             <Form>
                 <div>

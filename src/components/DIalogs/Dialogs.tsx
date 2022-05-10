@@ -5,6 +5,7 @@ import {Message} from "./Message/Message";
 import {DialogsPropsType} from "./DialogsContainer";
 import {MyButton} from "../common/SuperButton/SuperButton";
 import {Field, Form, Formik} from "formik";
+import {FormikHelpers} from "formik/dist/types";
 
 export const Dialogs: React.FC<DialogsPropsType> = props => {
 
@@ -35,10 +36,6 @@ export const Dialogs: React.FC<DialogsPropsType> = props => {
 type addMessageType = {
     newMassageBody: string
 }
-type onSubmitType = {
-    setSubmitting: (isSubmitting: boolean) => void
-}
-
 type AddMessageFormType = {
     onSubmit: (message: string) => void
 }
@@ -56,15 +53,16 @@ const AddMessageForm: React.FC<AddMessageFormType> = ({onSubmit}) => {
         return errors;
     }
 
-    const onSendMessageHandler = (values: addMessageType, {setSubmitting}: onSubmitType) => {
-        onSubmit(values.newMassageBody)
-        values.newMassageBody = ''
-        setSubmitting(false)
+    const onSendMessageHandler = (values: addMessageType, actions: FormikHelpers<any>) => {
+        onSubmit(values.newMassageBody);
+        actions.resetForm({});
+        // values.newMassageBody = '';
+        actions.setSubmitting(false);
     }
     return <Formik
         initialValues={{newMassageBody: ''}}
         validate={validateForm}
-        onSubmit={onSendMessageHandler}>
+        onSubmit={(values, actions) => onSendMessageHandler(values, actions)}>
         {({isSubmitting, errors,touched}) => (
             <Form>
                 <div>
