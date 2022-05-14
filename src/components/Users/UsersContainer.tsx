@@ -7,7 +7,6 @@ import {
     UsersItemType
 } from "../../redux/users-reducer";
 import {Users} from "./Users";
-import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
 import {compose} from "redux";
 import {MySpinner} from "../common/MySpinner/MySpinner";
 
@@ -73,5 +72,5 @@ export default compose<React.FC>(
         followTC: followThunkCreator,
         unFollowTC: unFollowThunkCreator
     }),
-    WithAuthRedirect
+    // WithAuthRedirect
 )(UsersContainer)

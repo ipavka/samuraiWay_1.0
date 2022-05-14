@@ -23,6 +23,7 @@
     justify-content: flex-start;
     width: 25%;
     border-radius: 15px;
+    /*gap: 0.5em; !* отступы между блоков *!*/
 }
 
 .mainItem {

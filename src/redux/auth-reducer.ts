@@ -40,14 +40,26 @@ export const setAuthUserData = (authData: AuthType) => (
     {type: "SET_USER_DATA", authData} as const)
 
 
-export const getAuthDataThunkCreator = () => {
-    return async (dispatch: Dispatch) => {
-        const data = await usersAPI.getAuthMe()
-        if (data.resultCode === 0) {
-            dispatch(setAuthUserData(data));
-        }
-    }
+// export const getAuthDataThunkCreator = () => {
+//     return async (dispatch: Dispatch) => {
+//         const data = await usersAPI.getAuthMe()
+//         if (data.resultCode === 0) {
+//             dispatch(setAuthUserData(data));
+//             // debugger
+//             return data;
+//         }
+//         return data;
+//     }
+// }
+export const getAuthDataThunkCreator = () => (dispatch: Dispatch) => {
+    return usersAPI.getAuthMe()
+        .then(res => {
+            if (res.resultCode === 0) {
+                dispatch(setAuthUserData(res));
+            }
+        })
 }
+
 export const authLogInThunkCreator = (
     email: string, password: string, rememberMe: boolean, setStatus: any) => {
     return async () => {
