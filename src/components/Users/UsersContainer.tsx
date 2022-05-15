@@ -9,6 +9,7 @@ import {
 import {Users} from "./Users";
 import {compose} from "redux";
 import {MySpinner} from "../common/MySpinner/MySpinner";
+import {getTotalCount, getUsers} from "../../redux/users-selectors";
 
 
 
@@ -57,8 +58,8 @@ export type UsersPropsType = MapStateToPropsType & MapDispatchPropsType
 
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
-        users: state.users.users,
-        totalCount: state.users.totalCount,
+        users: getUsers(state),
+        totalCount: getTotalCount(state),
         pageSize: state.users.pageSize,
         currentPage: state.users.currentPage,
         isFetching: state.users.isFetching,
