@@ -18,23 +18,29 @@ export const Navbar: React.FC<NavbarPropsType> = ({data, isAuth}) => {
     }
     return (
         <nav className={s.nav}>
-            <div className={s.item}>
-                <NavLink to={'/profile'}>Profile</NavLink>
+            <div className={s.logo}>
+                <img src="/img/mongo.png"/>
             </div>
-            <div className={s.item}>
-                <NavLink to={'/dialog'}>Messages</NavLink>
-            </div>
-            <div className={s.item}>
-                <NavLink to={'/users'}>Users</NavLink>
-            </div>
-            <div className={s.loginBlock}>
-                {isAuth
-                    ? <div className={s.loginBlockItem}>
-                        {data?.login}
-                        <button onClick={logOutHandler}>LogOut</button>
+            {isAuth
+                ? <>
+                    <div className={s.item}>
+                        <NavLink to={'/profile'}>Profile</NavLink>
                     </div>
-                    : <NavLink to={'/login'}>Login</NavLink>}
-            </div>
+                    <div className={s.item}>
+                        <NavLink to={'/dialog'}>Messages</NavLink>
+                    </div>
+                    <div className={s.item}>
+                        <NavLink to={'/users'}>Users</NavLink>
+                    </div>
+                    <div className={s.loginBlock}>
+                        <div className={s.loginBlockItem}>
+                            {data?.login}
+                            <button onClick={logOutHandler}>LogOut</button>
+                        </div>
+                    </div>
+                </>
+                : <NavLink to={'/login'}>Login</NavLink>
+            }
         </nav>)
 }
 

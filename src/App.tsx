@@ -16,6 +16,7 @@ import {connect} from "react-redux";
 import {AppStateType} from "./redux/redux-store";
 import {MySpinner} from "./components/common/MySpinner/MySpinner";
 import {setInitializationThunkCreator} from "./redux/app-reducer";
+import {NavContainer} from "./components/Navbar/NavContainer";
 
 class App extends React.Component<AppPropsType> {
 
@@ -31,27 +32,9 @@ class App extends React.Component<AppPropsType> {
             <div className={s.appWrapper}>
                 <HeaderContainer/>
                 <main className={s.appWrapperContent}>
-                    <div className={s.mainBlock}>
-
-                        <div className={s.mainItem}>
-                            <div>
-                                <NavLink to={'/news'}>News</NavLink>
-                            </div>
-                            <div>
-                                <NavLink to={'/music'}>Music</NavLink>
-                            </div>
-                            <div>
-                                <NavLink to={'/settings'}>Settings</NavLink>
-                            </div>
-                        </div>
-
-                        <div className={s.mainItem}>
-                            <NavLink to={'/friends'}>Friends</NavLink>
-                            <FriendsContainer/>
-                        </div>
-
-                    </div>
+                    <NavContainer/>
                     <Route path='/profile/:userId?' render={() => <ProfileContainer/>}/>
+                    <Route exact path='/' render={() => <ProfileContainer/>}/>
                     <Route path='/dialog' render={() => <DialogsContainer/>}/>
                     <Route path='/news' render={() => <News/>}/>
                     <Route path='/music' render={() => <Music/>}/>

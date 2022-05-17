@@ -16,31 +16,3 @@
     justify-content: space-evenly;
 
 }
-
-.mainBlock {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    width: 25%;
-    border-radius: 15px;
-    /*gap: 0.5em; !* отступы между блоков *!*/
-}
-
-.mainItem {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    padding-bottom: 2px;
-    font-weight: bold;
-    font-size: 18px;
-    box-shadow: 0 1px 15px 0 rgb(51 51 51 / 20%);
-    border-radius: 15px;
-    margin-bottom: 20px;
-    background-color: #fff;
-}
-
-.mainItem a {
-    text-decoration: none;
-    color: #b02adc;
-}
