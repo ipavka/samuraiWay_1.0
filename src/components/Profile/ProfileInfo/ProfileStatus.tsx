@@ -10,23 +10,23 @@ type ProfileStatusPropsType = {
 
 export const ProfileStatus: React.FC<ProfileStatusPropsType> = props => {
 
-    const [value, setValue] = useState('');
+    const [status, setStatus] = useState(props.status);
 
     useEffect(() => {
-        setValue(props.status)
-    }, [])
+        setStatus(props.status)
+    }, [props.status])
 
     const addHandler = () => {
-        props.updateStatus(value)
+        props.updateStatus(status)
     }
 
     return (
         <div className={s.statusBlock}>
-            <EditableSpan value={value}
+            <EditableSpan value={status}
                           onEnter={addHandler}
                           onBlur={addHandler}
-                          onChangeText={setValue}
-                          spanProps={{children: value ? undefined : 'double click to enter your status'}}
+                          onChangeText={setStatus}
+                          spanProps={{children: status ? undefined : 'double click to enter your status'}}
             />
         </div>
     );

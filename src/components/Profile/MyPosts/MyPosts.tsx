@@ -7,18 +7,17 @@ import {Field, Form, Formik} from "formik";
 import {FormikHelpers} from "formik/dist/types";
 
 
-export const MyPosts: React.FC<MyPostsPropsType> = (props) => {
-
-    const addPost = (post: string) => {
-        props.addPost(post)
+export const MyPosts: React.FC<MyPostsPropsType> = ({posts, addPost}) => {
+    const addPostHandler = (post: string) => {
+        addPost(post)
     }
 
     return (
         <div className={s.posts}>
             <h3>My posts</h3>
-            <AddNewPostForm onSubmit={addPost}/>
+            <AddNewPostForm onSubmit={addPostHandler}/>
             <div>
-                {props.posts.map(el => <Post key={el.id} id={el.id} message={el.message} likesCount={el.likesCount}/>)}
+                {posts.map(el => <Post key={el.id} id={el.id} message={el.message} likesCount={el.likesCount}/>)}
             </div>
         </div>
     )

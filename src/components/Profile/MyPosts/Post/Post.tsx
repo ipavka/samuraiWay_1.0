@@ -3,7 +3,7 @@ import myPostsStyle from './Post.module.css';
 import {PostsType} from "../../../../redux/store";
 
 
-export const Post = (props: PostsType) => {
+export const Post = React.memo((props: PostsType) => {
     return (
         <div className={myPostsStyle.item}>
             <img src="/img/madMax.jpg"/>
@@ -14,5 +14,4 @@ export const Post = (props: PostsType) => {
 
         </div>
     )
-}
-
+})

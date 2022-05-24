@@ -10,7 +10,6 @@ import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import {Login} from "./components/Login/Login";
 import HeaderContainer from "./components/Header/HeaderContainer";
-import {FriendsContainer} from "./components/Friends/FriendsContainer";
 import {compose} from "redux";
 import {connect} from "react-redux";
 import {AppStateType} from "./redux/redux-store";

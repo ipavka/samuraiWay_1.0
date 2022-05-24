@@ -45,7 +45,7 @@ export const LoginForm = () => {
             <Form>
                 <div>
                     <Field className={s.superInput} placeholder="login" type="text" name="email"/>
-                    {touched.password && errors.email ? <div className={s.errorMessage}>{errors.email}</div> : null}
+                    {touched.email && errors.email ? <div className={s.errorMessage}>{errors.email}</div> : null}
                 </div>
                 <div>
                     <Field className={s.superInput} placeholder="password" type="password" name="password"/>

@@ -11,6 +11,7 @@ type ProfilePropsType = {
 }
 
 export const Profile: React.FC<ProfilePropsType> = props => {
+
     return (
         <div className={s.profileMainBlock}>
             <ProfileInfo profile={props.profile}
