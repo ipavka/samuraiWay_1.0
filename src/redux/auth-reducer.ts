@@ -22,7 +22,7 @@ export type HeaderInitialStateType = typeof initialState
 export const authReducer = (
     state: HeaderInitialStateType = initialState, action: AuthActionType): HeaderInitialStateType => {
     switch (action.type) {
-        case "SET_USER_DATA":
+        case "auth/SET_USER_DATA":
             return {
                 ...state,
                 authData: action.authData,
@@ -33,47 +33,46 @@ export const authReducer = (
     }
 }
 
-export type AuthActionType =
-    ReturnType<typeof setAuthUserData>
+export type AuthActionType = ReturnType<typeof setAuthUserData>
 
 export const setAuthUserData = (authData: AuthType) => (
-    {type: "SET_USER_DATA", authData} as const)
+    {type: "auth/SET_USER_DATA", authData} as const)
 
 
-// export const getAuthDataThunkCreator = () => {
-//     return async (dispatch: Dispatch) => {
-//         const data = await usersAPI.getAuthMe()
-//         if (data.resultCode === 0) {
-//             dispatch(setAuthUserData(data));
-//             // debugger
-//             return data;
-//         }
-//         return data;
-//     }
-// }
-export const getAuthDataThunkCreator = () => (dispatch: Dispatch) => {
-    return usersAPI.getAuthMe()
-        .then(res => {
-            if (res.resultCode === 0) {
-                dispatch(setAuthUserData(res));
-            }
-        })
+export const getAuthDataThunkCreator = () => async (dispatch: Dispatch) => {
+    try {
+        const res = await usersAPI.getAuthMe();
+        if (res.resultCode === 0) {
+            dispatch(setAuthUserData(res));
+        }
+    } catch (e) {
+        console.log(e);
+    }
 }
 
 export const authLogInThunkCreator = (
     email: string, password: string, rememberMe: boolean, setStatus: any) => {
     return async () => {
-        const data = await usersAPI.authLogIn(email, password, rememberMe)
-        if (data.resultCode === 0) window.location.reload()
-        else {
-            // error incorrect password or email
-            setStatus(data.messages)
+        try {
+            const data = await usersAPI.authLogIn(email, password, rememberMe);
+            if (data.resultCode === 0) window.location.reload();
+            else {
+                // error incorrect password or email
+                setStatus(data.messages);
+            }
+        } catch (e) {
+            console.log(e);
         }
+
     }
 }
 export const authLogOutThunkCreator = () => {
     return async () => {
-        const data = await usersAPI.authLogOut()
-        if (data.resultCode === 0) window.location.reload()
+        try {
+            const data = await usersAPI.authLogOut();
+            if (data.resultCode === 0) window.location.reload();
+        } catch (e) {
+            console.log(e);
+        }
     }
 }

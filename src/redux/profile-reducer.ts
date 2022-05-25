@@ -44,14 +44,14 @@ const initialState = {
 export type ProfileInitialStateType = typeof initialState
 export const profileReducer = (state: ProfileInitialStateType = initialState, action: ProfileActionType): ProfileInitialStateType => {
     switch (action.type) {
-        case "ADD_POST":
+        case "profile/ADD_POST":
             let newPost = {id: v1(), message: action.post, likesCount: 0};
             return {...state, posts: [newPost, ...state.posts]}
-        case "SET_USER_PROFILE":
+        case "profile/SET_USER_PROFILE":
             return {...state, profile: action.profile}
-        case "SET_STATUS":
+        case "profile/SET_STATUS":
             return {...state, status: action.status}
-        case "DELETE_POST":
+        case "profile/DELETE_POST":
             return {...state, posts: state.posts.filter(el => el.id !== action.postID)}
         default:
             return state
@@ -63,35 +63,44 @@ export type ProfileActionType = ReturnType<typeof addPostAC> |
     ReturnType<typeof setStatus> |
     ReturnType<typeof deletePostAC>
 
-export const addPostAC = (post: string) => ({type: "ADD_POST", post} as const)
-export const setUserProfile = (profile: ProfileType) => ({type: "SET_USER_PROFILE", profile} as const)
-export const setStatus = (status: string) => ({type: "SET_STATUS", status} as const)
-export const deletePostAC = (postID: string) => ({type: "DELETE_POST", postID} as const)
+export const addPostAC = (post: string) => ({type: "profile/ADD_POST", post} as const)
+export const setUserProfile = (profile: ProfileType) => ({type: "profile/SET_USER_PROFILE", profile} as const)
+export const setStatus = (status: string) => ({type: "profile/SET_STATUS", status} as const)
+export const deletePostAC = (postID: string) => ({type: "profile/DELETE_POST", postID} as const)
 
 export const getProfileThunkCreator = (profileId: string) => {
-    return (dispatch: Dispatch) => {
-        dispatch(toggleSpinner(true));
-        usersAPI.getProfile(profileId).then(data => {
+    return async (dispatch: Dispatch) => {
+        try {
+            dispatch(toggleSpinner(true));
+            const data = await usersAPI.getProfile(profileId);
             dispatch(setUserProfile(data));
             dispatch(toggleSpinner(false));
-        })
+        } catch (e) {
+            console.log(e);
+        }
     }
 }
 
 export const setStatusThunkCreator = (userId: string) => {
-    return (dispatch: Dispatch) => {
-        usersAPI.getStatus(userId).then(data => {
+    return async (dispatch: Dispatch) => {
+        try {
+            const data = await usersAPI.getStatus(userId);
             dispatch(setStatus(data));
-        })
+        } catch (e) {
+            console.log(e);
+        }
     }
 }
 
 export const updateStatusThunkCreator = (status: string) => {
-    return (dispatch: Dispatch) => {
-        usersAPI.changeStatus(status).then(res => {
+    return async (dispatch: Dispatch) => {
+        try {
+            const res = await usersAPI.changeStatus(status);
             if (res.data.resultCode === 0) {
                 dispatch(setStatus(status));
             }
-        })
+        } catch (e) {
+            console.log(e);
+        }
     }
 }

@@ -28,7 +28,7 @@ export type DialogsInitialStateType = typeof initialState
 
 export const dialogsReducer = (state: DialogsInitialStateType = initialState, action: DialogsActionType): DialogsInitialStateType => {
     switch (action.type) {
-        case "SEND_MESSAGE":
+        case "dialogs/SEND_MESSAGE":
             let newMessage = {id: v1(), message: action.message};
             return {...state, messages: [...state.messages, newMessage]}
         default:
@@ -39,7 +39,7 @@ export const dialogsReducer = (state: DialogsInitialStateType = initialState, ac
 export type DialogsActionType =
     ReturnType<typeof sendMessageAC>
 
-export const sendMessageAC = (message: string) => ({type: "SEND_MESSAGE", message} as const)
+export const sendMessageAC = (message: string) => ({type: "dialogs/SEND_MESSAGE", message} as const)
 
 export const buttonSendThunkCreator = (message: string) => {
     return (dispatch: Dispatch) => {

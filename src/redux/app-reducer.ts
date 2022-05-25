@@ -11,7 +11,7 @@ type InitialStateType = typeof initialState
 export const appReducer = (
     state: InitialStateType = initialState, action: AppActionType): InitialStateType => {
     switch (action.type) {
-        case "SET_INITIALIZED":
+        case "app/SET_INITIALIZED":
             return {
                 ...state,
                 initialized: true
@@ -23,15 +23,17 @@ export const appReducer = (
 
 // Actions
 export const setInitializationSuccess = () => (
-    {type: "SET_INITIALIZED"} as const)
+    {type: "app/SET_INITIALIZED"} as const)
 
 // Thunk
-export const setInitializationThunkCreator = (): AppThunk => (
+export const setInitializationThunkCreator = (): AppThunk => async (
     dispatch) => {
-    dispatch(getAuthDataThunkCreator())
-    .then(() => {
-        dispatch(setInitializationSuccess())
-    })
+    try {
+        await dispatch(getAuthDataThunkCreator());
+        dispatch(setInitializationSuccess());
+    } catch (e) {
+        console.log(e);
+    }
 }
 
 // Types
