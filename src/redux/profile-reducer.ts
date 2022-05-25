@@ -72,7 +72,6 @@ export const getProfileThunkCreator = (profileId: string) => {
     return (dispatch: Dispatch) => {
         dispatch(toggleSpinner(true));
         usersAPI.getProfile(profileId).then(data => {
-            console.log(data)
             dispatch(setUserProfile(data));
             dispatch(toggleSpinner(false));
         })
