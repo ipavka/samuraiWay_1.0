@@ -51,6 +51,8 @@ export const profileReducer = (state: ProfileInitialStateType = initialState, ac
             return {...state, profile: action.profile}
         case "SET_STATUS":
             return {...state, status: action.status}
+        case "DELETE_POST":
+            return {...state, posts: state.posts.filter(el => el.id !== action.postID)}
         default:
             return state
     }
@@ -58,16 +60,19 @@ export const profileReducer = (state: ProfileInitialStateType = initialState, ac
 
 export type ProfileActionType = ReturnType<typeof addPostAC> |
     ReturnType<typeof setUserProfile> |
-    ReturnType<typeof setStatus>
+    ReturnType<typeof setStatus> |
+    ReturnType<typeof deletePostAC>
 
 export const addPostAC = (post: string) => ({type: "ADD_POST", post} as const)
 export const setUserProfile = (profile: ProfileType) => ({type: "SET_USER_PROFILE", profile} as const)
 export const setStatus = (status: string) => ({type: "SET_STATUS", status} as const)
+export const deletePostAC = (postID: string) => ({type: "DELETE_POST", postID} as const)
 
 export const getProfileThunkCreator = (profileId: string) => {
     return (dispatch: Dispatch) => {
         dispatch(toggleSpinner(true));
         usersAPI.getProfile(profileId).then(data => {
+            console.log(data)
             dispatch(setUserProfile(data));
             dispatch(toggleSpinner(false));
         })
