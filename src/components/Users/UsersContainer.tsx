@@ -8,9 +8,7 @@ import {
 } from "../../redux/users-reducer";
 import {Users} from "./Users";
 import {compose} from "redux";
-import {MySpinner} from "../common/MySpinner/MySpinner";
 import {getTotalCount, getUsers} from "../../redux/users-selectors";
-
 
 
 class UsersContainer extends React.Component<UsersPropsType> {
@@ -23,21 +21,16 @@ class UsersContainer extends React.Component<UsersPropsType> {
         this.props.getUsersTC(e, this.props.pageSize)
     }
 
-    render() {
-        return <>
-            {this.props.isFetching ?
-                <MySpinner/> :
-                <Users totalCount={this.props.totalCount}
-                       pageSize={this.props.pageSize}
-                       currentPage={this.props.currentPage}
-                       spanClick={this.spanClickHandler}
-                       users={this.props.users}
-                       followingProgress={this.props.followingProgress}
-                       followTC={this.props.followTC}
-                       unFollowTC={this.props.unFollowTC}
-                />}
-        </>
 
+    render() {
+        return <Users totalCount={this.props.totalCount}
+                      pageSize={this.props.pageSize}
+                      currentPage={this.props.currentPage}
+                      spanClick={this.spanClickHandler}
+                      users={this.props.users}
+                      followingProgress={this.props.followingProgress}
+                      followTC={this.props.followTC}
+                      unFollowTC={this.props.unFollowTC}/>
     }
 }
 

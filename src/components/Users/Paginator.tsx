@@ -2,64 +2,68 @@ import React, {useState} from 'react';
 import s from "./Users.module.css";
 import {MyButton} from "../common/SuperButton/SuperButton";
 
-
-type PaginatorType = {
-    pagesCount: number
+type PaginatorMyType = {
+    totalItemCount: number
+    pageSize: number
     currentPage: number
     spanClick: (el: number) => void
+    portionSize?: number
 }
 
-export const Paginator: React.FC<PaginatorType> = props => {
-    const [first, setFirst] = useState(props.currentPage);
-    const [last, setLast] = useState(props.currentPage + 9);
+export const Paginator: React.FC<PaginatorMyType> = (
+    {
+        totalItemCount,
+        pageSize,
+        currentPage,
+        spanClick,
+        portionSize = 10,
+    }
+) => {
 
-    const arrPages = Array.from(Array(props.pagesCount), (val, index) => index + 1); // создание массива страниц
-    const argFirst = first <= 0 ? 1 : first // проверка на что бы массив не уехал в минус
-    const argLast = last > props.pagesCount ? props.pagesCount : last // проверка на превышение реального кол-ва страниц
-    const arrPart = range(argFirst, argLast);
-    const iterCount = arrPages.length
+    const pagesCount = Math.ceil(totalItemCount / pageSize);
 
-    function range(from: number, to: number, step: number = 1): Array<number> { // создание части массива
-        let i = from;
-        const range = [];
-        while (i <= to) {
-            range.push(i);
-            i += step;
-        }
-        return range;
+    const pages = [];
+    for (let i = 1; i <= pagesCount; i++) {
+        pages.push(i)
     }
 
-    const backHandler = () => {
-        const nextLastItem = last === iterCount ? first - 1 : last - 10; // проверка возврата из крайней границы
-        setFirst(first - 10)
-        setLast(nextLastItem)
+    const portionCount = Math.ceil(pagesCount / pageSize);
+    const [range, setRange] = useState(1);
+    const leftNumber = (range - 1) * portionSize + 1;
+    const rightNumber = range * portionSize;
+
+    const back = () => {
+        setRange(range - 1)
     }
-    const forwardHandler = () => {
-        const nextLastItem = last + 10 > iterCount ? iterCount : last + 10; // проверка корректности крайней границы
-        setFirst(first + 10)
-        setLast(nextLastItem)
+    const forward = () => {
+        setRange(range + 1)
     }
-    const spanClickHandler = (el: number) => {
-        props.spanClick(el)
+    const spanHandler = (el: number) => {
+        spanClick(el);
     }
 
     return (
         <div className={s.pagination}>
-            <MyButton disabled={first <= 1}
-                         onClick={backHandler}>
+            <MyButton onClick={back}
+                      disabled={range <= 1}
+            >
                 back
             </MyButton>
-                <span>{arrPart.map(el => {
+            <div>{pages
+                .filter(el => el >= leftNumber && el <= rightNumber)
+                .map(el => {
                     return <span key={el.toString()}
-                                 className={props.currentPage === el ? s.selectPage : s.page}
-                                 onClick={() => spanClickHandler(el)}
+                                 className={currentPage === el ? s.selectPage : s.page}
+                                 onClick={(e) => spanHandler(el)}
                     >{el}</span>
-                })}</span>
+                })}</div>
 
-            <MyButton disabled={last >= iterCount}
-                         onClick={forwardHandler}>
+            <MyButton onClick={forward}
+                      disabled={portionCount <= range}
+            >
                 forward
             </MyButton>
         </div>
     );
 };
+

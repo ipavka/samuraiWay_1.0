@@ -16,7 +16,7 @@ export type UsersItemType = {
 const initialState = {
     users: [] as UsersItemType[],
     totalCount: 0,
-    pageSize: 10,
+    pageSize: 15,
     currentPage: 1,
     isFetching: false,
     followingProgress: [] as number[]

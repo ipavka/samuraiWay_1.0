@@ -7,7 +7,7 @@ import s from "./Login.module.css";
 
 
 export const Login = () => {
-    const authStatus = useSelector<AppStateType, boolean>(state => state.auth.isAuth)
+    const authStatus = useSelector<AppStateType, boolean>(state => state.auth.isAuth);
 
     return (<>
             {authStatus
