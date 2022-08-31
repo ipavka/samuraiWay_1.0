@@ -10,6 +10,11 @@ const data = [
     id: 2,
     name: 'Max'
   },
+  {
+    id: 3,
+    name: 'Bob'
+  },
+  
 ]
 
 export const Settings = () => {
