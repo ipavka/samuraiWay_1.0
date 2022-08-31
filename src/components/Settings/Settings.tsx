@@ -45,6 +45,9 @@ export const Settings = () => {
           <div>
             <h1>feature-1-change-5</h1>
           </div>
+          <div>
+            <h2>feature-1-change-6</h2>
+          </div>
         </div>
     )
 }
