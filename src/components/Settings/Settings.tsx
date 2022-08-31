@@ -14,17 +14,19 @@ const data = [
     id: 3,
     name: 'Bob'
   },
+
   {
     id: 4,
     name: 'master-cahge'
   },
-  
+
 ]
 
 export const Settings = () => {
     return (
         <div>
             Settings
+          <h1>feature-1</h1>
         <h1>master-change-3</h1>
           <div>
             {data.map(el => {
