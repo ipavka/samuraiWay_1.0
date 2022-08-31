@@ -27,6 +27,7 @@ export const Settings = () => {
         <div>
             Settings
           <h1>feature-1</h1>
+          <h1>feature-1-change-2</h1>
         <h1>master-change-3</h1>
           <div>
             {data.map(el => {
